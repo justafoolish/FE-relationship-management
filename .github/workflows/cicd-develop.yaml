@@ -1,0 +1,21 @@
+name: CICD-mt-app-develop
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout branch main
+        uses: actions/checkout@v3
+      - name: Build docker image and push to docker repo
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+          DOCKER_REPOSITORY: ${{ secrets.DOCKER_REPOSITORY }}
+        run: |
+          echo "Building on branch $GITHUB_REF"
+          docker login -u "$DOCKER_USERNAME" -p "$DOCKER_TOKEN"
+          docker buildx build --rm -t $DOCKER_USERNAME/$DOCKER_REPOSITORY:dev-${GITHUB_SHA::7} .
+          docker push $DOCKER_USERNAME/$DOCKER_REPOSITORY:dev-${GITHUB_SHA::7}
