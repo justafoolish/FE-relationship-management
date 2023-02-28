@@ -19,3 +19,24 @@ jobs:
           docker login -u "$DOCKER_USERNAME" -p "$DOCKER_TOKEN"
           docker buildx build --rm -t $DOCKER_USERNAME/$DOCKER_REPOSITORY:dev-${GITHUB_SHA::7} .
           docker push $DOCKER_USERNAME/$DOCKER_REPOSITORY:dev-${GITHUB_SHA::7}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Digital Ocean
+        uses: appleboy/ssh-action@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_REPOSITORY: ${{ secrets.DOCKER_REPOSITORY }}
+          GITHUB_SHA: ${{ github.sha }}
+          CONTAINER: 'mt-fe-dev'
+        with:
+          host: ${{ secrets.DROPLET_IP_ADDRESS }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          password: ${{ secrets.DROPLET_PASSWORD }}
+          envs: DOCKER_USERNAME, DOCKER_TOKEN, DOCKER_REPOSITORY,GITHUB_SHA,CONTAINER
+          script: |
+            if docker ps -aqf "name=$CONTAINER" | grep -q .; then docker stop $CONTAINER; docker rm -f $CONTAINER; fi || true
+            docker pull $DOCKER_USERNAME/$DOCKER_REPOSITORY:dev-${GITHUB_SHA:0:7}
+            docker run -d -p 3000:3000 --name $CONTAINER $DOCKER_USERNAME/$DOCKER_REPOSITORY:dev-${GITHUB_SHA:0:7}
