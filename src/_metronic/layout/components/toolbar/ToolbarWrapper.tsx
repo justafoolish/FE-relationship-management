@@ -12,7 +12,7 @@ const ToolbarWrapper = () => {
   const isPageTitleVisible = showPageTitle(config.app?.toolbar?.layout, config.app?.pageTitle?.display);
 
   return (
-    <div id="kt_app_toolbar" className={clsx('app-toolbar', classes.toolbar.join(' '), config?.app?.toolbar?.class)}>
+    <div id="kt_app_toolbar" className={clsx('app-toolbar hidden', classes.toolbar.join(' '), config?.app?.toolbar?.class)}>
       <div
         id="kt_app_toolbar_container"
         className={clsx(

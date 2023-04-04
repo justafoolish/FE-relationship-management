@@ -8,6 +8,8 @@ import { getCSSVariableValue } from '../../_metronic/assets/ts/_utils';
 import { WithChildren } from '../../_metronic/helpers';
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper';
 
+const UserProfilePage = lazy(() => import('app/pages/user-profile/UserProfile'));
+
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'));
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'));
@@ -25,6 +27,15 @@ const PrivateRoutes = () => {
         <Route path="dashboard" element={<DashboardWrapper />} />
         <Route path="builder" element={<BuilderPageWrapper />} />
         <Route path="menu-test" element={<MenuTestPage />} />
+        <Route
+          path="c-user/profile"
+          element={
+            <SuspensedView>
+              <UserProfilePage />
+            </SuspensedView>
+          }
+        />
+
         {/* Lazy Modules */}
         <Route
           path="crafted/pages/profile/*"
