@@ -11,7 +11,7 @@ import { MetronicI18nProvider } from './_metronic/i18n/Metronici18n';
  *
  * import './_metronic/assets/css/style.rtl.css'
  **/
-import './_metronic/assets/sass/tailwind.css';
+// import './_metronic/assets/sass/tailwind.css';
 import './_metronic/assets/sass/style.scss';
 import './_metronic/assets/sass/plugins.scss';
 import './_metronic/assets/sass/style.react.scss';

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { KTSVG } from '../../../../_metronic/helpers';
@@ -51,11 +50,7 @@ export function Overview() {
           <div className="row mb-7">
             <label className="col-lg-4 fw-bold text-muted">Company Site</label>
 
-            <div className="col-lg-8">
-              <a href="#" className="fw-bold fs-6 text-dark text-hover-primary">
-                keenthemes.com
-              </a>
-            </div>
+            <div className="col-lg-8">keenthemes.com</div>
           </div>
 
           <div className="row mb-7">
