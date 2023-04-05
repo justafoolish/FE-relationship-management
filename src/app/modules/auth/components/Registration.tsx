@@ -53,6 +53,7 @@ export function Registration() {
     // handle call api with data here
     try {
       refetch();
+
       console.log('form-data: ', data);
 
       const res = await getEmployee('1').unwrap();
