@@ -1,6 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import FormControl from 'app/components/FormControl';
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
+import { handleQueryError } from 'app/modules/utils/error-handler';
+import { useGetRandomAnimeQuoteQuery } from 'app/reducers/anime/anime.api';
+import { useGetEmployeeMutation } from 'app/reducers/employee/employee.api';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -30,13 +33,15 @@ const registrationSchema = Yup.object().shape({
   changePassword: Yup.string()
     .required('Password confirmation is required')
     .when('password', {
-      is: (val: string) => (val && val.length > 0 ? true : false),
+      is: (val: string) => val && val.length > 0,
       then: Yup.string().oneOf([Yup.ref('password')], "Password and Confirm Password didn't match"),
     }),
-  acceptTerms: Yup.bool().required('You must accept the terms and conditions'),
 });
 
 export function Registration() {
+  const { data: animeQuote, refetch } = useGetRandomAnimeQuoteQuery();
+  const [getEmployee, { isLoading }] = useGetEmployeeMutation();
+
   const methods = useForm<IRegistrationFromFields>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
@@ -44,10 +49,18 @@ export function Registration() {
     defaultValues: initialValues,
   });
 
-  const submitRegister: SubmitHandler<IRegistrationFromFields> = (data) => {
-    console.log(data);
-
+  const submitRegister: SubmitHandler<IRegistrationFromFields> = async (data) => {
     // handle call api with data here
+    try {
+      refetch();
+      console.log('form-data: ', data);
+
+      const res = await getEmployee('1').unwrap();
+
+      console.log('employee-response: ', res);
+    } catch (e) {
+      handleQueryError(e);
+    }
   };
 
   useEffect(() => {
@@ -67,6 +80,14 @@ export function Registration() {
             <h1 className="text-dark fw-bolder mb-3">Sign Up</h1>
           </div>
           {/* end:Heading */}
+
+          {(animeQuote && (
+            <div className="mb-lg-15 alert alert-success">
+              <div className="alert-text font-weight-bold">
+                {animeQuote.quote} - {animeQuote.character}
+              </div>
+            </div>
+          )) || <></>}
 
           {/* begin:Control */}
           <FormControl type={FORM_CONTROLS.TEXT} cxContainer="fv-row mb-8" name="firstName" placeholder="First name" label="First name" />
@@ -100,8 +121,8 @@ export function Registration() {
           {/* begin:Submit */}
           <div className="text-center">
             <button type="submit" id="kt_sign_up_submit" className="btn btn-lg btn-primary w-100 mb-5">
-              {!false && <span className="indicator-label">Submit</span>}
-              {false && (
+              {!isLoading && <span className="indicator-label">Submit</span>}
+              {isLoading && (
                 <span className="indicator-progress" style={{ display: 'block' }}>
                   Please wait... <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
                 </span>
