@@ -1,11 +1,16 @@
+interface IMessage {
+  [x: string]: string[];
+}
+
 export default class BaseResponse<T> {
   data?: T;
-  message?: Record<string, string[]>;
-  code?: string;
+  message?: string | IMessage[];
+  errors?: string;
+  status?: boolean;
 
-  constructor(Data?: { new (): T }, code?: string, message?: Record<string, string[]>) {
-    if (code) {
-      this.code = code;
+  constructor(Data?: { new (): T }, errors?: string, message?: string | IMessage[], status?: boolean) {
+    if (errors) {
+      this.errors = errors;
     }
     if (message) {
       this.message = message;
@@ -13,11 +18,14 @@ export default class BaseResponse<T> {
     if (Data) {
       this.data = new Data();
     }
+    if (status) {
+      this.status = status;
+    }
   }
 }
 
 export interface BaseErrorResponse {
-  message?: Record<string, string[]> | string;
+  message?: string | IMessage[];
   code?: string;
 }
 
