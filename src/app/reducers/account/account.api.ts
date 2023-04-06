@@ -39,6 +39,12 @@ export const accountAPI = createApi({
         body,
       }),
     }),
+    getRefreshToken: builder.mutation<BaseResponse<ILoginResponse>, void>({
+      query: () => ({
+        url: '/refresh-token',
+        method: 'POST',
+      }),
+    }),
     submitRegister: builder.mutation<BaseResponse<any>, IRegisterRequest>({
       query: (body) => ({
         url: '/register',
@@ -46,7 +52,17 @@ export const accountAPI = createApi({
         body,
       }),
     }),
+    resendRegisterLink: builder.mutation<BaseResponse<any>, void>({
+      query: () => ({
+        url: '/re-send-link',
+        method: 'PATCH',
+        params: {
+          type: 'register',
+        },
+      }),
+    }),
   }),
 });
 
-export const { useSubmitLoginMutation, useSubmitRegisterMutation, useGetUserInfoQuery } = accountAPI;
+export const { useSubmitLoginMutation, useSubmitRegisterMutation, useGetUserInfoQuery, useGetRefreshTokenMutation, useResendRegisterLinkMutation } =
+  accountAPI;
