@@ -32,8 +32,17 @@ const baseQuery = (baseUrl?: string) =>
     prepareHeaders,
   });
 
+// Demo only
 const employeeDemoURL = 'https://dummy.restapiexample.com/api/v1/';
 const animeDemoURL = 'https://animechan.vercel.app/api/';
 
+// Main section
+
+const BASE_ENDPOINT = 'http://localhost:9000/api';
+
+const accountURL = BASE_ENDPOINT + '/account/';
+
 export { employeeDemoURL, animeDemoURL };
+
+export { accountURL };
 export { baseQuery, prepareHeaders };
