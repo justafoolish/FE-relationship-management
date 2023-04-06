@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import FormControl from 'app/components/FormControl';
+import FormControl from 'app/components/FormControl/FormControl';
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
 import { handleQueryError } from 'app/modules/utils/error-handler';
 import { useGetRandomAnimeQuoteQuery } from 'app/reducers/anime/anime.api';
@@ -10,14 +10,14 @@ import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { PasswordMeterComponent } from '../../../../_metronic/assets/ts/components';
 
-interface IRegistrationFromFields {
+interface IRegistrationFormFields {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   changePassword: string;
 }
-const initialValues: IRegistrationFromFields = {
+const initialValues: IRegistrationFormFields = {
   firstName: '',
   lastName: '',
   email: '',
@@ -42,14 +42,14 @@ export function Registration() {
   const { data: animeQuote, refetch } = useGetRandomAnimeQuoteQuery();
   const [getEmployee, { isLoading }] = useGetEmployeeMutation();
 
-  const methods = useForm<IRegistrationFromFields>({
+  const methods = useForm<IRegistrationFormFields>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: yupResolver(registrationSchema),
     defaultValues: initialValues,
   });
 
-  const submitRegister: SubmitHandler<IRegistrationFromFields> = async (data) => {
+  const submitRegister: SubmitHandler<IRegistrationFormFields> = async (data) => {
     // handle call api with data here
     try {
       refetch();

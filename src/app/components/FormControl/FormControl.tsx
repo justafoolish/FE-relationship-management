@@ -1,10 +1,9 @@
-import { FORM_CONTROLS } from 'app/domains/components/form.i';
 import clsx from 'clsx';
 import { FC, useMemo } from 'react';
-import TextInput from './TextInput';
-
 import { FieldError, useController, useFormContext } from 'react-hook-form';
-import PasswordInput from './PasswordInput';
+
+import { PasswordInput, TextInput } from '.';
+import { FORM_CONTROLS } from 'app/domains/components/form.i';
 
 // Error message
 interface ErrorMessageProps {

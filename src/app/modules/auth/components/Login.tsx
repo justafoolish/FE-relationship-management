@@ -1,14 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
-import { toAbsoluteUrl } from '../../../../_metronic/helpers';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import FormControl from 'app/components/FormControl';
+import FormControl from 'app/components/FormControl/FormControl';
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
+import { handleQueryError } from 'app/modules/utils/error-handler';
 import { useGetRandomAnimeQuoteQuery } from 'app/reducers/anime/anime.api';
 import { useGetEmployeeMutation } from 'app/reducers/employee/employee.api';
-import { handleQueryError } from 'app/modules/utils/error-handler';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import * as Yup from 'yup';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().required('Email is required'),
@@ -82,12 +81,12 @@ export function Login() {
             {/* begin::Col */}
             <div className="col-md-6">
               {/* begin::Google link */}
-              <a
+              {/* <a
                 href="#"
                 className="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
                 <img alt="Logo" src={toAbsoluteUrl('/media/svg/brand-logos/google-icon.svg')} className="h-15px me-3" />
                 Sign in with Google
-              </a>
+              </a> */}
               {/* end::Google link */}
             </div>
             {/* end::Col */}
@@ -95,13 +94,13 @@ export function Login() {
             {/* begin::Col */}
             <div className="col-md-6">
               {/* begin::Google link */}
-              <a
+              {/* <a
                 href="#"
                 className="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
                 <img alt="Logo" src={toAbsoluteUrl('/media/svg/brand-logos/apple-black.svg')} className="theme-light-show h-15px me-3" />
                 <img alt="Logo" src={toAbsoluteUrl('/media/svg/brand-logos/apple-black-dark.svg')} className="theme-dark-show h-15px me-3" />
                 Sign in with Apple
-              </a>
+              </a> */}
               {/* end::Google link */}
             </div>
             {/* end::Col */}
