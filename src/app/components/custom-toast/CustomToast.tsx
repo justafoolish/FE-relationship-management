@@ -43,7 +43,7 @@ const CustomToast: FC = () => {
       gutter={10}
       position="top-right"
       toastOptions={{
-        duration: 1250,
+        duration: 2000,
         success: {
           className: getCXToast('success'),
           icon: <CheckCircleIcon style={iconStyle} />,

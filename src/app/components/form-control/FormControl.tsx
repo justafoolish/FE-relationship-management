@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { FC, useMemo } from 'react';
 import { FieldError, useController, useFormContext } from 'react-hook-form';
 
-import { PasswordInput, TextInput } from '.';
+import { PasswordInput, PhoneInput, TextInput } from '.';
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
 
 // Error message
@@ -30,6 +30,7 @@ const typeComponents: ITypeComponent = {
   [FORM_CONTROLS.TEXT]: TextInput,
   [FORM_CONTROLS.MAIL]: TextInput,
   [FORM_CONTROLS.PASSWORD]: PasswordInput,
+  [FORM_CONTROLS.TEL]: PhoneInput,
 };
 
 interface FormControlProps {
