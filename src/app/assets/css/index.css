@@ -1,0 +1,14 @@
+.toast-animation {
+  animation: custom-toast 0.35s cubic-bezier(0.21, 1.02, 0.73, 1) normal forwards;
+}
+
+@keyframes custom-toast {
+  from {
+    transform: translateX(5rem);
+    opacity: 0.5;
+  }
+  to {
+    transform: translateX(0rem);
+    opacity: 1;
+  }
+}
