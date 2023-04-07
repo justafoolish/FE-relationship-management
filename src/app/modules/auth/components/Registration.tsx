@@ -1,16 +1,16 @@
-import * as Yup from 'yup';
-import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
 
-import { FORM_CONTROLS } from 'app/domains/components/form.i';
-import FormControl from 'app/components/form-control/FormControl';
-import { handleQueryError } from 'app/modules/utils/error-handler';
-import { PasswordMeterComponent } from '../../../../_metronic/assets/ts/components';
 import Button from 'app/components/button';
+import FormControl from 'app/components/form-control/FormControl';
+import { FORM_CONTROLS } from 'app/domains/components/form.i';
+import { handleQueryError } from 'app/modules/utils/error-handler';
 import { useSubmitRegisterMutation } from 'app/reducers/api';
 import { toast } from 'react-hot-toast';
+import { PasswordMeterComponent } from '../../../../_metronic/assets/ts/components';
 
 interface IRegistrationFormFields {
   firstName: string;
@@ -18,7 +18,7 @@ interface IRegistrationFormFields {
   email: string;
   password: string;
   changePassword: string;
-  phoneNumber: number;
+  phoneNumber: number | string;
 }
 const initialValues: IRegistrationFormFields = {
   firstName: '',
@@ -26,7 +26,7 @@ const initialValues: IRegistrationFormFields = {
   email: '',
   password: '',
   changePassword: '',
-  phoneNumber: 0,
+  phoneNumber: '',
 };
 
 const registrationSchema = Yup.object().shape({
@@ -43,8 +43,7 @@ const registrationSchema = Yup.object().shape({
 });
 
 export function Registration() {
-  const [regis, { isLoading, isSuccess }] = useSubmitRegisterMutation();
-  // const { refetch } = useGetUserInfoQuery(undefined, { skip: true });
+  const [regis, { isLoading }] = useSubmitRegisterMutation();
 
   const navigate = useNavigate();
 
@@ -58,7 +57,7 @@ export function Registration() {
   const submitRegister: SubmitHandler<IRegistrationFormFields> = async (data) => {
     // handle call api with data here
     try {
-      const regisResponse = await regis({
+      const { message } = await regis({
         name: data.firstName + ' ' + data.lastName,
         email: data.email,
         password: data.password,
@@ -66,11 +65,9 @@ export function Registration() {
         phone_number: 1231123123,
       }).unwrap();
 
+      toast.success(`${message || 'Successfully register'}`);
       navigate('/auth/login');
-      toast.success('Successfully register');
-
     } catch (e) {
-      toast.error(e + '');
       handleQueryError(e);
     }
   };
