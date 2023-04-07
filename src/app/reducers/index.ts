@@ -1,16 +1,16 @@
-import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
-import mathReducer from 'app/reducers/math/math.slice';
-import authReducer, { IAuthState } from 'app/reducers/user/auth.slice';
+import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
-import storage from 'redux-persist/lib/storage';
-import { employeeAPI } from 'app/reducers/employee/employee.api';
-import { animeAPI } from './anime/anime.api';
-import { accountAPI } from './account/account.api';
+import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
+
+import mathReducer from 'app/reducers/math/math.slice';
+import { accountAPI, animeAPI, employeeAPI } from 'app/reducers/api';
+import authReducer, { IAuthState } from 'app/reducers/user/auth.slice';
 
 const authPersistConfig = {
   key: 'auth',
   storage,
+  blacklist: ['user'],
   transforms: [
     encryptTransform({
       secretKey: 'SUPER_SECRET_KEY',

@@ -1,13 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { yupResolver } from '@hookform/resolvers/yup';
-import FormControl from 'app/components/FormControl/FormControl';
+import Button from 'app/components/button';
+import useAuthGuard from 'app/hooks/useAuthGuard';
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
+import FormControl from 'app/components/form-control/FormControl';
 import { handleQueryError } from 'app/modules/utils/error-handler';
-import { useGetRandomAnimeQuoteQuery } from 'app/reducers/anime/anime.api';
-import { useGetEmployeeMutation } from 'app/reducers/employee/employee.api';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { useGetUserInfoQuery, useSubmitLoginMutation } from 'app/reducers/account/account.api';
+
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().required('Email is required'),
@@ -33,8 +36,10 @@ const initialValues: ILoginFormFields = {
 */
 
 export function Login() {
-  const { data: animeQuote, refetch } = useGetRandomAnimeQuoteQuery();
-  const [getEmployee, { isLoading }] = useGetEmployeeMutation();
+  const [login, { isLoading }] = useSubmitLoginMutation();
+  const { refetch } = useGetUserInfoQuery(undefined, { skip: true });
+
+  const { setAccessToken, setRefreshToken, setAuthenticated } = useAuthGuard();
 
   const methods = useForm<ILoginFormFields>({
     mode: 'onBlur',
@@ -45,13 +50,16 @@ export function Login() {
 
   const submitLogin: SubmitHandler<ILoginFormFields> = async (data) => {
     try {
-      refetch();
+      const loginResponse = await login(data).unwrap();
+      setAccessToken(loginResponse.data?.jwt?.token);
+      setRefreshToken(loginResponse.data?.jwt?.refresh_token);
 
-      console.log('form-data: ', data);
+      // handle authenticated
+      await refetch().unwrap();
+      setAuthenticated();
 
-      const res = await getEmployee('3').unwrap();
-
-      console.log('employee-response: ', res);
+      toast.success('Successfully logged in');
+      // todo: handle redirect
     } catch (e) {
       handleQueryError(e);
     }
@@ -64,17 +72,9 @@ export function Login() {
           {/* begin::Heading */}
           <div className="text-center mb-11">
             <h1 className="text-dark fw-bolder mb-3">Sign In</h1>
-            <div className="text-gray-500 fw-semibold fs-6">Your Social Campaigns</div>
+            {/* <div className="text-gray-500 fw-semibold fs-6">Your Social Campaigns</div> */}
           </div>
           {/* begin::Heading */}
-
-          {(animeQuote && (
-            <div className="mb-lg-15 alert alert-success">
-              <div className="alert-text font-weight-bold">
-                {animeQuote.quote} - {animeQuote.character}
-              </div>
-            </div>
-          )) || <></>}
 
           {/* begin::Login options */}
           <div className="row g-3 mb-9">
@@ -108,18 +108,15 @@ export function Login() {
           {/* end::Login options */}
 
           {/* begin::Separator */}
-          <div className="separator separator-content my-14">
+          {/* <div className="separator separator-content my-14">
             <span className="w-125px text-gray-500 fw-semibold fs-7">Or with email</span>
-          </div>
+          </div> */}
           {/* end::Separator */}
 
           {/* begin::Form group */}
           <FormControl type={FORM_CONTROLS.MAIL} placeholder="Email" name="email" cxContainer="fv-row mb-8" label="Email" autoComplete="off" />
-          {/* end::Form group */}
 
-          {/* begin::Form group */}
           <FormControl type={FORM_CONTROLS.PASSWORD} autoComplete="off" name="password" cxContainer="fv-row mb-3" label="Password" />
-          {/* end::Form group */}
 
           {/* begin::Wrapper */}
           <div className="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
@@ -135,15 +132,9 @@ export function Login() {
 
           {/* begin::Action */}
           <div className="d-grid mb-10">
-            <button type="submit" id="kt_sign_in_submit" className="btn btn-primary">
-              {!isLoading && <span className="indicator-label">Continue</span>}
-              {isLoading && (
-                <span className="indicator-progress" style={{ display: 'block' }}>
-                  Please wait...
-                  <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                </span>
-              )}
-            </button>
+            <Button isLoading={isLoading} id="kt_sign_in_submit">
+              Continue
+            </Button>
           </div>
           {/* end::Action */}
 
