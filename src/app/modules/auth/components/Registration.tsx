@@ -62,7 +62,7 @@ export function Registration() {
         email: data.email,
         password: data.password,
         confirm_password: data.password,
-        phone_number: 1231123123,
+        phone_number: +data.phoneNumber,
       }).unwrap();
 
       toast.success(`${message || 'Successfully register'}`);
@@ -97,7 +97,7 @@ export function Registration() {
 
           <FormControl type={FORM_CONTROLS.MAIL} cxContainer="fv-row mb-8" name="email" placeholder="Email" label="Email" />
 
-          <FormControl type={FORM_CONTROLS.TEXT} cxContainer="fv-row mb-8" name="phoneNumber" placeholder="Phone number" label="Phone Number" />
+          <FormControl type={FORM_CONTROLS.TEL} cxContainer="fv-row mb-8" name="phoneNumber" placeholder="Phone number" label="Phone Number" />
 
           <div className="fv-row mb-8" data-kt-password-meter="true">
             <FormControl type={FORM_CONTROLS.PASSWORD} cxContainer="mb-3" name="changePassword" placeholder="Password" label="Password" />
