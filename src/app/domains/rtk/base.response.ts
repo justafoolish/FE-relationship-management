@@ -4,11 +4,11 @@ interface IMessage {
 
 export default class BaseResponse<T> {
   data?: T;
-  message?: string | IMessage[];
+  message?: string | IMessage;
   errors?: string;
   status?: boolean;
 
-  constructor(Data?: { new (): T }, errors?: string, message?: string | IMessage[], status?: boolean) {
+  constructor(Data?: { new (): T }, errors?: string, message?: string | IMessage, status?: boolean) {
     if (errors) {
       this.errors = errors;
     }
@@ -25,7 +25,7 @@ export default class BaseResponse<T> {
 }
 
 export interface BaseErrorResponse {
-  message?: string | IMessage[];
+  message?: string | IMessage;
   code?: string;
 }
 
