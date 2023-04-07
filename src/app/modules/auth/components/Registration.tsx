@@ -1,22 +1,24 @@
 import * as Yup from 'yup';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
 import FormControl from 'app/components/form-control/FormControl';
 import { handleQueryError } from 'app/modules/utils/error-handler';
-import { useGetRandomAnimeQuoteQuery } from 'app/reducers/anime/anime.api';
-import { useGetEmployeeMutation } from 'app/reducers/employee/employee.api';
 import { PasswordMeterComponent } from '../../../../_metronic/assets/ts/components';
 import Button from 'app/components/button';
+import { useSubmitRegisterMutation } from 'app/reducers/api';
+import { toast } from 'react-hot-toast';
+
 interface IRegistrationFormFields {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   changePassword: string;
+  phoneNumber: number;
 }
 const initialValues: IRegistrationFormFields = {
   firstName: '',
@@ -24,6 +26,7 @@ const initialValues: IRegistrationFormFields = {
   email: '',
   password: '',
   changePassword: '',
+  phoneNumber: 0,
 };
 
 const registrationSchema = Yup.object().shape({
@@ -40,8 +43,10 @@ const registrationSchema = Yup.object().shape({
 });
 
 export function Registration() {
-  const { data: animeQuote, refetch } = useGetRandomAnimeQuoteQuery();
-  const [getEmployee, { isLoading }] = useGetEmployeeMutation();
+  const [regis, { isLoading, isSuccess }] = useSubmitRegisterMutation();
+  // const { refetch } = useGetUserInfoQuery(undefined, { skip: true });
+
+  const navigate = useNavigate();
 
   const methods = useForm<IRegistrationFormFields>({
     mode: 'onBlur',
@@ -53,14 +58,19 @@ export function Registration() {
   const submitRegister: SubmitHandler<IRegistrationFormFields> = async (data) => {
     // handle call api with data here
     try {
-      refetch();
+      const regisResponse = await regis({
+        name: data.firstName + ' ' + data.lastName,
+        email: data.email,
+        password: data.password,
+        confirm_password: data.password,
+        phone_number: 1231123123,
+      }).unwrap();
 
-      console.log('form-data: ', data);
+      navigate('/auth/login');
+      toast.success('Successfully register');
 
-      const res = await getEmployee('1').unwrap();
-
-      console.log('employee-response: ', res);
     } catch (e) {
+      toast.error(e + '');
       handleQueryError(e);
     }
   };
@@ -83,20 +93,14 @@ export function Registration() {
           </div>
           {/* end:Heading */}
 
-          {(animeQuote && (
-            <div className="mb-lg-15 alert alert-success">
-              <div className="alert-text font-weight-bold">
-                {animeQuote.quote} - {animeQuote.character}
-              </div>
-            </div>
-          )) || <></>}
-
           {/* begin:Control */}
           <FormControl type={FORM_CONTROLS.TEXT} cxContainer="fv-row mb-8" name="firstName" placeholder="First name" label="First name" />
 
           <FormControl type={FORM_CONTROLS.TEXT} cxContainer="fv-row mb-8" name="lastName" placeholder="Last name" label="Last name" />
 
           <FormControl type={FORM_CONTROLS.MAIL} cxContainer="fv-row mb-8" name="email" placeholder="Email" label="Email" />
+
+          <FormControl type={FORM_CONTROLS.TEXT} cxContainer="fv-row mb-8" name="phoneNumber" placeholder="Phone number" label="Phone Number" />
 
           <div className="fv-row mb-8" data-kt-password-meter="true">
             <FormControl type={FORM_CONTROLS.PASSWORD} cxContainer="mb-3" name="changePassword" placeholder="Password" label="Password" />
