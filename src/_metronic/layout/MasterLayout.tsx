@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { reInitMenu } from '../helpers';
 import { ActivityDrawer, DrawerMessenger, InviteUsers, ThemeModeProvider, UpgradePlan } from '../partials';
-import { RightToolbar } from '../partials/layout/RightToolbar';
 import { Content } from './components/content';
 import { FooterWrapper } from './components/footer';
 import { HeaderWrapper } from './components/header';
@@ -39,7 +38,6 @@ const MasterLayout = () => {
 
         {/* begin:: Drawers */}
         <ActivityDrawer />
-        <RightToolbar />
         <DrawerMessenger />
         {/* end:: Drawers */}
 
