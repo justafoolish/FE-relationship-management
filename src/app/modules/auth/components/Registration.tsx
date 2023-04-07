@@ -1,15 +1,16 @@
+import * as Yup from 'yup';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import FormControl from 'app/components/FormControl/FormControl';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
+import FormControl from 'app/components/form-control/FormControl';
 import { handleQueryError } from 'app/modules/utils/error-handler';
 import { useGetRandomAnimeQuoteQuery } from 'app/reducers/anime/anime.api';
 import { useGetEmployeeMutation } from 'app/reducers/employee/employee.api';
-import { useEffect } from 'react';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import * as Yup from 'yup';
 import { PasswordMeterComponent } from '../../../../_metronic/assets/ts/components';
-
+import Button from 'app/components/button';
 interface IRegistrationFormFields {
   firstName: string;
   lastName: string;
@@ -121,14 +122,9 @@ export function Registration() {
 
           {/* begin:Submit */}
           <div className="text-center">
-            <button type="submit" id="kt_sign_up_submit" className="btn btn-lg btn-primary w-100 mb-5">
-              {!isLoading && <span className="indicator-label">Submit</span>}
-              {isLoading && (
-                <span className="indicator-progress" style={{ display: 'block' }}>
-                  Please wait... <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                </span>
-              )}
-            </button>
+            <Button isLoading={isLoading} id="kt_sign_up_submit">
+              Submit
+            </Button>
             <Link to="/auth/login">
               <button type="button" id="kt_login_signup_form_cancel_button" className="btn btn-lg btn-light-primary w-100 mb-5">
                 Cancel
