@@ -43,8 +43,9 @@ export const authSlice = createSlice({
 
 const accessTokenSelector = (state: RootState) => state.auth.accessToken;
 const userInfoSelector = (state: RootState) => state.auth.user;
+const isAuthenticatedSelector = (state: RootState) => state.auth.authenticated;
 
-export { accessTokenSelector, userInfoSelector };
+export { accessTokenSelector, userInfoSelector, isAuthenticatedSelector };
 
 export const { updateAccessToken, updateUserInfo, updateLoginStatus, updateRefreshToken } = authSlice.actions;
 

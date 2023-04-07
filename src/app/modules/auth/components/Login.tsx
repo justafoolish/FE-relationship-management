@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Button from 'app/components/button';
 import useAuthGuard from 'app/hooks/useAuthGuard';
@@ -11,6 +12,8 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { useAppDispatch } from 'app/reducers/store.hook';
+import { updateLoginStatus } from 'app/reducers/user/auth.slice';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().required('Email is required'),
@@ -29,12 +32,6 @@ const initialValues: ILoginFormFields = {
   password: '',
 };
 
-/*
-  Formik+YUP+Typescript:
-  https://jaredpalmer.com/formik/docs/tutorial#getfieldprops
-  https://medium.com/@maurice.de.beijer/yup-validation-and-typescript-and-formik-6c342578a20e
-*/
-
 export function Login() {
   const [login, { isLoading }] = useSubmitLoginMutation();
   const { refetch } = useGetUserInfoQuery(undefined, { skip: true });
@@ -48,17 +45,24 @@ export function Login() {
     defaultValues: initialValues,
   });
 
+  // demo login without call api
+  const dispatch = useAppDispatch(); // note to remove when api is successfully deploy
+
   const submitLogin: SubmitHandler<ILoginFormFields> = async (data) => {
     try {
-      const loginResponse = await login(data).unwrap();
+      /*
+			* handle login with email and password
+			const loginResponse = await login(data).unwrap();
       setAccessToken(loginResponse.data?.jwt?.token);
       setRefreshToken(loginResponse.data?.jwt?.refresh_token);
 
       // handle authenticated
       await refetch().unwrap();
-      setAuthenticated();
+      setAuthenticated(); */
+      dispatch(updateLoginStatus(true)); // note to remove when api is successfully deploy
 
       toast.success('Successfully logged in');
+
       // todo: handle redirect
     } catch (e) {
       handleQueryError(e);
@@ -117,26 +121,19 @@ export function Login() {
           <FormControl type={FORM_CONTROLS.MAIL} placeholder="Email" name="email" cxContainer="fv-row mb-8" label="Email" autoComplete="off" />
 
           <FormControl type={FORM_CONTROLS.PASSWORD} autoComplete="off" name="password" cxContainer="fv-row mb-3" label="Password" />
+          {/* begin::Form group */}
 
-          {/* begin::Wrapper */}
           <div className="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
-            <div />
-
-            {/* begin::Link */}
             <Link to="/auth/forgot-password" className="link-primary">
               Forgot Password ?
             </Link>
-            {/* end::Link */}
           </div>
-          {/* end::Wrapper */}
 
-          {/* begin::Action */}
           <div className="d-grid mb-10">
             <Button isLoading={isLoading} id="kt_sign_in_submit">
               Continue
             </Button>
           </div>
-          {/* end::Action */}
 
           <div className="text-gray-500 text-center fw-semibold fs-6">
             Not a Member yet?{' '}

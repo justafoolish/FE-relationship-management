@@ -1,13 +1,13 @@
+import useAuthGuard from 'app/hooks/useAuthGuard';
 import { useEffect } from 'react';
 import { Navigate, Routes } from 'react-router-dom';
-import { useAuth } from './core/Auth';
 
 export function Logout() {
-  const { logout } = useAuth();
+  const { handleLogout } = useAuthGuard();
   useEffect(() => {
-    logout();
+    handleLogout();
     document.location.reload();
-  }, [logout]);
+  }, [handleLogout]);
 
   return (
     <Routes>

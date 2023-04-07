@@ -1,10 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback } from 'react';
 
-import { useAppDispatch } from 'app/reducers/store.hook';
-import { updateAccessToken, updateLoginStatus, updateRefreshToken, updateUserInfo } from 'app/reducers/user/auth.slice';
+import { useAppDispatch, useAppSelector } from 'app/reducers/store.hook';
+import { updateAccessToken, updateLoginStatus, updateRefreshToken, updateUserInfo, userInfoSelector } from 'app/reducers/user/auth.slice';
 
+/**
+ * setAuthenticated: update login status
+ *
+ * setAccessToken: update access token
+ *
+ * setRefreshToken: update refresh token
+ *
+ * handleLogout: logout
+ */
 const useAuthGuard = () => {
+  const currentUser = useAppSelector(userInfoSelector);
   const authDispatch = useAppDispatch();
 
   const setAuthenticated = useCallback(() => {
@@ -25,7 +35,7 @@ const useAuthGuard = () => {
     authDispatch(updateUserInfo(undefined));
   }, []);
 
-  return { setAccessToken, setAuthenticated, handleLogout, setRefreshToken };
+  return { setAccessToken, setAuthenticated, handleLogout, setRefreshToken, currentUser };
 };
 
 export default useAuthGuard;
