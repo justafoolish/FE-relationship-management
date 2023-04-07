@@ -1,33 +1,25 @@
-/**
- * High level router.
- *
- * Note: It's recommended to compose related routes in internal router
- * components (e.g: `src/app/modules/Auth/pages/AuthPage`, `src/app/BasePage`).
- */
-
+import { useAppSelector } from 'app/reducers/store.hook';
+import { isAuthenticatedSelector } from 'app/reducers/user/auth.slice';
 import { FC } from 'react';
-import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
-import { PrivateRoutes } from './PrivateRoutes';
-import { ErrorsPage } from '../modules/errors/ErrorsPage';
-import { Logout, AuthPage, useAuth } from '../modules/auth';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { App } from '../App';
+import { PrivateRoutes } from './PrivateRoutes';
+import { AuthPage } from 'app/modules/auth/AuthPage';
+import { ErrorsPage } from 'app/modules/errors/ErrorsPage';
+import { Logout } from 'app/modules/auth';
 
-/**
- * Base URL of the website.
- *
- * @see https://facebook.github.io/create-react-app/docs/using-the-public-folder
- */
 const { PUBLIC_URL } = process.env;
 
 const AppRoutes: FC = () => {
-  const { currentUser } = useAuth();
+  const isAuthenticated = useAppSelector(isAuthenticatedSelector);
+
   return (
     <BrowserRouter basename={PUBLIC_URL}>
       <Routes>
         <Route element={<App />}>
           <Route path="error/*" element={<ErrorsPage />} />
           <Route path="logout" element={<Logout />} />
-          {currentUser ? (
+          {isAuthenticated ? (
             <>
               <Route path="/*" element={<PrivateRoutes />} />
               <Route index element={<Navigate to="/dashboard" />} />
