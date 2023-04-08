@@ -1,6 +1,6 @@
 import useAuthGuard from 'app/hooks/useAuthGuard';
 import { handleQueryError } from 'app/modules/utils/error-handler';
-import { useGetUserInfoQuery } from 'app/reducers/api';
+import { useGetUserInfoMutation } from 'app/reducers/api';
 import { useAppSelector } from 'app/reducers/store.hook';
 import { accessTokenSelector } from 'app/reducers/user/auth.slice';
 import { FC, useEffect, useRef, useState } from 'react';
@@ -9,7 +9,7 @@ import { LayoutSplashScreen } from '../../../../_metronic/layout/core';
 
 const AuthInit: FC<WithChildren> = ({ children }) => {
   const { handleLogout } = useAuthGuard();
-  const { refetch } = useGetUserInfoQuery(undefined, { skip: true });
+  const [getUserInfo] = useGetUserInfoMutation();
 
   const didRequest = useRef(false);
   const accessToken = useAppSelector(accessTokenSelector);
@@ -19,7 +19,7 @@ const AuthInit: FC<WithChildren> = ({ children }) => {
     const requestUser = async () => {
       try {
         if (!didRequest.current) {
-          await refetch().unwrap();
+          await getUserInfo().unwrap();
         }
       } catch (error) {
         handleQueryError(error);
