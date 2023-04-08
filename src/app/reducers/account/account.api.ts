@@ -26,9 +26,9 @@ export const accountAPI = createApi({
   baseQuery: baseQueryWithAuth(accountURL),
   reducerPath: 'accountAPI',
   endpoints: (builder) => ({
-    getUserInfo: builder.query<BaseResponse<IUserInfo>, void>({
+    getUserInfo: builder.mutation<BaseResponse<IUserInfo>, void>({
       query: () => ({
-        url: '/',
+        url: '',
         method: 'GET',
       }),
     }),
@@ -64,5 +64,10 @@ export const accountAPI = createApi({
   }),
 });
 
-export const { useSubmitLoginMutation, useSubmitRegisterMutation, useGetUserInfoQuery, useGetRefreshTokenMutation, useResendRegisterLinkMutation } =
-  accountAPI;
+export const {
+  useSubmitLoginMutation,
+  useSubmitRegisterMutation,
+  useGetUserInfoMutation,
+  useGetRefreshTokenMutation,
+  useResendRegisterLinkMutation,
+} = accountAPI;

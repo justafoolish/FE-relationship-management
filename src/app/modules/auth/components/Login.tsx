@@ -1,19 +1,16 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Button from 'app/components/button';
-import useAuthGuard from 'app/hooks/useAuthGuard';
-import { FORM_CONTROLS } from 'app/domains/components/form.i';
 import FormControl from 'app/components/form-control/FormControl';
+import { FORM_CONTROLS } from 'app/domains/components/form.i';
+import useAuthGuard from 'app/hooks/useAuthGuard';
 import { handleQueryError } from 'app/modules/utils/error-handler';
-import { useGetUserInfoQuery, useSubmitLoginMutation } from 'app/reducers/account/account.api';
+import { useGetUserInfoMutation, useSubmitLoginMutation } from 'app/reducers/account/account.api';
 
-import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { useAppDispatch } from 'app/reducers/store.hook';
-import { updateLoginStatus } from 'app/reducers/user/auth.slice';
+import { toast } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
+import * as Yup from 'yup';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().required('Email is required'),
@@ -34,7 +31,7 @@ const initialValues: ILoginFormFields = {
 
 export function Login() {
   const [login, { isLoading }] = useSubmitLoginMutation();
-  const { refetch } = useGetUserInfoQuery(undefined, { skip: true });
+  const [getUserInfo] = useGetUserInfoMutation();
 
   const { setAccessToken, setRefreshToken, setAuthenticated } = useAuthGuard();
 
@@ -45,21 +42,18 @@ export function Login() {
     defaultValues: initialValues,
   });
 
-  // demo login without call api
-  const dispatch = useAppDispatch(); // note to remove when api is successfully deploy
-
   const submitLogin: SubmitHandler<ILoginFormFields> = async (data) => {
     try {
-      /*
-			* handle login with email and password
-			const loginResponse = await login(data).unwrap();
+      // * handle login with email and password
+      const loginResponse = await login(data).unwrap();
+
       setAccessToken(loginResponse.data?.jwt?.token);
       setRefreshToken(loginResponse.data?.jwt?.refresh_token);
 
       // handle authenticated
-      await refetch().unwrap();
-      setAuthenticated(); */
-      dispatch(updateLoginStatus(true)); // note to remove when api is successfully deploy
+      await getUserInfo();
+      setAuthenticated();
+      // dispatch(updateLoginStatus(true)); // note to remove when api is successfully deploy
 
       toast.success('Successfully logged in');
 
