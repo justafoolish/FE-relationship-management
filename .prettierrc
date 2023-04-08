@@ -12,7 +12,7 @@
   "embeddedLanguageFormatting": "auto",
   "insertPragma": false,
   "jsxSingleQuote": false,
-  "printWidth": 150,
+  "printWidth": 110,
   "proseWrap": "preserve",
   "quoteProps": "as-needed",
   "requirePragma": false,

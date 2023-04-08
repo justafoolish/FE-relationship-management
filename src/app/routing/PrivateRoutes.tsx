@@ -104,4 +104,4 @@ const SuspensedView: FC<WithChildren> = ({ children }) => {
   return <Suspense fallback={<TopBarProgress />}>{children}</Suspense>;
 };
 
-export { PrivateRoutes };
+export default PrivateRoutes;
