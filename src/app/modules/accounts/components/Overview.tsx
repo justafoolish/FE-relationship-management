@@ -4,6 +4,8 @@ import { KTSVG } from '../../../../_metronic/helpers';
 import { ChartsWidget1, TablesWidget1, ListsWidget5, TablesWidget5 } from '../../../../_metronic/partials/widgets';
 
 export function Overview() {
+  
+
   return (
     <>
       <div className="card mb-5 mb-xl-10" id="kt_profile_details_view">

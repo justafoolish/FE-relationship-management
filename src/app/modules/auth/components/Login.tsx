@@ -114,7 +114,14 @@ export function Login() {
           {/* begin::Form group */}
           <FormControl type={FORM_CONTROLS.MAIL} placeholder="Email" name="email" cxContainer="fv-row mb-8" label="Email" autoComplete="off" />
 
-          <FormControl type={FORM_CONTROLS.PASSWORD} autoComplete="off" name="password" cxContainer="fv-row mb-3" label="Password" />
+          <FormControl
+            type={FORM_CONTROLS.PASSWORD}
+            autoComplete="off"
+            name="password"
+            cxContainer="fv-row mb-3"
+            placeholder="Password"
+            label="Password"
+          />
           {/* begin::Form group */}
 
           <div className="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">

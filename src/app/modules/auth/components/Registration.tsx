@@ -66,7 +66,7 @@ export function Registration() {
       }).unwrap();
 
       toast.success(`${message || 'Successfully register'}`);
-      navigate('/auth/login');
+      // navigate('/auth/login');
     } catch (e) {
       handleQueryError(e);
     }
@@ -128,7 +128,7 @@ export function Registration() {
             </Button>
             <Link to="/auth/login">
               <button type="button" id="kt_login_signup_form_cancel_button" className="btn btn-lg btn-light-primary w-100 mb-5">
-                Cancel
+                Back to Login
               </button>
             </Link>
           </div>

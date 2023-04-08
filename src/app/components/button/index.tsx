@@ -7,11 +7,12 @@ interface IButtonProps {
   isLoading?: boolean;
   className?: string;
   children?: ReactNode;
+  onClick?: () => void;
 }
 
-const Button: FC<IButtonProps> = memo(({ isLoading = false, className, id, type = 'submit', children }) => {
+const Button: FC<IButtonProps> = memo(({ isLoading = false, className, id, type = 'submit', children, onClick }) => {
   return (
-    <button type={type} id={id} className={clsx('btn btn-primary', className)}>
+    <button onClick={onClick} type={type} id={id} className={clsx('btn btn-primary', className)}>
       {!isLoading && <span className="indicator-label">{children}</span>}
       {isLoading && (
         <span className="indicator-progress" style={{ display: 'block' }}>
