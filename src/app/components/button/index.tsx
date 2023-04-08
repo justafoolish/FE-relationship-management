@@ -2,15 +2,16 @@ import clsx from 'clsx';
 import { FC, ReactNode, memo } from 'react';
 
 interface IButtonProps {
+  type?: 'button' | 'submit' | 'reset';
   id?: string;
   isLoading?: boolean;
   className?: string;
   children?: ReactNode;
 }
 
-const Button: FC<IButtonProps> = memo(({ isLoading = false, className, id, children }) => {
+const Button: FC<IButtonProps> = memo(({ isLoading = false, className, id, type = 'submit', children }) => {
   return (
-    <button type="submit" id={id} className={clsx('btn btn-primary', className)}>
+    <button type={type} id={id} className={clsx('btn btn-primary', className)}>
       {!isLoading && <span className="indicator-label">{children}</span>}
       {isLoading && (
         <span className="indicator-progress" style={{ display: 'block' }}>
