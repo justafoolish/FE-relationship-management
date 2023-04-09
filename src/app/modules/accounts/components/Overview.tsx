@@ -2,9 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { KTSVG } from '../../../../_metronic/helpers';
 import { ChartsWidget1, TablesWidget1, ListsWidget5, TablesWidget5 } from '../../../../_metronic/partials/widgets';
+import { useAppSelector } from 'app/reducers/store.hook';
+import { userInfoSelector } from 'app/reducers/user/auth.slice';
 
 export function Overview() {
-  
+  const userInfo = useAppSelector(userInfoSelector);
+
+  console.log(userInfo);
 
   return (
     <>
