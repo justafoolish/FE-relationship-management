@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { FC, Suspense, lazy } from 'react';
 import { Outlet } from 'react-router-dom';
 import { I18nProvider } from '../_metronic/i18n/i18nProvider';
 import { LayoutProvider, LayoutSplashScreen } from '../_metronic/layout/core';
@@ -7,7 +7,7 @@ import { AuthInit } from 'app/modules/auth';
 
 const CustomToast = lazy(() => import('app/components/custom-toast/CustomToast'));
 
-const App = () => {
+const App: FC = () => {
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
       <I18nProvider>
@@ -23,4 +23,4 @@ const App = () => {
   );
 };
 
-export { App };
+export default App;

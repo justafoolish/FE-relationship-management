@@ -14,4 +14,4 @@ const ErrorsPage = () => (
   </Routes>
 );
 
-export { ErrorsPage };
+export default ErrorsPage;

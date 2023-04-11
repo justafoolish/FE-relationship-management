@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import Button from 'app/components/button';
@@ -30,10 +30,23 @@ const initialValues: IRegistrationFormFields = {
 };
 
 const registrationSchema = Yup.object().shape({
-  firstName: Yup.string().required('First name is required').min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols'),
-  email: Yup.string().email('Wrong email format').min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols').required('Email is required'),
-  lastName: Yup.string().min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols').required('Last name is required'),
-  password: Yup.string().min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols').required('Password is required'),
+  firstName: Yup.string()
+    .required('First name is required')
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols'),
+  email: Yup.string()
+    .email('Wrong email format')
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Email is required'),
+  lastName: Yup.string()
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Last name is required'),
+  password: Yup.string()
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Password is required'),
   changePassword: Yup.string()
     .required('Password confirmation is required')
     .when('password', {
@@ -42,10 +55,8 @@ const registrationSchema = Yup.object().shape({
     }),
 });
 
-export function Registration() {
+export default function Registration() {
   const [regis, { isLoading }] = useSubmitRegisterMutation();
-
-  const navigate = useNavigate();
 
   const methods = useForm<IRegistrationFormFields>({
     mode: 'onBlur',
@@ -91,16 +102,46 @@ export function Registration() {
           {/* end:Heading */}
 
           {/* begin:Control */}
-          <FormControl type={FORM_CONTROLS.TEXT} cxContainer="fv-row mb-8" name="firstName" placeholder="First name" label="First name" />
+          <FormControl
+            type={FORM_CONTROLS.TEXT}
+            cxContainer="fv-row mb-8"
+            name="firstName"
+            placeholder="First name"
+            label="First name"
+          />
 
-          <FormControl type={FORM_CONTROLS.TEXT} cxContainer="fv-row mb-8" name="lastName" placeholder="Last name" label="Last name" />
+          <FormControl
+            type={FORM_CONTROLS.TEXT}
+            cxContainer="fv-row mb-8"
+            name="lastName"
+            placeholder="Last name"
+            label="Last name"
+          />
 
-          <FormControl type={FORM_CONTROLS.MAIL} cxContainer="fv-row mb-8" name="email" placeholder="Email" label="Email" />
+          <FormControl
+            type={FORM_CONTROLS.MAIL}
+            cxContainer="fv-row mb-8"
+            name="email"
+            placeholder="Email"
+            label="Email"
+          />
 
-          <FormControl type={FORM_CONTROLS.TEL} cxContainer="fv-row mb-8" name="phoneNumber" placeholder="Phone number" label="Phone Number" />
+          <FormControl
+            type={FORM_CONTROLS.TEL}
+            cxContainer="fv-row mb-8"
+            name="phoneNumber"
+            placeholder="Phone number"
+            label="Phone Number"
+          />
 
           <div className="fv-row mb-8" data-kt-password-meter="true">
-            <FormControl type={FORM_CONTROLS.PASSWORD} cxContainer="mb-3" name="changePassword" placeholder="Password" label="Password" />
+            <FormControl
+              type={FORM_CONTROLS.PASSWORD}
+              cxContainer="mb-3"
+              name="changePassword"
+              placeholder="Password"
+              label="Password"
+            />
             {/* begin::Meter */}
             <div className="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
               <div className="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
@@ -110,7 +151,9 @@ export function Registration() {
             </div>
             {/* end::Meter */}
 
-            <div className="text-muted">Use 8 or more characters with a mix of letters, numbers & symbols.</div>
+            <div className="text-muted">
+              Use 8 or more characters with a mix of letters, numbers & symbols.
+            </div>
           </div>
           <FormControl
             type={FORM_CONTROLS.PASSWORD}
@@ -127,7 +170,10 @@ export function Registration() {
               Submit
             </Button>
             <Link to="/auth/login">
-              <button type="button" id="kt_login_signup_form_cancel_button" className="btn btn-lg btn-light-primary w-100 mb-5">
+              <button
+                type="button"
+                id="kt_login_signup_form_cancel_button"
+                className="btn btn-lg btn-light-primary w-100 mb-5">
                 Back to Login
               </button>
             </Link>

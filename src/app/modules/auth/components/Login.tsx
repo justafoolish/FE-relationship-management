@@ -29,7 +29,7 @@ const initialValues: ILoginFormFields = {
   password: '',
 };
 
-export function Login() {
+export default function Login() {
   const [login, { isLoading }] = useSubmitLoginMutation();
   const [getUserInfo] = useGetUserInfoMutation();
 
@@ -66,7 +66,11 @@ export function Login() {
   return (
     <>
       <FormProvider {...methods}>
-        <form className="form w-100" onSubmit={methods.handleSubmit(submitLogin)} noValidate id="kt_login_signin_form">
+        <form
+          className="form w-100"
+          onSubmit={methods.handleSubmit(submitLogin)}
+          noValidate
+          id="kt_login_signin_form">
           {/* begin::Heading */}
           <div className="text-center mb-11">
             <h1 className="text-dark fw-bolder mb-3">Sign In</h1>
@@ -112,7 +116,14 @@ export function Login() {
           {/* end::Separator */}
 
           {/* begin::Form group */}
-          <FormControl type={FORM_CONTROLS.MAIL} placeholder="Email" name="email" cxContainer="fv-row mb-8" label="Email" autoComplete="off" />
+          <FormControl
+            type={FORM_CONTROLS.MAIL}
+            placeholder="Email"
+            name="email"
+            cxContainer="fv-row mb-8"
+            label="Email"
+            autoComplete="off"
+          />
 
           <FormControl
             type={FORM_CONTROLS.PASSWORD}

@@ -17,8 +17,10 @@ import './_metronic/assets/sass/plugins.scss';
 import './_metronic/assets/sass/style.react.scss';
 import './_metronic/assets/sass/style.scss';
 import { LayoutSplashScreen } from '_metronic/layout/core';
+import { BrowserRouter } from 'react-router-dom';
 
 Chart.register(...registerables);
+const { PUBLIC_URL } = process.env;
 
 const container = document.getElementById('root');
 if (container) {
@@ -26,7 +28,9 @@ if (container) {
     <ReduxProvider store={store}>
       <PersistGate loading={<LayoutSplashScreen />} persistor={persistor}>
         <MetronicI18nProvider>
-          <AppRoutes />
+          <BrowserRouter basename={PUBLIC_URL}>
+            <AppRoutes />
+          </BrowserRouter>
         </MetronicI18nProvider>
       </PersistGate>
     </ReduxProvider>

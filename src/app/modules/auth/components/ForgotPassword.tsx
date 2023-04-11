@@ -10,10 +10,14 @@ const initialValues = {
 };
 
 const forgotPasswordSchema = Yup.object().shape({
-  email: Yup.string().email('Wrong email format').min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols').required('Email is required'),
+  email: Yup.string()
+    .email('Wrong email format')
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Email is required'),
 });
 
-export function ForgotPassword() {
+export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [hasErrors, setHasErrors] = useState<boolean | undefined>(undefined);
   const formik = useFormik({
@@ -57,7 +61,9 @@ export function ForgotPassword() {
       {/* begin::Title */}
       {hasErrors === true && (
         <div className="mb-lg-15 alert alert-danger">
-          <div className="alert-text font-weight-bold">Sorry, looks like there are some errors detected, please try again.</div>
+          <div className="alert-text font-weight-bold">
+            Sorry, looks like there are some errors detected, please try again.
+          </div>
         </div>
       )}
 
