@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { toAbsoluteUrl } from '../../../_metronic/helpers';
 
-const AuthLayout = () => {
+const AuthLayout: FC = () => {
   useEffect(() => {
     const root = document.getElementById('root');
     if (root) {
@@ -65,7 +65,11 @@ const AuthLayout = () => {
           {/* end::Logo */}
 
           {/* begin::Image */}
-          <img className="mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-20" src={toAbsoluteUrl('/media/misc/auth-screens.png')} alt="" />
+          <img
+            className="mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-20"
+            src={toAbsoluteUrl('/media/misc/auth-screens.png')}
+            alt=""
+          />
           {/* end::Image */}
 
           {/* begin::Title */}
@@ -93,4 +97,4 @@ const AuthLayout = () => {
   );
 };
 
-export { AuthLayout };
+export default AuthLayout;

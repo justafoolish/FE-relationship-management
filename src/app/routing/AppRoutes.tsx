@@ -7,7 +7,7 @@ import { useRoutes } from 'react-router-dom';
 
 const AppRoutes: FC = () => {
   const isAuthenticated = useAppSelector(isAuthenticatedSelector);
-  const rootRoutesElement = useRoutes(rootRoutes(isAuthenticated));
+  const rootRoutesElement = useRoutes([rootRoutes(isAuthenticated)]);
 
   return <Suspense fallback={<LayoutSplashScreen />}>{rootRoutesElement}</Suspense>;
 };
