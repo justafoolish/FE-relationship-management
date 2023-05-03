@@ -1,10 +1,13 @@
+import Button from 'app/components/button';
+import { BUTTON_VARIANTS } from 'app/domains/components/button.i';
 import clsx from 'clsx';
 import { KTSVG, toAbsoluteUrl } from '../../../helpers';
 import { HeaderNotificationsMenu, HeaderUserMenu, Search, ThemeModeSwitcher } from '../../../partials';
 import { useLayout } from '../../core';
 
 const itemClass = 'ms-1 ms-lg-3';
-const btnClass = 'btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px w-md-40px h-md-40px';
+const btnClass =
+  'btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px w-md-40px h-md-40px';
 const userAvatarClass = 'symbol-35px symbol-md-40px';
 const btnIconClass = 'svg-icon-1';
 
@@ -17,13 +20,17 @@ const Navbar = () => {
       </div>
 
       <div className={clsx('app-navbar-item', itemClass)}>
-        <div id="kt_activities_toggle" className={btnClass}>
+        <Button id="kt_activities_toggle" className={btnClass} variant={BUTTON_VARIANTS.DEFAULT}>
           <KTSVG path="/media/icons/duotune/general/gen032.svg" className={btnIconClass} />
-        </div>
+        </Button>
       </div>
 
       <div className={clsx('app-navbar-item', itemClass)}>
-        <div data-kt-menu-trigger="{default: 'click'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" className={btnClass}>
+        <div
+          data-kt-menu-trigger="{default: 'click'}"
+          data-kt-menu-attach="parent"
+          data-kt-menu-placement="bottom-end"
+          className={btnClass}>
           <KTSVG path="/media/icons/duotune/general/gen022.svg" className={btnIconClass} />
         </div>
         <HeaderNotificationsMenu />

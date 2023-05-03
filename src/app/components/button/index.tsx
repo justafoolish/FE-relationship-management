@@ -1,4 +1,4 @@
-import { BUTTON_VARIANTS } from 'app/domains/components/button.i';
+import { BUTTON_SIZES, BUTTON_VARIANTS } from 'app/domains/components/button.i';
 import clsx from 'clsx';
 import { FC, ReactNode, memo } from 'react';
 
@@ -10,6 +10,7 @@ interface IButtonProps {
   children?: ReactNode;
   onClick?: () => void;
   variant?: BUTTON_VARIANTS;
+  size?: BUTTON_SIZES;
 }
 
 const Button: FC<IButtonProps> = memo(
@@ -21,9 +22,10 @@ const Button: FC<IButtonProps> = memo(
     children,
     onClick,
     variant = BUTTON_VARIANTS.PRIMARY,
+    size = BUTTON_SIZES.DEFAULT,
   }) => {
     return (
-      <button onClick={onClick} type={type} id={id} className={clsx('btn', variant, className)}>
+      <button onClick={onClick} type={type} id={id} className={clsx('btn', variant, size, className)}>
         {!isLoading && <span className="indicator-label">{children}</span>}
         {isLoading && (
           <span className="indicator-progress" style={{ display: 'block' }}>
