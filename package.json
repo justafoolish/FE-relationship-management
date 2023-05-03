@@ -77,6 +77,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.30.0",
+    "lodash": "^4.17.21",
     "mini-css-extract-plugin": "2.6.1",
     "prettier": "2.6.2",
     "rtlcss-webpack-plugin": "4.0.7",

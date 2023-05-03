@@ -8,6 +8,7 @@ import { HeaderWrapper } from './components/header';
 import { ScrollTop } from './components/scroll-top';
 import { Sidebar } from './components/sidebar';
 import { PageDataProvider } from './core';
+import CustomDialog from 'app/components/dialog/CustomDialog';
 
 const MasterLayout = () => {
   const location = useLocation();
@@ -40,6 +41,8 @@ const MasterLayout = () => {
         <ActivityDrawer />
         <DrawerMessenger />
         {/* end:: Drawers */}
+
+        <CustomDialog />
 
         {/* begin:: Modals */}
         <InviteUsers />

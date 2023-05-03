@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { KTSVG } from '_metronic/helpers';
-import { FC, useMemo } from 'react';
 import type { ColumnsType } from 'antd/es/table';
 import Table from 'antd/lib/table';
-import clsx from 'clsx';
 import Button from 'app/components/button';
 import { BUTTON_SIZES } from 'app/domains/components/button.i';
+import DIALOG_WIZARDS from 'app/domains/dialog/dialog.e';
+import useDialog from 'app/hooks/useDialog';
+import clsx from 'clsx';
+import { FC, useMemo } from 'react';
 
 enum IBadgeType {
   SUCCESS = 'Success',
@@ -35,6 +37,8 @@ interface IAllPeople {
 }
 
 const AllPeople: FC = () => {
+  const { openDialog } = useDialog();
+
   const columns: ColumnsType<IAllPeople> = useMemo(
     () => [
       {
@@ -159,7 +163,7 @@ const AllPeople: FC = () => {
           <span className="text-muted mt-1 fw-semibold fs-7">A group of all the people in your network</span>
         </h3>
         <div className="card-toolbar">
-          <Button className="px-4" size={BUTTON_SIZES.SM}>
+          <Button className="px-4" size={BUTTON_SIZES.SM} onClick={() => openDialog(DIALOG_WIZARDS.TEST, {})}>
             Add People
           </Button>
         </div>

@@ -5,6 +5,7 @@ import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
 
 import { accountAPI } from 'app/reducers/api';
 import authReducer, { IAuthState } from 'app/reducers/user/auth.slice';
+import dialogReducer from 'app/reducers/dialog/dialog.slice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -19,6 +20,7 @@ const authPersistConfig = {
 
 const reducers = {
   [accountAPI.reducerPath]: accountAPI.reducer,
+  dialog: dialogReducer,
   auth: persistReducer<IAuthState>(authPersistConfig, authReducer),
 };
 
@@ -31,7 +33,7 @@ export const rootReducer: Reducer = (state, action) => {
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['auth', 'math', accountAPI.reducerPath],
+  blacklist: ['auth', 'dialog', accountAPI.reducerPath],
   transforms: [
     encryptTransform({
       secretKey: 'ROOT_PRIVATEKEY',

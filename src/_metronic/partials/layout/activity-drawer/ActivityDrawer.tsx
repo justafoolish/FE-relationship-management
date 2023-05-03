@@ -1,5 +1,4 @@
-import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { FC } from 'react';
 import { KTSVG } from '../../../helpers';
 import { Item1 } from '../../content/activity/Item1';
 import { Item2 } from '../../content/activity/Item2';
