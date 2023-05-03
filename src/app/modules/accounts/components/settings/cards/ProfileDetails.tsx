@@ -64,7 +64,9 @@ const ProfileDetails: React.FC = () => {
                   className="image-input image-input-outline"
                   data-kt-image-input="true"
                   style={{ backgroundImage: `url(${toAbsoluteUrl('/media/avatars/blank.png')})` }}>
-                  <div className="image-input-wrapper w-125px h-125px" style={{ backgroundImage: `url(${toAbsoluteUrl(data.avatar)})` }}></div>
+                  <div
+                    className="image-input-wrapper w-125px h-125px"
+                    style={{ backgroundImage: `url(${toAbsoluteUrl(data.avatar)})` }}></div>
                 </div>
               </div>
             </div>
@@ -169,7 +171,9 @@ const ProfileDetails: React.FC = () => {
               </label>
 
               <div className="col-lg-8 fv-row">
-                <select className="form-select form-select-solid form-select-lg fw-bold" {...formik.getFieldProps('country')}>
+                <select
+                  className="form-select form-select-solid form-select-lg fw-bold"
+                  {...formik.getFieldProps('country')}>
                   <option value="">Select a Country...</option>
                   <option value="AF">Afghanistan</option>
                   <option value="AX">Aland Islands</option>
@@ -430,7 +434,9 @@ const ProfileDetails: React.FC = () => {
             <div className="row mb-6">
               <label className="col-lg-4 col-form-label required fw-bold fs-6">Language</label>
               <div className="col-lg-8 fv-row">
-                <select className="form-select form-select-solid form-select-lg" {...formik.getFieldProps('language')}>
+                <select
+                  className="form-select form-select-solid form-select-lg"
+                  {...formik.getFieldProps('language')}>
                   <option value="">Select a Language...</option>
                   <option value="id">Bahasa Indonesia - Indonesian</option>
                   <option value="msa">Bahasa Melayu - Malay</option>
@@ -485,7 +491,9 @@ const ProfileDetails: React.FC = () => {
                   </div>
                 )}
 
-                <div className="form-text">Please select a preferred language, including date, time, and number formatting.</div>
+                <div className="form-text">
+                  Please select a preferred language, including date, time, and number formatting.
+                </div>
               </div>
             </div>
 
@@ -493,29 +501,41 @@ const ProfileDetails: React.FC = () => {
               <label className="col-lg-4 col-form-label required fw-bold fs-6">Time Zone</label>
 
               <div className="col-lg-8 fv-row">
-                <select className="form-select form-select-solid form-select-lg" {...formik.getFieldProps('timeZone')}>
+                <select
+                  className="form-select form-select-solid form-select-lg"
+                  {...formik.getFieldProps('timeZone')}>
                   <option value="">Select a Timezone..</option>
-                  <option value="International Date Line West">(GMT-11:00) International Date Line West</option>
+                  <option value="International Date Line West">
+                    (GMT-11:00) International Date Line West
+                  </option>
                   <option value="Midway Island">(GMT-11:00) Midway Island</option>
                   <option value="Samoa">(GMT-11:00) Samoa</option>
                   <option value="Hawaii">(GMT-10:00) Hawaii</option>
                   <option value="Alaska">(GMT-08:00) Alaska</option>
-                  <option value="Pacific Time (US &amp; Canada)">(GMT-07:00) Pacific Time (US &amp; Canada)</option>
+                  <option value="Pacific Time (US &amp; Canada)">
+                    (GMT-07:00) Pacific Time (US &amp; Canada)
+                  </option>
                   <option value="Tijuana">(GMT-07:00) Tijuana</option>
                   <option value="Arizona">(GMT-07:00) Arizona</option>
-                  <option value="Mountain Time (US &amp; Canada)">(GMT-06:00) Mountain Time (US &amp; Canada)</option>
+                  <option value="Mountain Time (US &amp; Canada)">
+                    (GMT-06:00) Mountain Time (US &amp; Canada)
+                  </option>
                   <option value="Chihuahua">(GMT-06:00) Chihuahua</option>
                   <option value="Mazatlan">(GMT-06:00) Mazatlan</option>
                   <option value="Saskatchewan">(GMT-06:00) Saskatchewan</option>
                   <option value="Central America">(GMT-06:00) Central America</option>
-                  <option value="Central Time (US &amp; Canada)">(GMT-05:00) Central Time (US &amp; Canada)</option>
+                  <option value="Central Time (US &amp; Canada)">
+                    (GMT-05:00) Central Time (US &amp; Canada)
+                  </option>
                   <option value="Guadalajara">(GMT-05:00) Guadalajara</option>
                   <option value="Mexico City">(GMT-05:00) Mexico City</option>
                   <option value="Monterrey">(GMT-05:00) Monterrey</option>
                   <option value="Bogota">(GMT-05:00) Bogota</option>
                   <option value="Lima">(GMT-05:00) Lima</option>
                   <option value="Quito">(GMT-05:00) Quito</option>
-                  <option value="Eastern Time (US &amp; Canada)">(GMT-04:00) Eastern Time (US &amp; Canada)</option>
+                  <option value="Eastern Time (US &amp; Canada)">
+                    (GMT-04:00) Eastern Time (US &amp; Canada)
+                  </option>
                   <option value="Indiana (East)">(GMT-04:00) Indiana (East)</option>
                   <option value="Caracas">(GMT-04:00) Caracas</option>
                   <option value="La Paz">(GMT-04:00) La Paz</option>
@@ -651,7 +671,9 @@ const ProfileDetails: React.FC = () => {
               <label className="col-lg-4 col-form-label required fw-bold fs-6">Currency</label>
 
               <div className="col-lg-8 fv-row">
-                <select className="form-select form-select-solid form-select-lg" {...formik.getFieldProps('currency')}>
+                <select
+                  className="form-select form-select-solid form-select-lg"
+                  {...formik.getFieldProps('currency')}>
                   <option value="">Select a currency..</option>
                   <option value="USD">USD - USA dollar</option>
                   <option value="GBP">GBP - British pound</option>

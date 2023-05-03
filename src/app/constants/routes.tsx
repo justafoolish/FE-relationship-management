@@ -22,6 +22,7 @@ const Logout = lazy(() => import('app/modules/auth/Logout'));
 
 // pages
 const UserProfilePage = lazy(() => import('app/pages/user-profile/UserProfile'));
+const UserSettingPage = lazy(() => import('app/pages/user-profile/UserSetting'));
 const ErrorsPage = lazy(() => import('app/modules/errors/ErrorsPage'));
 
 // crafted
@@ -72,6 +73,7 @@ export const rootRoutes: IGetRoute = (isAuthenticated) => ({
 
               // pages
               { path: 'c-user/profile', element: <UserProfilePage /> },
+              { path: 'c-user/setting', element: <UserSettingPage /> },
 
               // crafted
               { path: 'crafted/pages/profile/*', element: <ProfilePage /> },
@@ -98,7 +100,8 @@ export const rootRoutes: IGetRoute = (isAuthenticated) => ({
               { index: true, element: <Login /> },
             ],
           },
-          { path: '*', element: <Navigate to="/auth" /> },
+          { index: true, element: <Navigate to="/auth" /> },
+          { index: '*', element: <Navigate to="/auth" /> },
         ] as RouteObject[])),
   ],
 });

@@ -39,7 +39,7 @@ const animeDemoURL = 'https://animechan.vercel.app/api/';
 // Main section
 
 // const BASE_ENDPOINT = 'http://localhost:9000/api';
-const BASE_ENDPOINT = 'http://3.88.28.50/api';
+const BASE_ENDPOINT = 'http://157.245.196.95/api';
 
 const accountURL = BASE_ENDPOINT + '/account/';
 
