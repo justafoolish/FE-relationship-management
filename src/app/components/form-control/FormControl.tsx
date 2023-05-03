@@ -41,9 +41,20 @@ interface FormControlProps {
   label?: string;
   autoComplete?: 'on' | 'off';
   cxContainer?: string;
+  className?: string;
 }
 
-const FormControl: FC<FormControlProps> = ({ type = FORM_CONTROLS.TEXT, name, label, cxContainer, autoComplete = 'off', ...rest }) => {
+const FormControl: FC<FormControlProps> = (props) => {
+  const {
+    type = FORM_CONTROLS.TEXT,
+    name,
+    label,
+    cxContainer,
+    autoComplete = 'off',
+    className,
+    ...rest
+  } = props;
+
   const FormControlComponent: FC<any> = useMemo(() => typeComponents[type], [type]);
 
   const { control } = useFormContext();
@@ -51,16 +62,26 @@ const FormControl: FC<FormControlProps> = ({ type = FORM_CONTROLS.TEXT, name, la
     fieldState: { error, isTouched },
   } = useController({ name, control });
 
-  const cxFormControl = clsx('form-control bg-transparent', {
-    'is-invalid': isTouched && Boolean(error?.message),
-    'is-valid': isTouched && !Boolean(error?.message),
-  });
+  const cxFormControl = clsx(
+    'form-control',
+    {
+      'is-invalid': isTouched && Boolean(error?.message),
+      'is-valid': isTouched && !Boolean(error?.message),
+    },
+    [className || 'bg-transparent']
+  );
 
   return (
     <div className={cxContainer}>
       <label className="form-label fw-bolder text-dark fs-6">{label}</label>
 
-      <FormControlComponent name={name} className={cxFormControl} type={type} {...rest} autoComplete={autoComplete} />
+      <FormControlComponent
+        name={name}
+        className={cxFormControl}
+        type={type}
+        {...rest}
+        autoComplete={autoComplete}
+      />
 
       <ErrorMessage name={name} error={error} />
     </div>

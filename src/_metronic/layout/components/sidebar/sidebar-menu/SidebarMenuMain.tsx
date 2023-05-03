@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
 import { useIntl } from 'react-intl';
 import { SidebarMenuItem } from './SidebarMenuItem';
-import { SidebarMenuItemWithSub } from './SidebarMenuItemWithSub';
 
 const SidebarMenuMain = () => {
   const intl = useIntl();
@@ -21,9 +20,20 @@ const SidebarMenuMain = () => {
         </div>
       </div>
 
-      <SidebarMenuItemWithSub to="/c-user/" title="User" icon="/media/icons/duotune/general/gen025.svg" fontIcon="bi-layers">
+      <SidebarMenuItem
+        to="/c-user"
+        icon="/media/icons/duotune/general/gen051.svg"
+        title="Profile"
+        fontIcon="bi-layers"
+      />
+
+      {/* <SidebarMenuItemWithSub
+        to="/c-user/"
+        title="User"
+        icon="/media/icons/duotune/general/gen025.svg"
+        fontIcon="bi-layers">
         <SidebarMenuItem to="/c-user/profile" title="Profile" hasBullet={true} />
-      </SidebarMenuItemWithSub>
+      </SidebarMenuItemWithSub> */}
 
       {/* <SidebarMenuItemWithSub to="/crafted/pages" title="Pages" fontIcon="bi-archive" icon="/media/icons/duotune/general/gen022.svg">
         <SidebarMenuItemWithSub to="/crafted/pages/profile" title="Profile" hasBullet={true}>

@@ -5,8 +5,9 @@ import { MenuTestPage } from 'app/pages/MenuTestPage';
 import { DashboardWrapper } from 'app/pages/dashboard/DashboardWrapper';
 import BuilderPageWrapper from 'app/pages/layout-builder/BuilderPageWrapper';
 import { FC, Suspense, lazy } from 'react';
-import { Navigate, RouteObject } from 'react-router-dom';
+import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 import TopBarProgress from 'react-topbar-progress-indicator';
+import { AccountHeader } from 'app/modules/accounts/AccountHeader';
 
 // app
 const App = lazy(() => import('app/App'));
@@ -72,8 +73,20 @@ export const rootRoutes: IGetRoute = (isAuthenticated) => ({
               { path: 'menu-test', element: <MenuTestPage /> },
 
               // pages
-              { path: 'c-user/profile', element: <UserProfilePage /> },
-              { path: 'c-user/setting', element: <UserSettingPage /> },
+              {
+                path: 'c-user',
+                element: (
+                  <>
+                    <AccountHeader />
+                    <Outlet />
+                  </>
+                ),
+                children: [
+                  { index: true, element: <Navigate to="profile" /> },
+                  { path: 'profile', element: <UserProfilePage /> },
+                  { path: 'setting', element: <UserSettingPage /> },
+                ],
+              },
 
               // crafted
               { path: 'crafted/pages/profile/*', element: <ProfilePage /> },
