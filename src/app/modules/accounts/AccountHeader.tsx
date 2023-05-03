@@ -17,7 +17,7 @@ const AccountHeader: React.FC = () => {
           <div className="me-7 mb-4">
             <div className="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
               <img src={toAbsoluteUrl('/media/avatars/300-1.jpg')} alt="Metronic" />
-              <div className="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"></div>
+              <div className="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-white h-20px w-20px"></div>
             </div>
           </div>
 
@@ -33,13 +33,6 @@ const AccountHeader: React.FC = () => {
                       path="/media/icons/duotune/general/gen026.svg"
                       className="svg-icon-1 svg-icon-primary"
                     />
-                  </a>
-                  <a
-                    href="#"
-                    className="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3"
-                    data-bs-toggle="modal"
-                    data-bs-target="#kt_modal_upgrade_plan">
-                    Upgrade to Pro
                   </a>
                 </div>
 
@@ -152,23 +145,21 @@ const AccountHeader: React.FC = () => {
             <li className="nav-item">
               <Link
                 className={
-                  `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/crafted/account/overview' && 'active')
+                  `nav-link text-active-primary me-6 ` + (location.pathname === '/c-user/profile' && 'active')
                 }
-                to="/crafted/account/overview">
+                to="/c-user/profile">
                 Overview
               </Link>
             </li>
-            {/* <li className="nav-item">
+            <li className="nav-item">
               <Link
                 className={
-                  `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/crafted/account/settings' && 'active')
+                  `nav-link text-active-primary me-6 ` + (location.pathname === '/c-user/setting' && 'active')
                 }
-                to="/crafted/account/settings">
-                Settings
+                to="/c-user/setting">
+                Setting
               </Link>
-            </li> */}
+            </li>
           </ul>
         </div>
       </div>
