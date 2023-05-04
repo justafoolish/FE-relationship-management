@@ -7,7 +7,7 @@ export type DialogType = 'modal' | 'drawer';
 
 export interface IDialogState {
   visible?: boolean;
-  dialogWizard: DIALOG_WIZARDS;
+  dialogWizard?: DIALOG_WIZARDS;
   options: {
     type?: DialogType;
     className?: string;
@@ -23,7 +23,6 @@ export const initDialogState: IDialogState = {
     placement: 'end',
     modalSize: 'xl',
   },
-  dialogWizard: DIALOG_WIZARDS.TEST,
 };
 
 export const dialogSlice = createSlice({

@@ -163,7 +163,10 @@ const AllPeople: FC = () => {
           <span className="text-muted mt-1 fw-semibold fs-7">A group of all the people in your network</span>
         </h3>
         <div className="card-toolbar">
-          <Button className="px-4" size={BUTTON_SIZES.SM} onClick={() => openDialog(DIALOG_WIZARDS.TEST, {})}>
+          <Button
+            className="px-4"
+            size={BUTTON_SIZES.SM}
+            onClick={() => openDialog(DIALOG_WIZARDS.ADD_PEOPLE_FORM, {})}>
             Add People
           </Button>
         </div>

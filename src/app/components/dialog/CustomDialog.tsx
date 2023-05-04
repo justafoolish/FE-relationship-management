@@ -1,25 +1,8 @@
-import DIALOG_WIZARDS from 'app/domains/dialog/dialog.e';
 import { closeDialogAction } from 'app/reducers/dialog/dialog.slice';
-import { useAppSelector } from 'app/reducers/store.hook';
-import { FC, useMemo } from 'react';
+import { useAppDispatch, useAppSelector } from 'app/reducers/store.hook';
+import { FC, Fragment, useMemo } from 'react';
 import { Modal, Offcanvas } from 'react-bootstrap';
-import { useAppDispatch } from '../../reducers/store.hook';
-
-const Temp: FC = () => {
-  return (
-    <>
-      Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images,
-      lists, etc.
-    </>
-  );
-};
-const ListCustomDialog = {
-  [DIALOG_WIZARDS.TEST]: Temp,
-};
-
-const ListCustomDialogTitle = {
-  [DIALOG_WIZARDS.TEST]: 'Test',
-};
+import { ListCustomDialog, ListCustomDialogTitle } from './dialog';
 
 const DialogComponentType = {
   drawer: Offcanvas,
@@ -33,8 +16,14 @@ const CustomDialog: FC = () => {
   const { type = 'drawer', className, placement, modalSize } = options;
 
   const DialogComponent = useMemo(() => DialogComponentType[type], [type]);
-  const DialogBodyComponent: FC<any> = useMemo(() => ListCustomDialog[dialogWizard], [dialogWizard]);
-  const title = useMemo(() => ListCustomDialogTitle[dialogWizard], [dialogWizard]);
+  const DialogBodyComponent: FC<any> = useMemo(
+    () => (dialogWizard ? ListCustomDialog[dialogWizard] : Fragment),
+    [dialogWizard]
+  );
+  const title = useMemo(
+    () => (dialogWizard ? ListCustomDialogTitle[dialogWizard] : 'Form Title'),
+    [dialogWizard]
+  );
 
   const customProps = useMemo(() => {
     if (type === 'drawer')
@@ -58,7 +47,7 @@ const CustomDialog: FC = () => {
       show={visible}
       size={modalSize}
       onHide={() => dispatch(closeDialogAction())}>
-      <DialogComponent.Header closeButton>
+      <DialogComponent.Header closeButton className="border-bottom">
         <DialogComponent.Title>{title}</DialogComponent.Title>
       </DialogComponent.Header>
       <DialogComponent.Body>
