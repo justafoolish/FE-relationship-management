@@ -1,10 +1,10 @@
 import React from 'react';
-import {
-  ChartsWidget1,
-  TablesWidget1,
-  ListsWidget5,
-  TablesWidget5,
-} from '../../../../_metronic/partials/widgets';
+// import {
+//   ChartsWidget1,
+//   TablesWidget1,
+//   ListsWidget5,
+//   TablesWidget5,
+// } from '../../../../_metronic/partials/widgets';
 import { useAppSelector } from 'app/reducers/store.hook';
 import { userInfoSelector } from 'app/reducers/user/auth.slice';
 
