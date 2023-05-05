@@ -67,7 +67,7 @@ const FormControl: FC<FormControlProps> = (props) => {
     'form-control',
     {
       'is-invalid': isTouched && Boolean(error?.message),
-      'is-valid': isTouched && !Boolean(error?.message),
+      'is-valid': isTouched && !error?.message,
     },
     [className || 'bg-transparent']
   );

@@ -26,7 +26,11 @@ export function Projects() {
               <option value="In Progress">Completed</option>
             </select>
           </div>
-          <a href="#" className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_create_project">
+          <a
+            href="#"
+            className="btn btn-primary btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#kt_modal_create_project">
             New Project
           </a>
         </div>

@@ -21,7 +21,10 @@ const Step4: FC = () => {
       <div className="d-flex flex-column mb-7 fv-row">
         <label className="d-flex align-items-center fs-6 fw-bold form-label mb-2">
           <span className="required">Name On Card</span>
-          <i className="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a card holder's name"></i>
+          <i
+            className="fas fa-exclamation-circle ms-2 fs-7"
+            data-bs-toggle="tooltip"
+            title="Specify a card holder's name"></i>
         </label>
 
         <Field type="text" className="form-control form-control-solid" placeholder="" name="nameOnCard" />
@@ -34,7 +37,12 @@ const Step4: FC = () => {
         <label className="required fs-6 fw-bold form-label mb-2">Card Number</label>
 
         <div className="position-relative">
-          <Field type="text" className="form-control form-control-solid" placeholder="Enter card number" name="cardNumber" />
+          <Field
+            type="text"
+            className="form-control form-control-solid"
+            placeholder="Enter card number"
+            name="cardNumber"
+          />
           <div className="text-danger mt-2">
             <ErrorMessage name="cardNumber" />
           </div>
@@ -42,7 +50,11 @@ const Step4: FC = () => {
           <div className="position-absolute translate-middle-y top-50 end-0 me-5">
             <img src={toAbsoluteUrl('/media/svg/card-logos/visa.svg')} alt="" className="h-25px" />
             <img src={toAbsoluteUrl('/media/svg/card-logos/mastercard.svg')} alt="" className="h-25px" />
-            <img src={toAbsoluteUrl('/media/svg/card-logos/american-express.svg')} alt="" className="h-25px" />
+            <img
+              src={toAbsoluteUrl('/media/svg/card-logos/american-express.svg')}
+              alt=""
+              className="h-25px"
+            />
           </div>
         </div>
       </div>
@@ -98,11 +110,21 @@ const Step4: FC = () => {
         <div className="col-md-4 fv-row">
           <label className="d-flex align-items-center fs-6 fw-bold form-label mb-2">
             <span className="required">CVV</span>
-            <i className="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter a card CVV code"></i>
+            <i
+              className="fas fa-exclamation-circle ms-2 fs-7"
+              data-bs-toggle="tooltip"
+              title="Enter a card CVV code"></i>
           </label>
 
           <div className="position-relative">
-            <Field type="text" className="form-control form-control-solid" minLength={3} maxLength={4} placeholder="CVV" name="cardCvv" />
+            <Field
+              type="text"
+              className="form-control form-control-solid"
+              minLength={3}
+              maxLength={4}
+              placeholder="CVV"
+              name="cardCvv"
+            />
             <div className="text-danger mt-2">
               <ErrorMessage name="cardCvv" />
             </div>
@@ -117,7 +139,9 @@ const Step4: FC = () => {
       <div className="d-flex flex-stack">
         <div className="me-5">
           <label className="fs-6 fw-bold form-label">Save Card for further billing?</label>
-          <div className="fs-7 fw-bold text-gray-400">If you need more info, please check budget planning</div>
+          <div className="fs-7 fw-bold text-gray-400">
+            If you need more info, please check budget planning
+          </div>
         </div>
 
         <label className="form-check form-switch form-check-custom form-check-solid">

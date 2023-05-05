@@ -8,7 +8,7 @@ interface DateInputProps {
   className?: string;
   [x: string]: any;
 }
-const DateInput: FC<DateInputProps> = ({ name = '', placeholder, type = 'text', className, ...rest }) => {
+const DateInput: FC<DateInputProps> = ({ name = '', placeholder, className, ...rest }) => {
   const { control } = useFormContext();
   const { field } = useController({
     name,

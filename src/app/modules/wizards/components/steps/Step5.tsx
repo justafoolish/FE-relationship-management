@@ -20,12 +20,15 @@ const Step5: FC = () => {
 
       <div className="mb-0">
         <div className="fs-6 text-gray-600 mb-5">
-          Writing headlines for blog posts is as much an art as it is a science and probably warrants its own post, but for all advise is with what
-          works for your great & amazing audience.
+          Writing headlines for blog posts is as much an art as it is a science and probably warrants its own
+          post, but for all advise is with what works for your great & amazing audience.
         </div>
 
         <div className="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
-          <KTSVG path="/media/icons/duotune/general/gen044.svg" className="svg-icon-2tx svg-icon-warning me-4" />
+          <KTSVG
+            path="/media/icons/duotune/general/gen044.svg"
+            className="svg-icon-2tx svg-icon-warning me-4"
+          />
           <div className="d-flex flex-stack flex-grow-1">
             <div className="fw-bold">
               <h4 className="text-gray-800 fw-bolder">We need your attention!</h4>

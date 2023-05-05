@@ -10,7 +10,7 @@ export function Settings() {
 
   return (
     <div className="card">
-      {/* begin::Form*/}
+      {/* begin::Form */}
       <form className="form d-flex flex-center">
         <div className="card-body mw-800px py-20">
           <div className="row">
@@ -21,7 +21,9 @@ export function Settings() {
           </div>
 
           <div className="mb-5 row align-items-center mb-2">
-            <label className="col-xl-3 col-lg-3 col-form-label fw-bold text-start text-lg-end">Email Notifications</label>
+            <label className="col-xl-3 col-lg-3 col-form-label fw-bold text-start text-lg-end">
+              Email Notifications
+            </label>
             <div className="col-lg-9 col-xl-6 d-flex align-items-center">
               <div className="form-check form-check-custom form-check-solid form-switch">
                 <input
@@ -42,7 +44,9 @@ export function Settings() {
           </div>
 
           <div className="mb-5 row align-items-center">
-            <label className="col-xl-3 col-lg-3 col-form-label fw-bold text-start text-lg-end">Send Copy To Personal Email</label>
+            <label className="col-xl-3 col-lg-3 col-form-label fw-bold text-start text-lg-end">
+              Send Copy To Personal Email
+            </label>
             <div className="col-lg-9 col-xl-6">
               <div className="form-check form-check-custom form-check-solid form-switch">
                 <input
@@ -72,7 +76,9 @@ export function Settings() {
           </div>
 
           <div className="mb-8 row">
-            <label className="col-xl-3 col-lg-3 col-form-label fw-bold text-start text-lg-end">When To Email</label>
+            <label className="col-xl-3 col-lg-3 col-form-label fw-bold text-start text-lg-end">
+              When To Email
+            </label>
             <div className="col-lg-9 col-xl-6">
               <div className="form-check form-check-custom form-check-solid mb-3">
                 <input
@@ -86,7 +92,8 @@ export function Settings() {
                         ...data.activityRelatedEmail,
                         whenToEmail: {
                           ...data.activityRelatedEmail.whenToEmail,
-                          youHaveNewNotifications: !data.activityRelatedEmail.whenToEmail.youHaveNewNotifications,
+                          youHaveNewNotifications:
+                            !data.activityRelatedEmail.whenToEmail.youHaveNewNotifications,
                         },
                       },
                     })
@@ -130,7 +137,8 @@ export function Settings() {
                         ...data.activityRelatedEmail,
                         whenToEmail: {
                           ...data.activityRelatedEmail.whenToEmail,
-                          someoneAddsYouAsAConnection: !data.activityRelatedEmail.whenToEmail.someoneAddsYouAsAConnection,
+                          someoneAddsYouAsAConnection:
+                            !data.activityRelatedEmail.whenToEmail.someoneAddsYouAsAConnection,
                         },
                       },
                     })
@@ -144,7 +152,9 @@ export function Settings() {
           </div>
 
           <div className="mb-8 row">
-            <label className="col-xl-3 col-lg-3 col-form-label fw-bold text-start  text-lg-end">When To Escalate Emails</label>
+            <label className="col-xl-3 col-lg-3 col-form-label fw-bold text-start  text-lg-end">
+              When To Escalate Emails
+            </label>
             <div className="col-lg-9 col-xl-6">
               <div className="form-check form-check-custom form-check-solid mb-3">
                 <input
@@ -180,7 +190,8 @@ export function Settings() {
                         ...data.activityRelatedEmail,
                         whenToEscalateEmails: {
                           ...data.activityRelatedEmail.whenToEscalateEmails,
-                          newMembershipApproval: !data.activityRelatedEmail.whenToEscalateEmails.newMembershipApproval,
+                          newMembershipApproval:
+                            !data.activityRelatedEmail.whenToEscalateEmails.newMembershipApproval,
                         },
                       },
                     })
@@ -202,7 +213,8 @@ export function Settings() {
                         ...data.activityRelatedEmail,
                         whenToEscalateEmails: {
                           ...data.activityRelatedEmail.whenToEscalateEmails,
-                          memberRegistration: !data.activityRelatedEmail.whenToEscalateEmails.memberRegistration,
+                          memberRegistration:
+                            !data.activityRelatedEmail.whenToEscalateEmails.memberRegistration,
                         },
                       },
                     })
@@ -225,7 +237,9 @@ export function Settings() {
           </div>
 
           <div className="mb-8 row">
-            <label className="col-xl-3 col-lg-3 col-form-label fw-bold text-start  text-lg-end">Email You With</label>
+            <label className="col-xl-3 col-lg-3 col-form-label fw-bold text-start  text-lg-end">
+              Email You With
+            </label>
             <div className="col-lg-9 col-xl-6">
               <div className="form-check form-check-custom form-check-solid mb-3">
                 <input
@@ -306,22 +320,24 @@ export function Settings() {
             </div>
           </div>
 
-          {/* begin::Form Group*/}
+          {/* begin::Form Group */}
           <div className="mb-8 row pt-10">
             <label className="col-lg-3 col-form-label"></label>
             <div className="col-lg-9">
               <button type="reset" className="btn btn-primary fw-bolder px-6 py-3 me-3">
                 Save Changes
               </button>
-              <button type="reset" className="btn btn-color-gray-600 btn-active-light-primary fw-bolder px-6 py-3">
+              <button
+                type="reset"
+                className="btn btn-color-gray-600 btn-active-light-primary fw-bolder px-6 py-3">
                 Cancel
               </button>
             </div>
           </div>
-          {/* end::Form Group*/}
+          {/* end::Form Group */}
         </div>
       </form>
-      {/* end::Form*/}
+      {/* end::Form */}
     </div>
   );
 }

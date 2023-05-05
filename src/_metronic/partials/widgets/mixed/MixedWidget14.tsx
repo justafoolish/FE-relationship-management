@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useRef } from 'react';
 import ApexCharts, { ApexOptions } from 'apexcharts';
@@ -150,7 +149,7 @@ const chartOptions = (chartHeight: string): ApexOptions => {
       },
       axisTicks: {
         show: false,
-        background: labelColor,
+        // background: labelColor,
       },
       labels: {
         show: false,

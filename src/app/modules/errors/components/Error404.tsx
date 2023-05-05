@@ -15,8 +15,16 @@ const Error404: FC = () => {
 
       {/* begin::Illustration */}
       <div className="mb-3">
-        <img src={toAbsoluteUrl('/media/auth/404-error.png')} className="mw-100 mh-300px theme-light-show" alt="" />
-        <img src={toAbsoluteUrl('/media/auth/404-error-dark.png')} className="mw-100 mh-300px theme-dark-show" alt="" />
+        <img
+          src={toAbsoluteUrl('/media/auth/404-error.png')}
+          className="mw-100 mh-300px theme-light-show"
+          alt=""
+        />
+        <img
+          src={toAbsoluteUrl('/media/auth/404-error-dark.png')}
+          className="mw-100 mh-300px theme-dark-show"
+          alt=""
+        />
       </div>
       {/* end::Illustration */}
 

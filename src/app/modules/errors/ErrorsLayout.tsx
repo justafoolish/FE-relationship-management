@@ -9,7 +9,9 @@ const ErrorsLayout = () => {
   useEffect(() => {
     BODY_CLASSES.forEach((c) => document.body.classList.add(c));
     document.body.style.backgroundImage =
-      mode === 'dark' ? `url(${toAbsoluteUrl('/media/auth/bg7-dark.jpg')})` : `url(${toAbsoluteUrl('/media/auth/bg7.jpg')})`;
+      mode === 'dark'
+        ? `url(${toAbsoluteUrl('/media/auth/bg7-dark.jpg')})`
+        : `url(${toAbsoluteUrl('/media/auth/bg7.jpg')})`;
 
     return () => {
       BODY_CLASSES.forEach((c) => document.body.classList.remove(c));

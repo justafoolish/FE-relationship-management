@@ -9,7 +9,7 @@ const useDialog = () => {
     dispatch(
       openDialogAction({
         ...payload,
-        dialogWizard: dialogWizard,
+        dialogWizard,
         options: payload.options ?? {},
       })
     );

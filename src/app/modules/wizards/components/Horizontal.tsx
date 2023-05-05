@@ -25,7 +25,7 @@ const Horizontal: FC = () => {
       return;
     }
 
-    setSubmitButton(stepper.current.currentStepIndex === stepper.current.totatStepsNumber! - 1);
+    setSubmitButton(stepper.current.currentStepIndex === stepper?.current?.totatStepsNumber - 1);
 
     stepper.current.goPrev();
 
@@ -37,7 +37,7 @@ const Horizontal: FC = () => {
       return;
     }
 
-    setSubmitButton(stepper.current.currentStepIndex === stepper.current.totatStepsNumber! - 1);
+    setSubmitButton(stepper.current.currentStepIndex === stepper?.current?.totatStepsNumber - 1);
 
     setCurrentSchema(createAccountSchemas[stepper.current.currentStepIndex]);
 
@@ -60,7 +60,10 @@ const Horizontal: FC = () => {
   return (
     <div className="card">
       <div className="card-body">
-        <div ref={stepperRef} className="stepper stepper-links d-flex flex-column pt-15" id="kt_create_account_stepper">
+        <div
+          ref={stepperRef}
+          className="stepper stepper-links d-flex flex-column pt-15"
+          id="kt_create_account_stepper">
           <div className="stepper-nav mb-5">
             <div className="stepper-item current" data-kt-stepper-element="nav">
               <h3 className="stepper-title">Account Type</h3>
@@ -108,7 +111,11 @@ const Horizontal: FC = () => {
 
                 <div className="d-flex flex-stack pt-15">
                   <div className="mr-2">
-                    <button onClick={prevStep} type="button" className="btn btn-lg btn-light-primary me-3" data-kt-stepper-action="previous">
+                    <button
+                      onClick={prevStep}
+                      type="button"
+                      className="btn btn-lg btn-light-primary me-3"
+                      data-kt-stepper-action="previous">
                       <KTSVG path="/media/icons/duotune/arrows/arr063.svg" className="svg-icon-4 me-1" />
                       Back
                     </button>
@@ -119,7 +126,10 @@ const Horizontal: FC = () => {
                       <span className="indicator-label">
                         {!isSubmitButton && 'Continue'}
                         {isSubmitButton && 'Submit'}
-                        <KTSVG path="/media/icons/duotune/arrows/arr064.svg" className="svg-icon-3 ms-2 me-0" />
+                        <KTSVG
+                          path="/media/icons/duotune/arrows/arr064.svg"
+                          className="svg-icon-3 ms-2 me-0"
+                        />
                       </span>
                     </button>
                   </div>

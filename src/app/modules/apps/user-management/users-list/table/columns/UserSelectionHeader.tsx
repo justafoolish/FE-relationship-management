@@ -3,9 +3,9 @@ import { HeaderProps } from 'react-table';
 import { useListView } from '../../core/ListViewProvider';
 import { User } from '../../core/_models';
 
-type Props = {
+interface Props {
   tableProps: PropsWithChildren<HeaderProps<User>>;
-};
+}
 
 const UserSelectionHeader: FC<Props> = ({ tableProps }) => {
   const { isAllSelected, onSelectAll } = useListView();
