@@ -40,8 +40,7 @@ const useAuthGuard = () => {
     authDispatch(updateLoginStatus(false));
     authDispatch(updateAccessToken(''));
     authDispatch(updateUserInfo(undefined));
-    navigate('/auth')
-    
+    navigate('/auth');
   }, []);
 
   return { setAccessToken, setAuthenticated, handleLogout, setRefreshToken, currentUser };

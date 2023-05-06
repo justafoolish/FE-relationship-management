@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
-import { toAbsoluteUrl } from '../../../../../../_metronic/helpers';
-import * as Yup from 'yup';
-import { useAppSelector } from 'app/reducers/store.hook';
-import { userInfoSelector } from 'app/reducers/user/auth.slice';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { IUserInfo } from 'app/domains/user/user.i';
+import Button from 'app/components/button';
 import FormControl from 'app/components/form-control/FormControl';
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
-import Button from 'app/components/button';
-import { useGetUserInfoMutation, useSubmitLoginMutation, useUpdateUserInfoMutation } from 'app/reducers/account/account.api';
-import { toast } from 'react-hot-toast';
+import { IUserInfo } from 'app/domains/user/user.i';
 import { handleQueryError } from 'app/modules/utils/error-handler';
+import { useGetUserInfoMutation, useUpdateUserInfoMutation } from 'app/reducers/account/account.api';
+import { useAppSelector } from 'app/reducers/store.hook';
+import { userInfoSelector } from 'app/reducers/user/auth.slice';
+import React from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+import * as Yup from 'yup';
 
 const userInfoSchema = Yup.object().shape({
   first_name: Yup.string().required('First name is required'),
@@ -43,7 +42,6 @@ export const ProfileDetails: React.FC = () => {
   });
 
   const submitUserInfo: SubmitHandler<Partial<IUserInfo>> = async (data) => {
-
     try {
       data.name = data.first_name;
       await updateUser(data).unwrap();
@@ -51,11 +49,9 @@ export const ProfileDetails: React.FC = () => {
       await getUserInfo();
 
       toast.success('Update Successful');
-
     } catch (error) {
-      handleQueryError(error)
+      handleQueryError(error);
     }
-
   };
 
   return (
@@ -150,12 +146,12 @@ export const ProfileDetails: React.FC = () => {
 
               <div className="row mb-6">
                 <label className="col-lg-4 col-form-label fw-bold fs-6">
-                  <span >Country</span>
+                  <span>Country</span>
                 </label>
 
                 <div className="col-lg-8 fv-row">
                   <label className="col-lg-4 col-form-label fw-bold fs-6">
-                    <span >Ho Chi Minh city</span>
+                    <span>Ho Chi Minh city</span>
                   </label>
                 </div>
               </div>
