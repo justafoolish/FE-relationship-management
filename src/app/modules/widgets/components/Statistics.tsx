@@ -232,11 +232,23 @@ const Statistics: FC = () => {
       {/* begin::Row */}
       <div className="row g-5 g-xl-8">
         <div className="col-xl-4">
-          <StatisticsWidget6 className="card-xl-stretch mb-xl-8" color="success" title="Avarage" description="Project Progress" progress="50%" />
+          <StatisticsWidget6
+            className="card-xl-stretch mb-xl-8"
+            color="success"
+            title="Avarage"
+            description="Project Progress"
+            progress="50%"
+          />
         </div>
 
         <div className="col-xl-4">
-          <StatisticsWidget6 className="card-xl-stretch mb-xl-8" color="warning" title="48k Goal" description="Company Finance" progress="15%" />
+          <StatisticsWidget6
+            className="card-xl-stretch mb-xl-8"
+            color="warning"
+            title="48k Goal"
+            description="Company Finance"
+            progress="15%"
+          />
         </div>
 
         <div className="col-xl-4">

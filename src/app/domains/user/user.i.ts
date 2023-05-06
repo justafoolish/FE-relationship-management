@@ -14,6 +14,7 @@ export interface IUserInfo {
   status: boolean;
   created_at: string;
   updated_at: string;
+  name: string;
 }
 
 export interface IJWT {

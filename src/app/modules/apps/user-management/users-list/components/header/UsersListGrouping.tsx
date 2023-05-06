@@ -24,7 +24,10 @@ const UsersListGrouping = () => {
         <span className="me-2">{selected.length}</span> Selected
       </div>
 
-      <button type="button" className="btn btn-danger" onClick={async () => await deleteSelectedItems.mutateAsync()}>
+      <button
+        type="button"
+        className="btn btn-danger"
+        onClick={async () => await deleteSelectedItems.mutateAsync()}>
         Delete Selected
       </button>
     </div>

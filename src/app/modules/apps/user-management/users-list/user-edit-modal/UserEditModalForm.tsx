@@ -9,13 +9,17 @@ import { UsersListLoading } from '../components/loading/UsersListLoading';
 import { createUser, updateUser } from '../core/_requests';
 import { useQueryResponse } from '../core/QueryResponseProvider';
 
-type Props = {
+interface Props {
   isUserLoading: boolean;
   user: User;
-};
+}
 
 const editUserSchema = Yup.object().shape({
-  email: Yup.string().email('Wrong email format').min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols').required('Email is required'),
+  email: Yup.string()
+    .email('Wrong email format')
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Email is required'),
   name: Yup.string().min(3, 'Minimum 3 symbols').max(50, 'Maximum 50 symbols').required('Name is required'),
 });
 
@@ -82,9 +86,14 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
             {/* end::Label */}
 
             {/* begin::Image input */}
-            <div className="image-input image-input-outline" data-kt-image-input="true" style={{ backgroundImage: `url('${blankImg}')` }}>
+            <div
+              className="image-input image-input-outline"
+              data-kt-image-input="true"
+              style={{ backgroundImage: `url('${blankImg}')` }}>
               {/* begin::Preview existing avatar */}
-              <div className="image-input-wrapper w-125px h-125px" style={{ backgroundImage: `url('${userAvatarImg}')` }}></div>
+              <div
+                className="image-input-wrapper w-125px h-125px"
+                style={{ backgroundImage: `url('${userAvatarImg}')` }}></div>
               {/* end::Preview existing avatar */}
 
               {/* begin::Label */}
@@ -277,7 +286,8 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                 <label className="form-check-label" htmlFor="kt_modal_update_role_option_2">
                   <div className="fw-bolder text-gray-800">Analyst</div>
                   <div className="text-gray-600">
-                    Best for people who need full access to analytics data, but don't need to update business settings
+                    Best for people who need full access to analytics data, but don't need to update business
+                    settings
                   </div>
                 </label>
                 {/* end::Label */}
@@ -305,7 +315,9 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                 {/* begin::Label */}
                 <label className="form-check-label" htmlFor="kt_modal_update_role_option_3">
                   <div className="fw-bolder text-gray-800">Support</div>
-                  <div className="text-gray-600">Best for employees who regularly refund payments and respond to disputes</div>
+                  <div className="text-gray-600">
+                    Best for employees who regularly refund payments and respond to disputes
+                  </div>
                 </label>
                 {/* end::Label */}
               </div>
@@ -332,7 +344,9 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                 {/* begin::Label */}
                 <label className="form-check-label" htmlFor="kt_modal_update_role_option_4">
                   <div className="fw-bolder text-gray-800">Trial</div>
-                  <div className="text-gray-600">Best for people who need to preview content data, but don't need to make any updates</div>
+                  <div className="text-gray-600">
+                    Best for people who need to preview content data, but don't need to make any updates
+                  </div>
                 </label>
                 {/* end::Label */}
               </div>

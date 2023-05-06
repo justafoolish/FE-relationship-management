@@ -92,7 +92,9 @@ const EmailPreferences: React.FC = () => {
 
               <span className="form-check-label d-flex flex-column align-items-start">
                 <span className="fw-bolder fs-5 mb-0">Fee Collection</span>
-                <span className="text-muted fs-6">Receive a notification each time you collect a fee from sales</span>
+                <span className="text-muted fs-6">
+                  Receive a notification each time you collect a fee from sales
+                </span>
               </span>
             </label>
 
@@ -113,7 +115,9 @@ const EmailPreferences: React.FC = () => {
 
               <span className="form-check-label d-flex flex-column align-items-start">
                 <span className="fw-bolder fs-5 mb-0">Customer Payment Dispute</span>
-                <span className="text-muted fs-6">Receive a notification if a payment is disputed by a customer and for dispute purposes.</span>
+                <span className="text-muted fs-6">
+                  Receive a notification if a payment is disputed by a customer and for dispute purposes.
+                </span>
               </span>
             </label>
 
@@ -134,7 +138,9 @@ const EmailPreferences: React.FC = () => {
 
               <span className="form-check-label d-flex flex-column align-items-start">
                 <span className="fw-bolder fs-5 mb-0">Refund Alerts</span>
-                <span className="text-muted fs-6">Receive a notification if a payment is stated as risk by the Finance Department.</span>
+                <span className="text-muted fs-6">
+                  Receive a notification if a payment is stated as risk by the Finance Department.
+                </span>
               </span>
             </label>
 
@@ -155,7 +161,9 @@ const EmailPreferences: React.FC = () => {
 
               <span className="form-check-label d-flex flex-column align-items-start">
                 <span className="fw-bolder fs-5 mb-0">Invoice Payments</span>
-                <span className="text-muted fs-6">Receive a notification if a customer sends an incorrect amount to pay their invoice.</span>
+                <span className="text-muted fs-6">
+                  Receive a notification if a customer sends an incorrect amount to pay their invoice.
+                </span>
               </span>
             </label>
 
@@ -176,7 +184,9 @@ const EmailPreferences: React.FC = () => {
 
               <span className="form-check-label d-flex flex-column align-items-start">
                 <span className="fw-bolder fs-5 mb-0">Webhook API Endpoints</span>
-                <span className="text-muted fs-6">Receive notifications for consistently failing webhook API endpoints.</span>
+                <span className="text-muted fs-6">
+                  Receive notifications for consistently failing webhook API endpoints.
+                </span>
               </span>
             </label>
           </div>

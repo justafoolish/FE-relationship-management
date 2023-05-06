@@ -30,7 +30,14 @@ const DashboardPage: FC = () => (
           color="#F1416C"
           img={toAbsoluteUrl('/media/patterns/vector-1.png')}
         />
-        <CardsWidget7 className="h-md-50 mb-5 mb-xl-10" description="Professionals" icon={false} stats={357} labelColor="dark" textColor="gray-300" />
+        <CardsWidget7
+          className="h-md-50 mb-5 mb-xl-10"
+          description="Professionals"
+          icon={false}
+          stats={357}
+          labelColor="dark"
+          textColor="gray-300"
+        />
       </div>
       {/* end::Col */}
 

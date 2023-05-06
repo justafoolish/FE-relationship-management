@@ -27,6 +27,27 @@ const SidebarMenuMain = () => {
         fontIcon="bi-layers"
       />
 
+      <SidebarMenuItem
+        to="/crafted/pages/profile/campaigns"
+        icon="/media/icons/duotune/general/gen051.svg"
+        title="Interactions"
+        fontIcon="bi-layers"
+      />
+
+      <SidebarMenuItem
+        to="/crafted/pages/profile/connections"
+        icon="/media/icons/duotune/general/gen051.svg"
+        title="Reminders"
+        fontIcon="bi-layers"
+      />
+
+      <SidebarMenuItem
+        to="/all-people"
+        icon="/media/icons/duotune/general/gen051.svg"
+        title="All People"
+        fontIcon="bi-layers"
+      />
+
       {/* <SidebarMenuItemWithSub
         to="/c-user/"
         title="User"

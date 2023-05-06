@@ -1,18 +1,20 @@
-// @ts-nocheck
 import clsx from 'clsx';
 import { FC } from 'react';
 import { Row } from 'react-table';
 import { User } from '../../core/_models';
 
-type Props = {
+interface Props {
   row: Row<User>;
-};
+}
 
 const CustomRow: FC<Props> = ({ row }) => (
   <tr {...row.getRowProps()}>
-    {row.cells.map((cell) => {
+    {row.cells.map((cell, idx) => {
       return (
-        <td {...cell.getCellProps()} className={clsx({ 'text-end min-w-100px': cell.column.id === 'actions' })}>
+        <td
+          {...cell.getCellProps()}
+          key={idx}
+          className={clsx({ 'text-end min-w-100px': cell.column.id === 'actions' })}>
           {cell.render('Cell')}
         </td>
       );

@@ -29,35 +29,69 @@ const Step2: FC = () => {
 
         <div className="row mb-2" data-kt-buttons="true">
           <div className="col">
-            <Field type="radio" className="btn-check" name="accountTeamSize" value="1-1" id="kt_account_team_size_select_1" />
-            <label className="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4" htmlFor="kt_account_team_size_select_1">
+            <Field
+              type="radio"
+              className="btn-check"
+              name="accountTeamSize"
+              value="1-1"
+              id="kt_account_team_size_select_1"
+            />
+            <label
+              className="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
+              htmlFor="kt_account_team_size_select_1">
               <span className="fw-bolder fs-3">1-1</span>
             </label>
           </div>
 
           <div className="col">
-            <Field type="radio" className="btn-check" name="accountTeamSize" value="2-10" id="kt_account_team_size_select_2" />
-            <label className="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4" htmlFor="kt_account_team_size_select_2">
+            <Field
+              type="radio"
+              className="btn-check"
+              name="accountTeamSize"
+              value="2-10"
+              id="kt_account_team_size_select_2"
+            />
+            <label
+              className="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
+              htmlFor="kt_account_team_size_select_2">
               <span className="fw-bolder fs-3">2-10</span>
             </label>
           </div>
 
           <div className="col">
-            <Field type="radio" className="btn-check" name="accountTeamSize" value="10-50" id="kt_account_team_size_select_3" />
-            <label className="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4" htmlFor="kt_account_team_size_select_3">
+            <Field
+              type="radio"
+              className="btn-check"
+              name="accountTeamSize"
+              value="10-50"
+              id="kt_account_team_size_select_3"
+            />
+            <label
+              className="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
+              htmlFor="kt_account_team_size_select_3">
               <span className="fw-bolder fs-3">10-50</span>
             </label>
           </div>
 
           <div className="col">
-            <Field type="radio" className="btn-check" name="accountTeamSize" value="50+" id="kt_account_team_size_select_4" />
-            <label className="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4" htmlFor="kt_account_team_size_select_4">
+            <Field
+              type="radio"
+              className="btn-check"
+              name="accountTeamSize"
+              value="50+"
+              id="kt_account_team_size_select_4"
+            />
+            <label
+              className="btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4"
+              htmlFor="kt_account_team_size_select_4">
               <span className="fw-bolder fs-3">50+</span>
             </label>
           </div>
         </div>
 
-        <div className="form-text">Customers will see this shortened version of your statement descriptor</div>
+        <div className="form-text">
+          Customers will see this shortened version of your statement descriptor
+        </div>
       </div>
 
       <div className="mb-10 fv-row">
@@ -72,7 +106,10 @@ const Step2: FC = () => {
       <div className="mb-0 fv-row">
         <label className="d-flex align-items-center form-label mb-5">
           Select Account Plan
-          <i className="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Monthly billing will be based on your account plan"></i>
+          <i
+            className="fas fa-exclamation-circle ms-2 fs-7"
+            data-bs-toggle="tooltip"
+            title="Monthly billing will be based on your account plan"></i>
         </label>
 
         <div className="mb-0">
@@ -80,7 +117,10 @@ const Step2: FC = () => {
             <span className="d-flex align-items-center me-2">
               <span className="symbol symbol-50px me-6">
                 <span className="symbol-label">
-                  <KTSVG path="/media/icons/duotune/finance/fin001.svg" className="svg-icon-1 svg-icon-gray-600" />
+                  <KTSVG
+                    path="/media/icons/duotune/finance/fin001.svg"
+                    className="svg-icon-1 svg-icon-gray-600"
+                  />
                 </span>
               </span>
 
@@ -99,7 +139,10 @@ const Step2: FC = () => {
             <span className="d-flex align-items-center me-2">
               <span className="symbol symbol-50px me-6">
                 <span className="symbol-label">
-                  <KTSVG path="/media/icons/duotune/graphs/gra006.svg" className="svg-icon-1 svg-icon-gray-600" />
+                  <KTSVG
+                    path="/media/icons/duotune/graphs/gra006.svg"
+                    className="svg-icon-1 svg-icon-gray-600"
+                  />
                 </span>
               </span>
 
@@ -118,7 +161,10 @@ const Step2: FC = () => {
             <span className="d-flex align-items-center me-2">
               <span className="symbol symbol-50px me-6">
                 <span className="symbol-label">
-                  <KTSVG path="/media/icons/duotune/graphs/gra008.svg" className="svg-icon-1 svg-icon-gray-600" />
+                  <KTSVG
+                    path="/media/icons/duotune/graphs/gra008.svg"
+                    className="svg-icon-1 svg-icon-gray-600"
+                  />
                 </span>
               </span>
 

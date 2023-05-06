@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { FC, useMemo } from 'react';
 import { FieldError, useController, useFormContext } from 'react-hook-form';
 
-import { PasswordInput, PhoneInput, TextInput } from '.';
+import { DateInput, PasswordInput, PhoneInput, TextInput } from '.';
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
 
 // Error message
@@ -31,6 +31,7 @@ const typeComponents: ITypeComponent = {
   [FORM_CONTROLS.MAIL]: TextInput,
   [FORM_CONTROLS.PASSWORD]: PasswordInput,
   [FORM_CONTROLS.TEL]: PhoneInput,
+  [FORM_CONTROLS.DATE_PICKER]: DateInput,
 };
 
 interface FormControlProps {
@@ -66,7 +67,7 @@ const FormControl: FC<FormControlProps> = (props) => {
     'form-control',
     {
       'is-invalid': isTouched && Boolean(error?.message),
-      'is-valid': isTouched && !Boolean(error?.message),
+      'is-valid': isTouched && !error?.message,
     },
     [className || 'bg-transparent']
   );

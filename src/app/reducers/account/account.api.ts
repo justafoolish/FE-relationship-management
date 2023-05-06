@@ -1,8 +1,10 @@
+import { IUpdatePassword, updatePassword } from './../../modules/accounts/components/settings/SettingsModel';
 import { createApi } from '@reduxjs/toolkit/query/react';
 import baseQueryWithAuth from '../base.auth';
 import { accountURL } from '../rtk.config';
 import { IJWT, IUserInfo } from 'app/domains/user/user.i';
 import BaseResponse from 'app/domains/rtk/base.response';
+import { buildCacheCollectionHandler } from '@reduxjs/toolkit/dist/query/core/buildMiddleware/cacheCollection';
 
 interface ILoginRequest {
   email: string;
@@ -61,7 +63,25 @@ export const accountAPI = createApi({
         },
       }),
     }),
+
+    updatePassword: builder.mutation<BaseResponse<any>, IUpdatePassword>({
+      query: (body) => ({
+        url: '/change-password',
+        method: 'PUT',
+        body,
+      }),
+    }),
+
+    updateUserInfo: builder.mutation<BaseResponse<any>, Partial<IUserInfo>>({
+      query: (body) => ({
+        url: '/',
+        method: 'POST',
+        body,
+      }),
+    }),
+
   }),
+  
 });
 
 export const {
@@ -70,4 +90,6 @@ export const {
   useGetUserInfoMutation,
   useGetRefreshTokenMutation,
   useResendRegisterLinkMutation,
+  useUpdatePasswordMutation,
+  useUpdateUserInfoMutation,
 } = accountAPI;

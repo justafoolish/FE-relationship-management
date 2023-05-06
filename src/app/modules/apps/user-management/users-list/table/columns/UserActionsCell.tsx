@@ -7,9 +7,9 @@ import { useListView } from '../../core/ListViewProvider';
 import { useQueryResponse } from '../../core/QueryResponseProvider';
 import { deleteUser } from '../../core/_requests';
 
-type Props = {
+interface Props {
   id: ID;
-};
+}
 
 const UserActionsCell: FC<Props> = ({ id }) => {
   const { setItemIdForUpdate } = useListView();
@@ -34,7 +34,11 @@ const UserActionsCell: FC<Props> = ({ id }) => {
 
   return (
     <>
-      <a href="#" className="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+      <a
+        href="#"
+        className="btn btn-light btn-active-light-primary btn-sm"
+        data-kt-menu-trigger="click"
+        data-kt-menu-placement="bottom-end">
         Actions
         <KTSVG path="/media/icons/duotune/arrows/arr072.svg" className="svg-icon-5 m-0" />
       </a>
@@ -52,7 +56,10 @@ const UserActionsCell: FC<Props> = ({ id }) => {
 
         {/* begin::Menu item */}
         <div className="menu-item px-3">
-          <a className="menu-link px-3" data-kt-users-table-filter="delete_row" onClick={async () => await deleteItem.mutateAsync()}>
+          <a
+            className="menu-link px-3"
+            data-kt-users-table-filter="delete_row"
+            onClick={async () => await deleteItem.mutateAsync()}>
             Delete
           </a>
         </div>

@@ -109,7 +109,7 @@ const AccountHeader: React.FC = () => {
               { to: '/c-user/setting', label: 'Setting' },
             ].map((path) => {
               return (
-                <li className="nav-item">
+                <li className="nav-item" key={path.to}>
                   <Link
                     className={clsx('nav-link text-active-primary me-6', [pathname === path.to && 'active'])}
                     to={path.to}>

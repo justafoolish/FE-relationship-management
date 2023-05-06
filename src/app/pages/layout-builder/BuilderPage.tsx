@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import clsx from 'clsx';
 import React, { useState } from 'react';
@@ -39,16 +40,21 @@ const BuilderPage: React.FC = () => {
               className="svg-icon-primary position-absolute opacity-15"
               svgClassName="h-80px w-80px"
             />
-            <KTSVG path="/media/icons/duotune/coding/cod009.svg" className="svg-icon-3x svg-icon-primary position-absolute" />
+            <KTSVG
+              path="/media/icons/duotune/coding/cod009.svg"
+              className="svg-icon-3x svg-icon-primary position-absolute"
+            />
           </div>
 
           <div className="ms-6">
             <p className="list-unstyled text-gray-600 fw-bold fs-6 p-0 m-0">
-              The layout builder is to assist your set and configure your preferred project layout specifications and preview it in real-time.
+              The layout builder is to assist your set and configure your preferred project layout
+              specifications and preview it in real-time.
             </p>
             <p className="list-unstyled text-gray-600 fw-bold fs-6 p-0 m-0">
-              Also, you can configurate the Layout in the code (<code>src/_metronic/layout/core/_LayoutConfig.ts</code> file). Don't forget clear your
-              local storage when you are changing _LayoutConfig.
+              Also, you can configurate the Layout in the code (
+              <code>src/_metronic/layout/core/_LayoutConfig.ts</code> file). Don't forget clear your local
+              storage when you are changing _LayoutConfig.
             </p>
           </div>
         </div>
@@ -64,17 +70,26 @@ const BuilderPage: React.FC = () => {
           "
             role="tablist">
             <li className="nav-item">
-              <a className={clsx(`nav-link cursor-pointer`, { active: tab === 'Sidebar' })} onClick={() => setTab('Sidebar')} role="tab">
+              <a
+                className={clsx(`nav-link cursor-pointer`, { active: tab === 'Sidebar' })}
+                onClick={() => setTab('Sidebar')}
+                role="tab">
                 Sidebar
               </a>
             </li>
             <li className="nav-item">
-              <a className={clsx(`nav-link cursor-pointer`, { active: tab === 'Header' })} onClick={() => setTab('Header')} role="tab">
+              <a
+                className={clsx(`nav-link cursor-pointer`, { active: tab === 'Header' })}
+                onClick={() => setTab('Header')}
+                role="tab">
                 Header
               </a>
             </li>
             <li className="nav-item">
-              <a className={clsx(`nav-link cursor-pointer`, { active: tab === 'Toolbar' })} onClick={() => setTab('Toolbar')} role="tab">
+              <a
+                className={clsx(`nav-link cursor-pointer`, { active: tab === 'Toolbar' })}
+                onClick={() => setTab('Toolbar')}
+                role="tab">
                 Toolbar
               </a>
             </li>
@@ -102,7 +117,12 @@ const BuilderPage: React.FC = () => {
                           checked={config.app?.sidebar?.default?.fixed?.desktop}
                           onChange={() => {
                             const con = { ...config };
-                            if (con.app && con.app.sidebar && con.app.sidebar.default && con.app.sidebar.default.fixed) {
+                            if (
+                              con.app &&
+                              con.app.sidebar &&
+                              con.app.sidebar.default &&
+                              con.app.sidebar.default.fixed
+                            ) {
                               con.app.sidebar.default.fixed.desktop = !con.app.sidebar.default.fixed.desktop;
                               setConfig({ ...con });
                             }
@@ -139,7 +159,8 @@ const BuilderPage: React.FC = () => {
                               con.app.sidebar.default.minimize &&
                               con.app.sidebar.default.minimize.desktop
                             ) {
-                              con.app.sidebar.default.minimize.desktop.enabled = !con.app.sidebar.default.minimize.desktop.enabled;
+                              con.app.sidebar.default.minimize.desktop.enabled =
+                                !con.app.sidebar.default.minimize.desktop.enabled;
                               setConfig({ ...con });
                             }
                           }}
@@ -171,7 +192,8 @@ const BuilderPage: React.FC = () => {
                               con.app.sidebar.default.minimize &&
                               con.app.sidebar.default.minimize.desktop
                             ) {
-                              con.app.sidebar.default.minimize.desktop.hoverable = !con.app.sidebar.default.minimize.desktop.hoverable;
+                              con.app.sidebar.default.minimize.desktop.hoverable =
+                                !con.app.sidebar.default.minimize.desktop.hoverable;
                               setConfig({ ...con });
                             }
                           }}
@@ -203,7 +225,8 @@ const BuilderPage: React.FC = () => {
                               con.app.sidebar.default.minimize &&
                               con.app.sidebar.default.minimize.desktop
                             ) {
-                              con.app.sidebar.default.minimize.desktop.default = !con.app.sidebar.default.minimize.desktop.default;
+                              con.app.sidebar.default.minimize.desktop.default =
+                                !con.app.sidebar.default.minimize.desktop.default;
                               setConfig({ ...con });
                             }
                           }}
@@ -241,7 +264,12 @@ const BuilderPage: React.FC = () => {
                           checked={config.app?.header?.default?.fixed?.desktop}
                           onChange={() => {
                             const con = { ...config };
-                            if (con.app && con.app.header && con.app.header.default && con.app.header.default.fixed) {
+                            if (
+                              con.app &&
+                              con.app.header &&
+                              con.app.header.default &&
+                              con.app.header.default.fixed
+                            ) {
                               con.app.header.default.fixed.desktop = !con.app.header.default.fixed.desktop;
                               setConfig({ ...con });
                             }
@@ -276,7 +304,9 @@ const BuilderPage: React.FC = () => {
                         id="kt_builder_header_content_menu"
                         name="model.app.header.default.content"
                       />
-                      <label className="form-check-label text-gray-700 fw-bold text-nowrap" htmlFor="kt_builder_header_content_menu">
+                      <label
+                        className="form-check-label text-gray-700 fw-bold text-nowrap"
+                        htmlFor="kt_builder_header_content_menu">
                         Menu
                       </label>
                     </div>
@@ -295,7 +325,9 @@ const BuilderPage: React.FC = () => {
                           }
                         }}
                       />
-                      <label className="form-check-label text-gray-700 fw-bold text-nowrap" htmlFor="kt_builder_header_content_page-title">
+                      <label
+                        className="form-check-label text-gray-700 fw-bold text-nowrap"
+                        htmlFor="kt_builder_header_content_page-title">
                         Page Title
                       </label>
                     </div>
@@ -326,7 +358,9 @@ const BuilderPage: React.FC = () => {
                             }
                           }}
                         />
-                        <label className="form-check-label text-gray-700 fw-bold" htmlFor="kt_builder_toolbar_fixed_desktop">
+                        <label
+                          className="form-check-label text-gray-700 fw-bold"
+                          htmlFor="kt_builder_toolbar_fixed_desktop">
                           Desktop Mode
                         </label>
                       </div>
@@ -345,7 +379,9 @@ const BuilderPage: React.FC = () => {
                           }}
                           id="kt_builder_toolbar_fixed_mobile"
                         />
-                        <label className="form-check-label text-gray-700 fw-bold" htmlFor="kt_builder_toolbar_fixed_mobile">
+                        <label
+                          className="form-check-label text-gray-700 fw-bold"
+                          htmlFor="kt_builder_toolbar_fixed_mobile">
                           Mobile Mode
                         </label>
                       </div>
@@ -367,7 +403,11 @@ const BuilderPage: React.FC = () => {
                       active: config.app?.toolbar?.layout === 'classic',
                     })}>
                     <div className="form-check-wrapper">
-                      <img src={toAbsoluteUrl('/media/misc/layout/toolbar-classic.png')} className="mw-100" alt="" />
+                      <img
+                        src={toAbsoluteUrl('/media/misc/layout/toolbar-classic.png')}
+                        className="mw-100"
+                        alt=""
+                      />
                     </div>
                     <div className="form-check form-check-custom form-check-success form-check-sm form-check-solid">
                       <input
@@ -395,7 +435,11 @@ const BuilderPage: React.FC = () => {
                       active: config.app?.toolbar?.layout === 'saas',
                     })}>
                     <div className="form-check-wrapper">
-                      <img src={toAbsoluteUrl('/media/misc/layout/toolbar-saas.png')} className="mw-100" alt="" />
+                      <img
+                        src={toAbsoluteUrl('/media/misc/layout/toolbar-saas.png')}
+                        className="mw-100"
+                        alt=""
+                      />
                     </div>
                     <div className="form-check form-check-custom form-check-success form-check-sm form-check-solid">
                       <input
@@ -422,7 +466,11 @@ const BuilderPage: React.FC = () => {
                       active: config.app?.toolbar?.layout === 'accounting',
                     })}>
                     <div className="form-check-wrapper">
-                      <img src={toAbsoluteUrl('/media/misc/layout/toolbar-accounting.png')} className="mw-100" alt="" />
+                      <img
+                        src={toAbsoluteUrl('/media/misc/layout/toolbar-accounting.png')}
+                        className="mw-100"
+                        alt=""
+                      />
                     </div>
                     <div className="form-check form-check-custom form-check-success form-check-sm form-check-solid">
                       <input
@@ -450,7 +498,11 @@ const BuilderPage: React.FC = () => {
                     })} // [ngClass]="{'active': model.app.toolbar.layout === 'extended'}"
                   >
                     <div className="form-check-wrapper">
-                      <img src={toAbsoluteUrl('/media/misc/layout/toolbar-extended.png')} className="mw-100" alt="" />
+                      <img
+                        src={toAbsoluteUrl('/media/misc/layout/toolbar-extended.png')}
+                        className="mw-100"
+                        alt=""
+                      />
                     </div>
                     <div className="form-check form-check-custom form-check-success form-check-sm form-check-solid">
                       <input
@@ -478,7 +530,11 @@ const BuilderPage: React.FC = () => {
                     })}>
                     {/* begin::Image */}
                     <div className="form-check-wrapper">
-                      <img src={toAbsoluteUrl('/media/misc/layout/toolbar-reports.png')} className="mw-100" alt="" />
+                      <img
+                        src={toAbsoluteUrl('/media/misc/layout/toolbar-reports.png')}
+                        className="mw-100"
+                        alt=""
+                      />
                     </div>
                     {/* end::Image */}
                     {/* begin::Check */}
@@ -517,16 +573,22 @@ const BuilderPage: React.FC = () => {
                     {!configLoading && <span className="indicator-label">Preview</span>}
                     {configLoading && (
                       <span className="indicator-progress" style={{ display: 'block' }}>
-                        Please wait... <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        Please wait...{' '}
+                        <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
                       </span>
                     )}
                   </button>
 
-                  <button type="button" id="kt_layout_builder_reset" className="btn btn-active-light btn-color-muted" onClick={reset}>
+                  <button
+                    type="button"
+                    id="kt_layout_builder_reset"
+                    className="btn btn-active-light btn-color-muted"
+                    onClick={reset}>
                     {!resetLoading && <span className="indicator-label">Reset</span>}
                     {resetLoading && (
                       <span className="indicator-progress" style={{ display: 'block' }}>
-                        Please wait... <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        Please wait...{' '}
+                        <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
                       </span>
                     )}
                   </button>

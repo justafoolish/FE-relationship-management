@@ -28,7 +28,13 @@ const Step1: FC = () => {
       <div className="fv-row">
         <div className="row">
           <div className="col-lg-6">
-            <Field type="radio" className="btn-check" name="accountType" value="personal" id="kt_create_account_form_account_type_personal" />
+            <Field
+              type="radio"
+              className="btn-check"
+              name="accountType"
+              value="personal"
+              id="kt_create_account_form_account_type_personal"
+            />
             <label
               className="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center mb-10"
               htmlFor="kt_create_account_form_account_type_personal">
@@ -42,7 +48,13 @@ const Step1: FC = () => {
           </div>
 
           <div className="col-lg-6">
-            <Field type="radio" className="btn-check" name="accountType" value="corporate" id="kt_create_account_form_account_type_corporate" />
+            <Field
+              type="radio"
+              className="btn-check"
+              name="accountType"
+              value="corporate"
+              id="kt_create_account_form_account_type_corporate"
+            />
             <label
               className="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center"
               htmlFor="kt_create_account_form_account_type_corporate">

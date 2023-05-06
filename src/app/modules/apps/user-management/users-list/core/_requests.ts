@@ -32,12 +32,12 @@ const updateUser = (user: User): Promise<User | undefined> => {
 };
 
 const deleteUser = (userId: ID): Promise<void> => {
-  return axios.delete(`${USER_URL}/${userId}`).then(() => {});
+  return axios.delete(`${USER_URL}/${userId}`);
 };
 
-const deleteSelectedUsers = (userIds: Array<ID>): Promise<void> => {
+const deleteSelectedUsers = (userIds: Array<ID>): any => {
   const requests = userIds.map((id) => axios.delete(`${USER_URL}/${id}`));
-  return axios.all(requests).then(() => {});
+  return axios.all(requests);
 };
 
 export { getUsers, deleteUser, deleteSelectedUsers, getUserById, createUser, updateUser };

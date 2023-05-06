@@ -42,19 +42,34 @@ const Mixed: FC = () => {
       <div className="row g-5 g-xl-8">
         {/* begin::Col */}
         <div className="col-xl-4">
-          <MixedWidget2 className="card-xl-stretch mb-xl-8" chartColor="info" chartHeight="200px" strokeColor="#4e12c4" />
+          <MixedWidget2
+            className="card-xl-stretch mb-xl-8"
+            chartColor="info"
+            chartHeight="200px"
+            strokeColor="#4e12c4"
+          />
         </div>
         {/* end::Col */}
 
         {/* begin::Col */}
         <div className="col-xl-4">
-          <MixedWidget2 className="card-xl-stretch mb-xl-8" chartColor="danger" chartHeight="200px" strokeColor="#cb1e46" />
+          <MixedWidget2
+            className="card-xl-stretch mb-xl-8"
+            chartColor="danger"
+            chartHeight="200px"
+            strokeColor="#cb1e46"
+          />
         </div>
         {/* end::Col */}
 
         {/* begin::Col */}
         <div className="col-xl-4">
-          <MixedWidget2 className="card-xl-stretch mb-5 mb-xl-8" chartColor="primary" chartHeight="200px" strokeColor="#0078d0" />
+          <MixedWidget2
+            className="card-xl-stretch mb-5 mb-xl-8"
+            chartColor="primary"
+            chartHeight="200px"
+            strokeColor="#0078d0"
+          />
         </div>
         {/* end::Col */}
       </div>
@@ -107,7 +122,7 @@ const Mixed: FC = () => {
             date="Due: 27 Apr 2020"
             progress="75%"
           />
-          {/*))?>*/}
+          {/* ))?> */}
         </div>
         {/* end::Col */}
 

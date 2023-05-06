@@ -1,0 +1,6 @@
+enum DIALOG_WIZARDS {
+  // TEST = 'TEST',
+  ADD_PEOPLE_FORM = 'ADD_PEOPLE_FORM',
+}
+
+export default DIALOG_WIZARDS;
