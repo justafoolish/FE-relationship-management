@@ -22,9 +22,9 @@ export interface IUpdateEmail {
 }
 
 export interface IUpdatePassword {
-  currentPassword: string;
-  newPassword: string;
-  passwordConfirmation: string;
+  old_password: string;
+  new_password: string;
+  password_confirmation?: string;
 }
 
 export interface IConnectedAccounts {
@@ -70,6 +70,13 @@ export interface IDeactivateAccount {
   confirm: boolean;
 }
 
+export interface IUpdateUserInfo {
+  first_name?: string;
+  last_name?: string;
+  gender?: string;
+  phone?: string;
+}
+
 export const profileDetailsInitValues: IProfileDetails = {
   avatar: '/media/avatars/300-1.jpg',
   fName: 'Max',
@@ -94,9 +101,9 @@ export const updateEmail: IUpdateEmail = {
 };
 
 export const updatePassword: IUpdatePassword = {
-  currentPassword: '',
-  newPassword: '',
-  passwordConfirmation: '',
+  old_password: '',
+  new_password: '',
+  password_confirmation: '',
 };
 
 export const connectedAccounts: IConnectedAccounts = {

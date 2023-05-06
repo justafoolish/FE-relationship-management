@@ -8,6 +8,7 @@ import {
   updateUserInfo,
   userInfoSelector,
 } from 'app/reducers/user/auth.slice';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * setAuthenticated: update login status
@@ -19,6 +20,7 @@ import {
  * handleLogout: logout
  */
 const useAuthGuard = () => {
+  const navigate = useNavigate();
   const currentUser = useAppSelector(userInfoSelector);
   const authDispatch = useAppDispatch();
 
@@ -38,6 +40,8 @@ const useAuthGuard = () => {
     authDispatch(updateLoginStatus(false));
     authDispatch(updateAccessToken(''));
     authDispatch(updateUserInfo(undefined));
+    navigate('/auth')
+    
   }, []);
 
   return { setAccessToken, setAuthenticated, handleLogout, setRefreshToken, currentUser };

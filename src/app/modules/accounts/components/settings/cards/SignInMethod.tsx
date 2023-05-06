@@ -5,28 +5,33 @@ import { BUTTON_VARIANTS } from 'app/domains/components/button.i';
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
 import clsx from 'clsx';
 import React, { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { IUpdatePassword, updatePassword } from '../SettingsModel';
+import { useUpdatePasswordMutation } from 'app/reducers/api';
+import { toast } from 'react-hot-toast';
+import { handleQueryError } from 'app/modules/utils/error-handler';
 
 const passwordFormValidationSchema = Yup.object().shape({
-  currentPassword: Yup.string()
+  old_password: Yup.string()
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Password is required'),
-  newPassword: Yup.string()
+  new_password: Yup.string()
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Password is required'),
-  passwordConfirmation: Yup.string()
+  password_confirmation: Yup.string()
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Password is required')
-    .oneOf([Yup.ref('newPassword'), null], 'Passwords must match'),
+    .oneOf([Yup.ref('new_password'), null], 'Passwords must match'),
 });
 
 const SignInMethod: React.FC = () => {
   const [showPasswordForm, setPasswordForm] = useState<boolean>(false);
+
+  const [changePassword, { isLoading }] = useUpdatePasswordMutation();
 
   const methods = useForm<IUpdatePassword>({
     mode: 'onBlur',
@@ -34,6 +39,20 @@ const SignInMethod: React.FC = () => {
     resolver: yupResolver(passwordFormValidationSchema),
     defaultValues: updatePassword,
   });
+
+  const submitUpdatePassword: SubmitHandler<IUpdatePassword> = async (data) => {
+   try {
+     await changePassword({
+       old_password: data.old_password,
+       new_password: data.new_password
+     }).unwrap();
+
+     toast.success('Update Password Successful');
+
+   } catch (error) {
+     handleQueryError(error);
+   } 
+  }
 
   return (
     <div className="card mb-5 mb-xl-10">
@@ -60,16 +79,16 @@ const SignInMethod: React.FC = () => {
               className={clsx('flex-row-fluid', [!showPasswordForm && 'd-none'])}>
               <FormProvider {...methods}>
                 <form
-                  onSubmit={methods.handleSubmit(console.log)}
+                  onSubmit={methods.handleSubmit(submitUpdatePassword)}
                   id="kt_signin_change_password"
                   className="form"
                   noValidate>
                   <div className="row mb-1">
                     {[
-                      { name: 'currentPassword', label: 'Current Password', type: FORM_CONTROLS.PASSWORD },
-                      { name: 'newPassword', label: 'New Password', type: FORM_CONTROLS.PASSWORD },
+                      { name: 'old_password', label: 'Current Password', type: FORM_CONTROLS.PASSWORD },
+                      { name: 'new_password', label: 'New Password', type: FORM_CONTROLS.PASSWORD },
                       {
-                        name: 'passwordConfirmation',
+                        name: 'password_confirmation',
                         label: 'Confirm New Password',
                         type: FORM_CONTROLS.PASSWORD,
                       },
