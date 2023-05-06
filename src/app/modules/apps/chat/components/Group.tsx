@@ -15,7 +15,12 @@ const Group: FC = () => {
                 className="svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 ms-5 translate-middle-y"
               />
 
-              <input type="text" className="form-control form-control-solid px-15" name="search" placeholder="Search by username or email..." />
+              <input
+                type="text"
+                className="form-control form-control-solid px-15"
+                name="search"
+                placeholder="Search by username or email..."
+              />
             </form>
           </div>
 
@@ -278,7 +283,11 @@ const Group: FC = () => {
                   // data-bs-toggle='modal'
                   // data-bs-target='#kt_modal_view_users'
                 >
-                  <span className="symbol-label fs-8 fw-bolder" data-bs-toggle="tooltip" data-bs-trigger="hover" title="View more users">
+                  <span
+                    className="symbol-label fs-8 fw-bolder"
+                    data-bs-toggle="tooltip"
+                    data-bs-trigger="hover"
+                    title="View more users">
                     +42
                   </span>
                 </a>

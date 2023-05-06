@@ -3,9 +3,9 @@ import { persistReducer, persistStore } from 'redux-persist';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
 import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
 
-import mathReducer from 'app/reducers/math/math.slice';
-import { accountAPI, animeAPI, employeeAPI } from 'app/reducers/api';
+import { accountAPI } from 'app/reducers/api';
 import authReducer, { IAuthState } from 'app/reducers/user/auth.slice';
+import dialogReducer from 'app/reducers/dialog/dialog.slice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -20,9 +20,7 @@ const authPersistConfig = {
 
 const reducers = {
   [accountAPI.reducerPath]: accountAPI.reducer,
-  [animeAPI.reducerPath]: animeAPI.reducer,
-  [employeeAPI.reducerPath]: employeeAPI.reducer,
-  math: mathReducer,
+  dialog: dialogReducer,
   auth: persistReducer<IAuthState>(authPersistConfig, authReducer),
 };
 
@@ -35,7 +33,7 @@ export const rootReducer: Reducer = (state, action) => {
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['auth', 'math', employeeAPI.reducerPath, animeAPI.reducerPath, accountAPI.reducerPath],
+  blacklist: ['auth', 'dialog', accountAPI.reducerPath],
   transforms: [
     encryptTransform({
       secretKey: 'ROOT_PRIVATEKEY',
@@ -51,7 +49,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
       immutableCheck: false,
-    }).concat(employeeAPI.middleware, animeAPI.middleware, accountAPI.middleware),
+    }).concat(accountAPI.middleware),
 });
 
 const persistor = persistStore(store);

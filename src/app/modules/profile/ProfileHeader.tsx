@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { KTSVG, toAbsoluteUrl } from '../../../_metronic/helpers';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Dropdown1 } from '../../../_metronic/partials';
-import { useLocation } from 'react-router-dom';
 import { userInfoSelector } from 'app/reducers/user/auth.slice';
 import { useAppSelector } from 'app/reducers/store.hook';
 
@@ -17,7 +16,7 @@ const ProfileHeader: React.FC = () => {
           <div className="me-7 mb-4">
             <div className="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
               <img src={toAbsoluteUrl('/media/avatars/300-1.jpg')} alt="Metornic" />
-              <div className="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"></div>
+              <div className="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-white h-20px w-20px"></div>
             </div>
           </div>
 

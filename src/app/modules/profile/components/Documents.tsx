@@ -14,8 +14,16 @@ export function Documents() {
 
         <div className="d-flex my-2">
           <div className="d-flex align-items-center position-relative me-4">
-            <KTSVG path="/media/icons/duotune/general/gen021.svg" className="svg-icon-3 position-absolute ms-3" />
-            <input type="text" id="kt_filter_search" className="form-control form-control-white form-control-sm w-150px ps-9" placeholder="Search" />
+            <KTSVG
+              path="/media/icons/duotune/general/gen021.svg"
+              className="svg-icon-3 position-absolute ms-3"
+            />
+            <input
+              type="text"
+              id="kt_filter_search"
+              className="form-control form-control-white form-control-sm w-150px ps-9"
+              placeholder="Search"
+            />
           </div>
 
           <a href="#" className="btn btn-primary btn-sm">

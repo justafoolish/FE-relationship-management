@@ -28,40 +28,117 @@ export function Connections() {
 
       <div className="row g-6 g-xl-9">
         <div className="col-md-6 col-xxl-4">
-          <Card3 avatar="/media/avatars/300-6.jpg" name="Emma Smith" job="Art Director" avgEarnings="$14,560" totalEarnings="$236,400" />
+          <Card3
+            avatar="/media/avatars/300-6.jpg"
+            name="Emma Smith"
+            job="Art Director"
+            avgEarnings="$14,560"
+            totalEarnings="$236,400"
+          />
         </div>
         <div className="col-md-6 col-xxl-4">
-          <Card3 color="danger" name="Melody Macy" job="Marketing Analytic" avgEarnings="$14,560" totalEarnings="$236,400" online={true} />
+          <Card3
+            color="danger"
+            name="Melody Macy"
+            job="Marketing Analytic"
+            avgEarnings="$14,560"
+            totalEarnings="$236,400"
+            online={true}
+          />
         </div>
         <div className="col-md-6 col-xxl-4">
-          <Card3 avatar="/media/avatars/300-1.jpg" name="Max Smith" job="Software Enginer" avgEarnings="$14,560" totalEarnings="$236,400" />
+          <Card3
+            avatar="/media/avatars/300-1.jpg"
+            name="Max Smith"
+            job="Software Enginer"
+            avgEarnings="$14,560"
+            totalEarnings="$236,400"
+          />
         </div>
         <div className="col-md-6 col-xxl-4">
-          <Card3 avatar="/media/avatars/300-5.jpg" name="Sean Bean" job="Web Developer" avgEarnings="$14,560" totalEarnings="$236,400" />
+          <Card3
+            avatar="/media/avatars/300-5.jpg"
+            name="Sean Bean"
+            job="Web Developer"
+            avgEarnings="$14,560"
+            totalEarnings="$236,400"
+          />
         </div>
         <div className="col-md-6 col-xxl-4">
-          <Card3 avatar="/media/avatars/300-25.jpg" name="Brian Cox" job="UI/UX Designer" avgEarnings="$14,560" totalEarnings="$236,400" />
+          <Card3
+            avatar="/media/avatars/300-25.jpg"
+            name="Brian Cox"
+            job="UI/UX Designer"
+            avgEarnings="$14,560"
+            totalEarnings="$236,400"
+          />
         </div>
         <div className="col-md-6 col-xxl-4">
-          <Card3 color="warning" name="Mikaela Collins" job="Head Of Marketing" avgEarnings="$14,560" totalEarnings="$236,400" online={true} />
+          <Card3
+            color="warning"
+            name="Mikaela Collins"
+            job="Head Of Marketing"
+            avgEarnings="$14,560"
+            totalEarnings="$236,400"
+            online={true}
+          />
         </div>
         <div className="col-md-6 col-xxl-4">
-          <Card3 avatar="/media/avatars/300-9.jpg" name="Francis Mitcham" job="Software Arcitect" avgEarnings="$14,560" totalEarnings="$236,400" />
+          <Card3
+            avatar="/media/avatars/300-9.jpg"
+            name="Francis Mitcham"
+            job="Software Arcitect"
+            avgEarnings="$14,560"
+            totalEarnings="$236,400"
+          />
         </div>
         <div className="col-md-6 col-xxl-4">
-          <Card3 color="danger" name="Olivia Wild" job="System Admin" avgEarnings="$14,560" totalEarnings="$236,400" online={true} />
+          <Card3
+            color="danger"
+            name="Olivia Wild"
+            job="System Admin"
+            avgEarnings="$14,560"
+            totalEarnings="$236,400"
+            online={true}
+          />
         </div>
         <div className="col-md-6 col-xxl-4">
-          <Card3 color="primary" name="Neil Owen" job="Account Manager" avgEarnings="$14,560" totalEarnings="$236,400" online={true} />
+          <Card3
+            color="primary"
+            name="Neil Owen"
+            job="Account Manager"
+            avgEarnings="$14,560"
+            totalEarnings="$236,400"
+            online={true}
+          />
         </div>
         <div className="col-md-6 col-xxl-4">
-          <Card3 avatar="/media/avatars/300-23.jpg" name="Dan Wilson" job="Web Desinger" avgEarnings="$14,560" totalEarnings="$236,400" />
+          <Card3
+            avatar="/media/avatars/300-23.jpg"
+            name="Dan Wilson"
+            job="Web Desinger"
+            avgEarnings="$14,560"
+            totalEarnings="$236,400"
+          />
         </div>
         <div className="col-md-6 col-xxl-4">
-          <Card3 color="danger" name="Emma Bold" job="Corporate Finance" avgEarnings="$14,560" totalEarnings="$236,400" online={true} />
+          <Card3
+            color="danger"
+            name="Emma Bold"
+            job="Corporate Finance"
+            avgEarnings="$14,560"
+            totalEarnings="$236,400"
+            online={true}
+          />
         </div>
         <div className="col-md-6 col-xxl-4">
-          <Card3 avatar="/media/avatars/300-12.jpg" name="Ana Crown" job="Customer Relationship" avgEarnings="$14,560" totalEarnings="$236,400" />
+          <Card3
+            avatar="/media/avatars/300-12.jpg"
+            name="Ana Crown"
+            job="Customer Relationship"
+            avgEarnings="$14,560"
+            totalEarnings="$236,400"
+          />
         </div>
       </div>
 

@@ -8,7 +8,13 @@ interface PasswordInputProps {
   [x: string]: any;
 }
 
-const PasswordInput: FC<PasswordInputProps> = ({ name = '', placeholder, type = 'text', className, ...rest }) => {
+const PasswordInput: FC<PasswordInputProps> = ({
+  name = '',
+  placeholder,
+  type = 'text',
+  className,
+  ...rest
+}) => {
   const { control } = useFormContext();
   const { field } = useController({
     name,

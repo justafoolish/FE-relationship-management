@@ -3,13 +3,13 @@ export enum FORM_CONTROLS {
   MAIL = 'email',
   PASSWORD = 'password',
   TEL = 'tel',
+  DATE_PICKER = 'date',
   // NUMBER = 'number',
   // OTP = 'OTP',
   // SELECT = 'select',
   // CHECKBOX = 'checkbox',
   // SLIDER = 'slider',
   // TEXT_AREA = 'text-area',
-  // DATE_PICKER = 'date',
   // TIME_PICKER = 'time',
 }
 

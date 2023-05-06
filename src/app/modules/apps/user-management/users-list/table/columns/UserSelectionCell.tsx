@@ -2,9 +2,9 @@ import { FC, useMemo } from 'react';
 import { ID } from '../../../../../../../_metronic/helpers';
 import { useListView } from '../../core/ListViewProvider';
 
-type Props = {
+interface Props {
   id: ID;
-};
+}
 
 const UserSelectionCell: FC<Props> = ({ id }) => {
   const { selected, onSelect } = useListView();

@@ -1,5 +1,5 @@
 import { ID, Response } from '../../../../../../_metronic/helpers';
-export type User = {
+export interface User {
   id?: ID;
   name?: string;
   avatar?: string;
@@ -14,7 +14,7 @@ export type User = {
     label: string;
     state: string;
   };
-};
+}
 
 export type UsersQueryResponse = Response<Array<User>>;
 

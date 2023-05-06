@@ -37,12 +37,15 @@ const ConnectedAccounts: React.FC = () => {
       <div id="kt_account_connected_accounts" className="collapse show">
         <div className="card-body border-top p-9">
           <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed mb-9 p-6">
-            <KTSVG path="/media/icons/duotune/art/art006.svg" className="svg-icon-2tx svg-icon-primary me-4" />
+            <KTSVG
+              path="/media/icons/duotune/art/art006.svg"
+              className="svg-icon-2tx svg-icon-primary me-4"
+            />
             <div className="d-flex flex-stack flex-grow-1">
               <div className="fw-bold">
                 <div className="fs-6 text-gray-600">
-                  Two-factor authentication adds an extra layer of security to your account. To log in, in you'll need to provide a 4 digit amazing
-                  code.
+                  Two-factor authentication adds an extra layer of security to your account. To log in, in
+                  you'll need to provide a 4 digit amazing code.
                   <a href="#" className="fw-bolder">
                     Learn More
                   </a>
@@ -54,7 +57,11 @@ const ConnectedAccounts: React.FC = () => {
           <div className="py-2">
             <div className="d-flex flex-stack">
               <div className="d-flex">
-                <img src={toAbsoluteUrl('/media/svg/brand-logos/google-icon.svg')} className="w-30px me-6" alt="" />
+                <img
+                  src={toAbsoluteUrl('/media/svg/brand-logos/google-icon.svg')}
+                  className="w-30px me-6"
+                  alt=""
+                />
 
                 <div className="d-flex flex-column">
                   <a href="#" className="fs-5 text-dark text-hover-primary fw-bolder">
@@ -85,7 +92,11 @@ const ConnectedAccounts: React.FC = () => {
 
             <div className="d-flex flex-stack">
               <div className="d-flex">
-                <img src={toAbsoluteUrl('/media/svg/brand-logos/github.svg')} className="w-30px me-6" alt="" />
+                <img
+                  src={toAbsoluteUrl('/media/svg/brand-logos/github.svg')}
+                  className="w-30px me-6"
+                  alt=""
+                />
 
                 <div className="d-flex flex-column">
                   <a href="#" className="fs-5 text-dark text-hover-primary fw-bolder">
@@ -116,7 +127,11 @@ const ConnectedAccounts: React.FC = () => {
 
             <div className="d-flex flex-stack">
               <div className="d-flex">
-                <img src={toAbsoluteUrl('/media/svg/brand-logos/slack-icon.svg')} className="w-30px me-6" alt="" />
+                <img
+                  src={toAbsoluteUrl('/media/svg/brand-logos/slack-icon.svg')}
+                  className="w-30px me-6"
+                  alt=""
+                />
 
                 <div className="d-flex flex-column">
                   <a href="#" className="fs-5 text-dark text-hover-primary fw-bolder">

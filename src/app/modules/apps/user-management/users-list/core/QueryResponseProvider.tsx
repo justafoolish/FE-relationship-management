@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useContext, useState, useEffect, useMemo } from 'react';
 import { useQuery } from 'react-query';
 import {
@@ -38,7 +37,11 @@ const QueryResponseProvider: FC<WithChildren> = ({ children }) => {
     { cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false }
   );
 
-  return <QueryResponseContext.Provider value={{ isLoading: isFetching, refetch, response, query }}>{children}</QueryResponseContext.Provider>;
+  return (
+    <QueryResponseContext.Provider value={{ isLoading: isFetching, refetch, response, query }}>
+      {children}
+    </QueryResponseContext.Provider>
+  );
 };
 
 const useQueryResponse = () => useContext(QueryResponseContext);
@@ -71,4 +74,10 @@ const useQueryResponseLoading = (): boolean => {
   return isLoading;
 };
 
-export { QueryResponseProvider, useQueryResponse, useQueryResponseData, useQueryResponsePagination, useQueryResponseLoading };
+export {
+  QueryResponseProvider,
+  useQueryResponse,
+  useQueryResponseData,
+  useQueryResponsePagination,
+  useQueryResponseLoading,
+};

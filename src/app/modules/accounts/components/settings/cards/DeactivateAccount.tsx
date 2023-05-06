@@ -43,13 +43,17 @@ const DeactivateAccount: React.FC = () => {
         <form onSubmit={formik.handleSubmit} id="kt_account_deactivate_form" className="form">
           <div className="card-body border-top p-9">
             <div className="notice d-flex bg-light-warning rounded border-warning border border-dashed mb-9 p-6">
-              <KTSVG path="/media/icons/duotune/general/gen044.svg" className="svg-icon-2tx svg-icon-warning me-4" />
+              <KTSVG
+                path="/media/icons/duotune/general/gen044.svg"
+                className="svg-icon-2tx svg-icon-warning me-4"
+              />
 
               <div className="d-flex flex-stack flex-grow-1">
                 <div className="fw-bold">
                   <h4 className="text-gray-800 fw-bolder">You Are Deactivating Your Account</h4>
                   <div className="fs-6 text-gray-600">
-                    For extra security, this requires you to confirm your email or phone number when you reset yousignr password.
+                    For extra security, this requires you to confirm your email or phone number when you reset
+                    yousignr password.
                     <br />
                     <a className="fw-bolder" href="#">
                       Learn more
@@ -73,7 +77,10 @@ const DeactivateAccount: React.FC = () => {
           </div>
 
           <div className="card-footer d-flex justify-content-end py-6 px-9">
-            <button id="kt_account_deactivate_account_submit" type="submit" className="btn btn-danger fw-bold">
+            <button
+              id="kt_account_deactivate_account_submit"
+              type="submit"
+              className="btn btn-danger fw-bold">
               {!loading && 'Deactivate Account'}
               {loading && (
                 <span className="indicator-progress" style={{ display: 'block' }}>

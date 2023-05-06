@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Column } from 'react-table';
 import { UserInfoCell } from './UserInfoCell';
 import { UserLastLoginCell } from './UserLastLoginCell';
@@ -39,7 +38,9 @@ const usersColumns: ReadonlyArray<Column<User>> = [
     accessor: 'joined_day',
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title="Actions" className="text-end min-w-100px" />,
+    Header: (props) => (
+      <UserCustomHeader tableProps={props} title="Actions" className="text-end min-w-100px" />
+    ),
     id: 'actions',
     Cell: ({ ...props }) => <UserActionsCell id={props.data[props.row.index].id} />,
   },

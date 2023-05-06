@@ -36,7 +36,9 @@ const Step3: FC = () => {
           <ErrorMessage name="businessDescriptor" />
         </div>
 
-        <div className="form-text">Customers will see this shortened version of your statement descriptor</div>
+        <div className="form-text">
+          Customers will see this shortened version of your statement descriptor
+        </div>
       </div>
 
       <div className="fv-row mb-10">
@@ -59,7 +61,11 @@ const Step3: FC = () => {
       <div className="fv-row mb-10">
         <label className="form-label">Business Description</label>
 
-        <Field as="textarea" name="businessDescription" className="form-control form-control-lg form-control-solid" rows={3}></Field>
+        <Field
+          as="textarea"
+          name="businessDescription"
+          className="form-control form-control-lg form-control-solid"
+          rows={3}></Field>
       </div>
 
       <div className="fv-row mb-0">

@@ -4,7 +4,7 @@ import { defaultAccount, IAccount } from './AccountModel';
 
 export function Account() {
   const [data, setData] = useState<IAccount>(defaultAccount);
-  //const [hasError, setHasError] = useState(false);
+  // const [hasError, setHasError] = useState(false);
 
   const updateData = (fieldsToUpdate: Partial<IAccount>) => {
     const updatedData = { ...data, ...fieldsToUpdate };
@@ -644,8 +644,8 @@ export function Account() {
                 Setup login verification
               </button>
               <div className="form-text">
-                After you log in, you will be asked for additional information to confirm your identity and protect your account from being
-                compromised.
+                After you log in, you will be asked for additional information to confirm your identity and
+                protect your account from being compromised.
                 <a href="#" className="fw-bold">
                   Learn more
                 </a>
@@ -673,7 +673,8 @@ export function Account() {
               </div>
 
               <div className="form-text py-2">
-                For extra security, this requires you to confirm your email or phone number when you reset your password.
+                For extra security, this requires you to confirm your email or phone number when you reset
+                your password.
                 <a href="#" className="fw-boldk">
                   Learn more
                 </a>
@@ -694,7 +695,9 @@ export function Account() {
               <button type="reset" className="btn btn-primary fw-bolder px-6 py-3 me-3">
                 Save Changes
               </button>
-              <button type="reset" className="btn btn-color-gray-600 btn-active-light-primary fw-bolder px-6 py-3">
+              <button
+                type="reset"
+                className="btn btn-color-gray-600 btn-active-light-primary fw-bolder px-6 py-3">
                 Cancel
               </button>
             </div>
