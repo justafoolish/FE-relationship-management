@@ -1,10 +1,9 @@
-import { IUpdatePassword, updatePassword } from './../../modules/accounts/components/settings/SettingsModel';
 import { createApi } from '@reduxjs/toolkit/query/react';
+import BaseResponse from 'app/domains/rtk/base.response';
+import { IJWT, IUserInfo } from 'app/domains/user/user.i';
 import baseQueryWithAuth from '../base.auth';
 import { accountURL } from '../rtk.config';
-import { IJWT, IUserInfo } from 'app/domains/user/user.i';
-import BaseResponse from 'app/domains/rtk/base.response';
-import { buildCacheCollectionHandler } from '@reduxjs/toolkit/dist/query/core/buildMiddleware/cacheCollection';
+import { IUpdatePassword } from './../../modules/accounts/components/settings/SettingsModel';
 
 interface ILoginRequest {
   email: string;
@@ -79,9 +78,7 @@ export const accountAPI = createApi({
         body,
       }),
     }),
-
   }),
-  
 });
 
 export const {

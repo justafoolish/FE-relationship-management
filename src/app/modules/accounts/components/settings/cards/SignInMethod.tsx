@@ -3,14 +3,14 @@ import Button from 'app/components/button';
 import FormControl from 'app/components/form-control/FormControl';
 import { BUTTON_VARIANTS } from 'app/domains/components/button.i';
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
+import { handleQueryError } from 'app/modules/utils/error-handler';
+import { useUpdatePasswordMutation } from 'app/reducers/api';
 import clsx from 'clsx';
 import React, { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import * as Yup from 'yup';
 import { IUpdatePassword, updatePassword } from '../SettingsModel';
-import { useUpdatePasswordMutation } from 'app/reducers/api';
-import { toast } from 'react-hot-toast';
-import { handleQueryError } from 'app/modules/utils/error-handler';
 
 const passwordFormValidationSchema = Yup.object().shape({
   old_password: Yup.string()
@@ -41,18 +41,17 @@ const SignInMethod: React.FC = () => {
   });
 
   const submitUpdatePassword: SubmitHandler<IUpdatePassword> = async (data) => {
-   try {
-     await changePassword({
-       old_password: data.old_password,
-       new_password: data.new_password
-     }).unwrap();
+    try {
+      await changePassword({
+        old_password: data.old_password,
+        new_password: data.new_password,
+      }).unwrap();
 
-     toast.success('Update Password Successful');
-
-   } catch (error) {
-     handleQueryError(error);
-   } 
-  }
+      toast.success('Update Password Successful');
+    } catch (error) {
+      handleQueryError(error);
+    }
+  };
 
   return (
     <div className="card mb-5 mb-xl-10">
@@ -112,7 +111,7 @@ const SignInMethod: React.FC = () => {
                   </div>
 
                   <div className="d-flex">
-                    <Button id="kt_password_submit" type="submit" className="me-2 px-6">
+                    <Button id="kt_password_submit" type="submit" className="me-2 px-6" isLoading={isLoading}>
                       Update Password
                     </Button>
 
