@@ -12,13 +12,14 @@ const DialogComponentType = {
 export interface IDialogBody {
   closeModal: () => void;
   callback: () => void;
+  formData?: any;
 }
 
 const CustomDialog: FC = () => {
   const { dialogWizard, visible, options, callback } = useAppSelector((state) => state.dialog);
   const dispatch = useAppDispatch();
 
-  const { type = 'drawer', className, placement, modalSize } = options;
+  const { type = 'drawer', className, placement, modalSize, formData } = options;
 
   const DialogComponent = useMemo(() => DialogComponentType[type], [type]);
   const DialogBodyComponent: FC<IDialogBody & any> = useMemo(
@@ -54,8 +55,9 @@ const CustomDialog: FC = () => {
     () => ({
       closeModal,
       callback,
+      formData,
     }),
-    [callback, closeModal]
+    [callback, closeModal, formData]
   );
 
   return (

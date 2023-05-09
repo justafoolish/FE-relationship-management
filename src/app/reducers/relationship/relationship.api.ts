@@ -16,14 +16,42 @@ export const relationshipAPI = createApi({
         body,
       }),
     }),
-    getAllRelationship: builder.query<BaseResponse<PaginationResponse<Partial<IPeople>>>, PaginationRequest>({
+    updateRelationship: builder.mutation<BaseResponse<any>, Partial<ICreateRelationshipRequest>>({
+      query: ({ _id, ...body }) => ({
+        url: `/${_id}`,
+        method: 'POST',
+        body,
+      }),
+    }),
+    getAllRelationship: builder.query<
+      BaseResponse<PaginationResponse<Partial<IPeople[]>>>,
+      PaginationRequest
+    >({
       query: (params) => ({
         url: '/',
         method: 'GET',
         params,
       }),
     }),
+    getRelationshipDetail: builder.query<BaseResponse<Partial<IPeople>>, string>({
+      query: (id) => ({
+        url: `/${id}`,
+        method: 'GET',
+      }),
+    }),
+    deleteRelationship: builder.mutation<BaseResponse<void>, string>({
+      query: (id) => ({
+        url: `/${id}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
-export const { useCreateRelationshipMutation, useGetAllRelationshipQuery } = relationshipAPI;
+export const {
+  useCreateRelationshipMutation,
+  useGetAllRelationshipQuery,
+  useDeleteRelationshipMutation,
+  useUpdateRelationshipMutation,
+  useGetRelationshipDetailQuery,
+} = relationshipAPI;

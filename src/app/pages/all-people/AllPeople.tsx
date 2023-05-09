@@ -3,12 +3,17 @@ import { KTSVG } from '_metronic/helpers';
 import type { ColumnsType } from 'antd/es/table';
 import Table from 'antd/lib/table';
 import Button from 'app/components/button';
+import { DATE_FORMAT } from 'app/constants/constant';
 import { BUTTON_SIZES } from 'app/domains/components/button.i';
 import DIALOG_WIZARDS from 'app/domains/dialog/dialog.e';
+import { IPeople } from 'app/domains/relationship/relationship.i';
 import useDialog from 'app/hooks/useDialog';
-import { useGetAllRelationshipQuery } from 'app/reducers/api';
+import { handleQueryError } from 'app/modules/utils/error-handler';
+import { useDeleteRelationshipMutation, useGetAllRelationshipQuery } from 'app/reducers/api';
 import clsx from 'clsx';
-import { FC, useMemo } from 'react';
+import dayjs from 'dayjs';
+import { FC, ReactNode, useCallback, useMemo } from 'react';
+import { toast } from 'react-hot-toast';
 
 enum IBadgeType {
   SUCCESS = 'Success',
@@ -17,7 +22,7 @@ enum IBadgeType {
   IN_PROGRESS = 'In progress',
 }
 
-const BadgeStatus: FC<{ type: IBadgeType }> = ({ type }) => {
+const BadgeStatus: FC<{ type: IBadgeType; children: ReactNode }> = ({ type, children }) => {
   const cxBadge = clsx('badge', {
     'badge-light-success': type === IBadgeType.APPROVED,
     'badge-light-warning': type === IBadgeType.IN_PROGRESS,
@@ -25,139 +30,86 @@ const BadgeStatus: FC<{ type: IBadgeType }> = ({ type }) => {
     'badge-light-info': type === IBadgeType.REJECT,
     'badge-light-primary': type === IBadgeType.APPROVED,
   });
-  return <span className={cxBadge}>{type}</span>;
+  return <span className={cxBadge}>{children}</span>;
 };
 
-interface IAllPeople {
-  orderId: string;
-  total: number | string;
-  country: string;
-  company: string;
-  status: IBadgeType;
-  date: Date | number | string;
-}
-
 const AllPeople: FC = () => {
-  const { data: _relationships } = useGetAllRelationshipQuery({ limit: 10, page: 1 });
+  const [deleteRelationship] = useDeleteRelationshipMutation();
 
-  console.log(_relationships);
+  const { _relationships, refetch } = useGetAllRelationshipQuery(
+    { limit: 20, page: 1 },
+    {
+      selectFromResult: (response) => ({
+        ...response,
+        _relationships: response.data?.data?.pagination.items ?? [],
+      }),
+    }
+  );
 
   const { openDialog } = useDialog();
 
-  const columns: ColumnsType<IAllPeople> = useMemo(
+  const handleDeleteRelationship = useCallback(async (id?: string) => {
+    if (!id) return;
+    try {
+      toast.success('Deleting');
+      await deleteRelationship(id).unwrap();
+      toast.success('Delete success');
+
+      refetch();
+    } catch (error) {
+      handleQueryError(error);
+    }
+  }, []);
+
+  const columns: ColumnsType<IPeople> = useMemo(
     () => [
       {
-        title: 'Order Id',
-        dataIndex: 'orderId',
-        render: (text: string) => (
-          <a href="#" className="text-dark fw-bold text-hover-primary fs-6">
-            {text}
-          </a>
+        title: 'Full Name',
+        dataIndex: 'full_name',
+        render: (text: string) => <span className="text-dark fw-bold text-hover-primary fs-6">{text}</span>,
+      },
+      {
+        title: 'First meet',
+        dataIndex: 'first_meeting',
+        render: (date: string) => (
+          <span className="text-dark d-block mb-1 fs-6">{dayjs(date).format(DATE_FORMAT)}</span>
         ),
       },
       {
-        title: 'Country',
-        dataIndex: 'country',
-        render: (text: string) => (
-          <a href="#" className="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">
-            {text}
-          </a>
-        ),
+        title: 'Note',
+        dataIndex: 'notes',
       },
       {
-        title: 'Date',
-        dataIndex: 'date',
-      },
-      {
-        title: 'Company',
-        dataIndex: 'company',
-        render: (text: string) => (
-          <a href="#" className="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">
-            {text}
-          </a>
-        ),
-      },
-      {
-        title: 'Total',
-        dataIndex: 'total',
-        render: (text: string) => (
-          <a href="#" className="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">
-            {text}
-          </a>
-        ),
-      },
-      {
-        title: 'Status',
-        dataIndex: 'status',
-        render: (status: IBadgeType) => <BadgeStatus type={status} />,
+        title: 'Tags',
+        dataIndex: 'tag',
+        render: (text: string) => <BadgeStatus type={IBadgeType.REJECT}>{text}</BadgeStatus>,
       },
       {
         title: 'Actions',
         dataIndex: 'actions',
         className: 'text-end',
-
-        render: () => (
+        render: (_, { _id = '' }) => (
           <>
-            <a href="#" className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-              <KTSVG path="/media/icons/duotune/general/gen019.svg" className="svg-icon-3" />
-            </a>
-            <a href="#" className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+            <button
+              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+              onClick={() =>
+                openDialog(DIALOG_WIZARDS.UPDATE_PEOPLE_FORM, {
+                  callback: refetch,
+                  options: { formData: { _id } },
+                })
+              }>
               <KTSVG path="/media/icons/duotune/art/art005.svg" className="svg-icon-3" />
-            </a>
-            <a href="#" className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+            </button>
+            <button
+              className="btn btn-icon btn-bg-light btn-active-color-danger btn-sm"
+              onClick={() => handleDeleteRelationship(_id)}>
               <KTSVG path="/media/icons/duotune/general/gen027.svg" className="svg-icon-3" />
-            </a>
+            </button>
           </>
         ),
       },
     ],
-    []
-  );
-
-  const data: IAllPeople[] = useMemo(
-    () => [
-      {
-        orderId: '56037-XDER',
-        country: 'Brasil',
-        total: '$3560',
-        date: 32,
-        company: 'The Hill',
-        status: IBadgeType.APPROVED,
-      },
-      {
-        orderId: '05822-FXSP',
-        country: 'Belarus',
-        total: '$3560',
-        date: 32,
-        company: 'RoadGee',
-        status: IBadgeType.IN_PROGRESS,
-      },
-      {
-        orderId: '4472-QREX',
-        country: 'Agoda',
-        total: '$3560',
-        date: 32,
-        company: 'WorldQuant',
-        status: IBadgeType.SUCCESS,
-      },
-      {
-        orderId: '00347-BCLQ',
-        country: 'Vietnam',
-        total: '$3560',
-        date: 32,
-        company: 'Axon',
-        status: IBadgeType.REJECT,
-      },
-      {
-        orderId: '59486-XDER',
-        country: 'Thailand',
-        total: '$3560',
-        date: 32,
-        company: 'Employment Hero',
-        status: IBadgeType.APPROVED,
-      },
-    ],
-    []
+    [_relationships, refetch]
   );
 
   return (
@@ -171,17 +123,13 @@ const AllPeople: FC = () => {
           <Button
             className="px-4"
             size={BUTTON_SIZES.SM}
-            onClick={() =>
-              openDialog(DIALOG_WIZARDS.ADD_PEOPLE_FORM, {
-                callback: () => console.log('hehe'),
-              })
-            }>
+            onClick={() => openDialog(DIALOG_WIZARDS.ADD_PEOPLE_FORM, { callback: refetch })}>
             Add People
           </Button>
         </div>
       </div>
       <div className="card-body py-3">
-        <Table columns={columns} dataSource={data} size="small" />
+        <Table columns={columns} dataSource={_relationships as IPeople[]} size="small" />
       </div>
     </div>
   );
