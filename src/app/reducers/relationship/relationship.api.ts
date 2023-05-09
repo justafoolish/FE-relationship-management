@@ -1,17 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import BaseResponse from 'app/domains/rtk/base.response';
+import BaseResponse, { PaginationResponse } from 'app/domains/rtk/base.response';
 import baseQueryWithAuth from '../base.auth';
+import { PaginationRequest } from 'app/domains/rtk/base.request';
 import { relationshipURL } from '../rtk.config';
+import { ICreateRelationshipRequest, IPeople } from 'app/domains/relationship/relationship.i';
 
-interface ICreateRelationshipRequest {
-  name: string;
-  tag: string;
-  date_meeting: string | number | Date;
-  email: string;
-  phone: string;
-  notes: string;
-  avatar: string;
-}
 export const relationshipAPI = createApi({
   baseQuery: baseQueryWithAuth(relationshipURL),
   reducerPath: 'relationshipAPI',
@@ -23,7 +16,14 @@ export const relationshipAPI = createApi({
         body,
       }),
     }),
+    getAllRelationship: builder.query<BaseResponse<PaginationResponse<Partial<IPeople>>>, PaginationRequest>({
+      query: (params) => ({
+        url: '/',
+        method: 'GET',
+        params,
+      }),
+    }),
   }),
 });
 
-export const { useCreateRelationshipMutation } = relationshipAPI;
+export const { useCreateRelationshipMutation, useGetAllRelationshipQuery } = relationshipAPI;

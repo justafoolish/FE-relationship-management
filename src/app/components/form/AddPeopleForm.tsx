@@ -30,7 +30,7 @@ const addPeopleValidationSchema = Yup.object().shape({
   avatar: Yup.string(),
 });
 
-const AddPeopleForm: FC<IDialogBody> = ({ closeModal }) => {
+const AddPeopleForm: FC<IDialogBody> = ({ closeModal, callback }) => {
   const [createRelationship, { isLoading }] = useCreateRelationshipMutation();
   const methods = useForm<Partial<IAddPeopleFormFields>>({
     mode: 'onSubmit',
@@ -49,7 +49,8 @@ const AddPeopleForm: FC<IDialogBody> = ({ closeModal }) => {
       }).unwrap();
 
       toast.success('Add People success');
-      closeModal?.();
+      closeModal();
+      callback();
     } catch (error) {
       handleQueryError(error);
     }

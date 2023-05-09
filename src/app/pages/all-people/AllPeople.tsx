@@ -6,6 +6,7 @@ import Button from 'app/components/button';
 import { BUTTON_SIZES } from 'app/domains/components/button.i';
 import DIALOG_WIZARDS from 'app/domains/dialog/dialog.e';
 import useDialog from 'app/hooks/useDialog';
+import { useGetAllRelationshipQuery } from 'app/reducers/api';
 import clsx from 'clsx';
 import { FC, useMemo } from 'react';
 
@@ -37,6 +38,10 @@ interface IAllPeople {
 }
 
 const AllPeople: FC = () => {
+  const { data: _relationships } = useGetAllRelationshipQuery({ limit: 10, page: 1 });
+
+  console.log(_relationships);
+
   const { openDialog } = useDialog();
 
   const columns: ColumnsType<IAllPeople> = useMemo(
@@ -166,7 +171,11 @@ const AllPeople: FC = () => {
           <Button
             className="px-4"
             size={BUTTON_SIZES.SM}
-            onClick={() => openDialog(DIALOG_WIZARDS.ADD_PEOPLE_FORM, {})}>
+            onClick={() =>
+              openDialog(DIALOG_WIZARDS.ADD_PEOPLE_FORM, {
+                callback: () => console.log('hehe'),
+              })
+            }>
             Add People
           </Button>
         </div>

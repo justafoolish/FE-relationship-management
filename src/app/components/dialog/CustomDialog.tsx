@@ -10,11 +10,12 @@ const DialogComponentType = {
 };
 
 export interface IDialogBody {
-  closeModal?: () => void;
+  closeModal: () => void;
+  callback: () => void;
 }
 
 const CustomDialog: FC = () => {
-  const { dialogWizard, visible, options } = useAppSelector((state) => state.dialog);
+  const { dialogWizard, visible, options, callback } = useAppSelector((state) => state.dialog);
   const dispatch = useAppDispatch();
 
   const { type = 'drawer', className, placement, modalSize } = options;
@@ -49,13 +50,21 @@ const CustomDialog: FC = () => {
     dispatch(closeDialogAction());
   }, []);
 
+  const bodyProps = useMemo(
+    () => ({
+      closeModal,
+      callback,
+    }),
+    [callback, closeModal]
+  );
+
   return (
     <DialogComponent {...customProps} show={visible} size={modalSize} onHide={closeModal}>
       <DialogComponent.Header closeButton className="border-bottom">
         <DialogComponent.Title>{title}</DialogComponent.Title>
       </DialogComponent.Header>
       <DialogComponent.Body>
-        <DialogBodyComponent closeModal={closeModal} />
+        <DialogBodyComponent {...bodyProps} />
       </DialogComponent.Body>
     </DialogComponent>
   );
