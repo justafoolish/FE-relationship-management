@@ -45,6 +45,7 @@ const AddPeopleForm: FC<IDialogBody> = ({ closeModal, callback }) => {
       await createRelationship({
         ...rest,
         date_meeting: dayjs(date).toISOString(),
+        first_meeting: dayjs(date).toISOString(),
         tag: 'friend',
       }).unwrap();
 

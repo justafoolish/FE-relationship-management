@@ -13,6 +13,7 @@ export interface IDialogState {
     className?: string;
     placement?: 'start' | 'end' | 'top' | 'bottom';
     modalSize?: 'sm' | 'lg' | 'xl';
+    formData?: any;
   };
   callback?: () => void;
 }
@@ -23,6 +24,7 @@ export const initDialogState: IDialogState = {
     type: 'drawer',
     placement: 'end',
     modalSize: 'xl',
+    formData: {},
   },
   callback: () => ({}),
 };
@@ -38,6 +40,7 @@ export const dialogSlice = createSlice({
       state.options.type = isEmpty(payload.options.type) ? 'drawer' : payload.options.type;
       state.options.className = payload.options.className;
       state.options.modalSize = payload.options.modalSize;
+      state.options.formData = payload.options.formData;
       state.callback = payload.callback;
     },
     closeDialogAction: (state) => {
