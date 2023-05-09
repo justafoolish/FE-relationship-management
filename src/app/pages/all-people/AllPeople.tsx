@@ -1,10 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { KTSVG } from '_metronic/helpers';
 import type { ColumnsType } from 'antd/es/table';
 import Table from 'antd/lib/table';
 import Button from 'app/components/button';
 import { DATE_FORMAT } from 'app/constants/constant';
-import { BUTTON_SIZES } from 'app/domains/components/button.i';
+import { BUTTON_SIZES, BUTTON_VARIANTS } from 'app/domains/components/button.i';
 import DIALOG_WIZARDS from 'app/domains/dialog/dialog.e';
 import { IPeople } from 'app/domains/relationship/relationship.i';
 import useDialog from 'app/hooks/useDialog';
@@ -90,8 +89,10 @@ const AllPeople: FC = () => {
         className: 'text-end',
         render: (_, { _id = '' }) => (
           <>
-            <button
-              className="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+            <Button
+              variant={BUTTON_VARIANTS.ICON}
+              size={BUTTON_SIZES.SM}
+              className="btn-bg-light btn-active-color-warning me-1"
               onClick={() =>
                 openDialog(DIALOG_WIZARDS.UPDATE_PEOPLE_FORM, {
                   callback: refetch,
@@ -99,17 +100,19 @@ const AllPeople: FC = () => {
                 })
               }>
               <KTSVG path="/media/icons/duotune/art/art005.svg" className="svg-icon-3" />
-            </button>
-            <button
-              className="btn btn-icon btn-bg-light btn-active-color-danger btn-sm"
+            </Button>
+            <Button
+              variant={BUTTON_VARIANTS.ICON}
+              size={BUTTON_SIZES.SM}
+              className="btn-bg-light btn-active-color-danger"
               onClick={() => handleDeleteRelationship(_id)}>
               <KTSVG path="/media/icons/duotune/general/gen027.svg" className="svg-icon-3" />
-            </button>
+            </Button>
           </>
         ),
       },
     ],
-    [_relationships, refetch]
+    [_relationships]
   );
 
   return (

@@ -46,7 +46,6 @@ const UpdatePeopleForm: FC<IDialogBody> = ({ closeModal, callback, formData }) =
       refetchOnMountOrArgChange: true,
     }
   );
-  console.log(formData, _relationshipDetail);
 
   const [updateRelationship, { isLoading }] = useUpdateRelationshipMutation();
 

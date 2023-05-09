@@ -51,7 +51,7 @@ const AvatarButton: FC<IAvatarButtonProps> = ({ name = '', label = '' }) => {
         name="avatar"
         maxCount={1}
         listType="picture-circle"
-        className="avatar-uploader"
+        className="avatar-uploader d-flex justify-content-center align-items-center"
         showUploadList={false}
         beforeUpload={beforeUpload}
         onChange={handleChange}>
