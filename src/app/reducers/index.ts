@@ -3,7 +3,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
 import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
 
-import { accountAPI } from 'app/reducers/api';
+import { accountAPI, relationshipAPI } from 'app/reducers/api';
 import authReducer, { IAuthState } from 'app/reducers/user/auth.slice';
 import dialogReducer from 'app/reducers/dialog/dialog.slice';
 
@@ -20,6 +20,7 @@ const authPersistConfig = {
 
 const reducers = {
   [accountAPI.reducerPath]: accountAPI.reducer,
+  [relationshipAPI.reducerPath]: relationshipAPI.reducer,
   dialog: dialogReducer,
   auth: persistReducer<IAuthState>(authPersistConfig, authReducer),
 };
@@ -33,7 +34,7 @@ export const rootReducer: Reducer = (state, action) => {
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['auth', 'dialog', accountAPI.reducerPath],
+  blacklist: ['auth', 'dialog', accountAPI.reducerPath, relationshipAPI.reducerPath],
   transforms: [
     encryptTransform({
       secretKey: 'ROOT_PRIVATEKEY',
@@ -49,7 +50,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
       immutableCheck: false,
-    }).concat(accountAPI.middleware),
+    }).concat(accountAPI.middleware, relationshipAPI.middleware),
 });
 
 const persistor = persistStore(store);

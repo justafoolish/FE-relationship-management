@@ -36,5 +36,7 @@ const BASE_ENDPOINT = 'http://157.245.196.95/api';
 
 const accountURL = BASE_ENDPOINT + '/account/';
 
-export { accountURL };
+const relationshipURL = BASE_ENDPOINT + '/relationship/';
+
+export { accountURL, relationshipURL };
 export { baseQuery, prepareHeaders };

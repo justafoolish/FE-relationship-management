@@ -34,4 +34,16 @@ export interface BaseQueryError {
   data?: BaseErrorResponse;
 }
 
+export interface PaginationResponse<T> {
+  pagination: {
+    total: number;
+    limit: number;
+    currentPage: number;
+    items: T;
+    pages: string | number;
+    prev: string;
+    next: string;
+  };
+}
+
 export const LIMIT_RECORD_PAGINATION = 10;
