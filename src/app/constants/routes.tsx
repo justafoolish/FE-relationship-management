@@ -25,6 +25,7 @@ const Logout = lazy(() => import('app/modules/auth/Logout'));
 const UserProfilePage = lazy(() => import('app/pages/user-profile/UserProfile'));
 const UserSettingPage = lazy(() => import('app/pages/user-profile/UserSetting'));
 const AllPeoplePage = lazy(() => import('app/pages/all-people/AllPeople'));
+const AppointmentPage = lazy(() => import('app/pages/appointment/Appointment'));
 const ErrorsPage = lazy(() => import('app/modules/errors/ErrorsPage'));
 
 // crafted
@@ -89,6 +90,7 @@ export const rootRoutes: IGetRoute = (isAuthenticated) => ({
                 ],
               },
               { path: 'all-people', element: <AllPeoplePage /> },
+              { path: 'appointment', element: <AppointmentPage /> },
 
               // crafted
               { path: 'crafted/pages/profile/*', element: <ProfilePage /> },

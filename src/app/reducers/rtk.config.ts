@@ -38,5 +38,7 @@ const accountURL = BASE_ENDPOINT + '/account/';
 
 const relationshipURL = BASE_ENDPOINT + '/relationship/';
 
-export { accountURL, relationshipURL };
+const appointmentURL = BASE_ENDPOINT + '/appointment';
+
+export { accountURL, relationshipURL, appointmentURL };
 export { baseQuery, prepareHeaders };

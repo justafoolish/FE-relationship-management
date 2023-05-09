@@ -32,7 +32,7 @@ const BadgeStatus: FC<{ type: IBadgeType; children: ReactNode }> = ({ type, chil
   return <span className={cxBadge}>{children}</span>;
 };
 
-const AllPeople: FC = () => {
+const Appointment: FC = () => {
   const [deleteRelationship] = useDeleteRelationshipMutation();
 
   const { _relationships, refetch } = useGetAllRelationshipQuery(
@@ -119,15 +119,15 @@ const AllPeople: FC = () => {
     <div className="card">
       <div className="card-header border-0 pt-5">
         <h3 className="card-title align-items-start flex-column">
-          <span className="card-label fw-bold fs-3 mb-1">All people</span>
-          <span className="text-muted mt-1 fw-semibold fs-7">A group of all the people in your network</span>
+          <span className="card-label fw-bold fs-3 mb-1">Appointment</span>
+          <span className="text-muted mt-1 fw-semibold fs-7">All of your appointment</span>
         </h3>
         <div className="card-toolbar">
           <Button
             className="px-4"
             size={BUTTON_SIZES.SM}
-            onClick={() => openDialog(DIALOG_WIZARDS.ADD_PEOPLE_FORM, { callback: refetch })}>
-            Add People
+            onClick={() => openDialog(DIALOG_WIZARDS.CREATE_APPOINTMENT_FORM, { callback: refetch })}>
+            Create Appointment
           </Button>
         </div>
       </div>
@@ -138,4 +138,4 @@ const AllPeople: FC = () => {
   );
 };
 
-export default AllPeople;
+export default Appointment;
