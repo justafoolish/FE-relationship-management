@@ -2,9 +2,10 @@ import clsx from 'clsx';
 import { FC, useMemo } from 'react';
 import { FieldError, useController, useFormContext } from 'react-hook-form';
 
-import { DateInput, PasswordInput, PhoneInput, TextInput } from '.';
+import { DateInput, PasswordInput, PhoneInput, SelectInput, TextInput } from '.';
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
 
+import './input.css';
 // Error message
 interface ErrorMessageProps {
   name: string;
@@ -32,6 +33,7 @@ const typeComponents: ITypeComponent = {
   [FORM_CONTROLS.PASSWORD]: PasswordInput,
   [FORM_CONTROLS.TEL]: PhoneInput,
   [FORM_CONTROLS.DATE_PICKER]: DateInput,
+  [FORM_CONTROLS.SELECT]: SelectInput,
 };
 
 interface FormControlProps {

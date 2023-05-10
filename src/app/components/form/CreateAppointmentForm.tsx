@@ -1,54 +1,64 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import AvatarButton from 'app/components/button/AvatarButton';
 import FormControl from 'app/components/form-control/FormControl';
+import { MEETING_TYPE_LABEL, MEETING_TYPE_VALUE } from 'app/domains/appointment/appointment.i';
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
-import { FC } from 'react';
+import { handleQueryError } from 'app/modules/utils/error-handler';
+import { useCreateAppointmentMutation } from 'app/reducers/api';
+import { useGetAllRelationshipQuery } from 'app/reducers/relationship/relationship.api';
+import dayjs from 'dayjs';
+import { FC, useMemo } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import * as Yup from 'yup';
 import Button from '../button';
-import { handleQueryError } from 'app/modules/utils/error-handler';
-import { useCreateRelationshipMutation } from 'app/reducers/relationship/relationship.api';
-import dayjs from 'dayjs';
-import { toast } from 'react-hot-toast';
 import { IDialogBody } from '../dialog/CustomDialog';
 
 interface ICreateAppointmentFormFields {
   name: string;
   date: string | number | Date;
-  email: string;
-  phone: string;
+  people: string[];
+  address: string;
   notes: string;
-  avatar: string;
+  type: string;
 }
 
-const addPeopleValidationSchema = Yup.object().shape({
+const createAppointmentValidationSchema = Yup.object().shape({
   name: Yup.string(),
   date: Yup.string(),
-  email: Yup.string(),
-  phone: Yup.string(),
+  people: Yup.array(Yup.string()),
+  address: Yup.string(),
   notes: Yup.string(),
-  avatar: Yup.string(),
+  type: Yup.string(),
 });
 
 const CreateAppointmentForm: FC<IDialogBody> = ({ closeModal, callback }) => {
-  const [createRelationship, { isLoading }] = useCreateRelationshipMutation();
+  const { _relationship } = useGetAllRelationshipQuery(
+    { type: 'all' },
+    {
+      selectFromResult: (response) => ({
+        ...response,
+        _relationship: response.data?.data?.pagination.items ?? [],
+      }),
+    }
+  );
+  const [createAppointment, { isLoading }] = useCreateAppointmentMutation();
+
   const methods = useForm<Partial<ICreateAppointmentFormFields>>({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
-    resolver: yupResolver(addPeopleValidationSchema),
+    resolver: yupResolver(createAppointmentValidationSchema),
   });
 
   const _submitForm: SubmitHandler<Partial<ICreateAppointmentFormFields>> = async (data) => {
     try {
-      const { date, ...rest } = data;
+      const { people, date, ...rest } = data;
+      console.log(data);
 
-      await createRelationship({
-        ...rest,
+      await createAppointment({
+        ids_people: people,
         date_meeting: dayjs(date).toISOString(),
-        first_meeting: dayjs(date).toISOString(),
-        tag: 'friend',
+        ...rest,
       }).unwrap();
-
       toast.success('Add People success');
       closeModal();
       callback();
@@ -57,25 +67,56 @@ const CreateAppointmentForm: FC<IDialogBody> = ({ closeModal, callback }) => {
     }
   };
 
+  const peopleOptions = useMemo(
+    () => _relationship.map((_people) => ({ label: _people?.full_name, value: _people?._id })),
+    [_relationship]
+  );
+
+  const typeOptions = useMemo(
+    () => MEETING_TYPE_VALUE.map((_type) => ({ label: MEETING_TYPE_LABEL[_type], value: _type })),
+    []
+  );
+
   return (
     <FormProvider {...methods}>
       <form className="h-100 d-flex flex-column" onSubmit={methods.handleSubmit(_submitForm)}>
         <div>
-          <AvatarButton name="avatar" />
           {[
-            { name: 'name', placeholder: 'Enter name', label: 'Name', type: FORM_CONTROLS.TEXT },
-            { name: 'date', placeholder: '', label: 'Date', type: FORM_CONTROLS.DATE_PICKER },
-            { name: 'email', placeholder: 'Enter email', label: 'Email', type: FORM_CONTROLS.MAIL },
-            { name: 'phone', placeholder: 'Enter phone number', label: 'Phone', type: FORM_CONTROLS.TEL },
+            {
+              name: 'name',
+              placeholder: 'Enter meeting title',
+              label: 'Title',
+              type: FORM_CONTROLS.TEXT,
+            },
+            {
+              name: 'people',
+              placeholder: 'Select Person',
+              label: 'Person',
+              type: FORM_CONTROLS.SELECT,
+              allowClear: true,
+              mode: 'multiple',
+              options: peopleOptions,
+            },
+            {
+              type: FORM_CONTROLS.SELECT,
+              name: 'type',
+              placeholder: 'Select type',
+              label: 'Type',
+              options: typeOptions,
+            },
+            { name: 'date', placeholder: '', label: 'Date meeting', type: FORM_CONTROLS.DATE_PICKER },
+            {
+              name: 'address',
+              placeholder: 'Enter place to meet',
+              label: 'Address',
+              type: FORM_CONTROLS.TEXT,
+            },
             { name: 'notes', placeholder: 'Enter notes', label: 'Note', type: FORM_CONTROLS.TEXT },
           ].map((formItem, idx) => {
             return (
               <FormControl
                 key={idx}
-                type={formItem.type}
-                name={formItem.name}
-                label={formItem.label}
-                placeholder={formItem.placeholder}
+                {...formItem}
                 cxContainer="fv-row mb-8"
                 className="form-control form-control-lg form-control-solid "
               />
@@ -83,7 +124,7 @@ const CreateAppointmentForm: FC<IDialogBody> = ({ closeModal, callback }) => {
           })}
         </div>
         <Button className="mt-auto" isLoading={isLoading}>
-          Add person
+          Create appointment
         </Button>
       </form>
     </FormProvider>
