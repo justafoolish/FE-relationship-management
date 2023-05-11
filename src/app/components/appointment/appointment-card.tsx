@@ -1,14 +1,21 @@
 import { UserOutlined } from '@ant-design/icons';
 import { KTSVG, toAbsoluteUrl } from '_metronic/helpers';
 import { Avatar, Dropdown, MenuProps, Space, Tooltip } from 'antd';
+import { DATE_FORMAT } from 'app/constants/constant';
+import {
+  AppointmentStatusBadge,
+  EAppointmentStatus,
+  IAppointment,
+  MEETING_TYPE,
+  MEETING_TYPE_LABEL,
+} from 'app/domains/appointment/appointment.i';
 import { BUTTON_SIZES, BUTTON_VARIANTS } from 'app/domains/components/button.i';
 import { useGetAppointmentDetailQuery } from 'app/reducers/api';
+import dayjs from 'dayjs';
 import { get, random } from 'lodash';
 import { FC } from 'react';
+import BadgeStatus from '../badge';
 import Button from '../button';
-import { IAppointment, MEETING_TYPE, MEETING_TYPE_LABEL } from 'app/domains/appointment/appointment.i';
-import dayjs from 'dayjs';
-import { DATE_FORMAT } from 'app/constants/constant';
 
 interface IAppointmentProps {
   className: string;
@@ -58,7 +65,12 @@ const AppointmentCard: FC<Partial<IAppointmentProps>> = ({
         </div>
       </div>
       <div className="card-body pt-0">
-        <div className="fs-2 fw-bold mb-3">{appointment?.name}</div>
+        <div className="fs-2 fw-bold mb-3 d-flex align-items-center">
+          <h3 className="mb-0 me-4">{appointment?.name}</h3>
+          <BadgeStatus type={AppointmentStatusBadge[appointment?.status ?? EAppointmentStatus.COMING]}>
+            {appointment?.status}
+          </BadgeStatus>
+        </div>
         <div className="fw-bold text-primary mb-3">
           {dayjs(appointment?.date_meeting).format(DATE_FORMAT)}
         </div>
@@ -83,9 +95,3 @@ const AppointmentCard: FC<Partial<IAppointmentProps>> = ({
 };
 
 export default AppointmentCard;
-
-// {_currentAppointment?.contribute
-// 	?.filter((_, idx) => idx >= 3)
-// 	.map((_contribute) => (
-// 		<Avatar key={_contribute._id} src={_contribute.avatar} />
-// 	))}

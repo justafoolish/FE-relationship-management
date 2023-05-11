@@ -42,6 +42,7 @@ const UpdateAppointmentForm: FC<IDialogBody> = ({ closeModal, callback, formData
         ...response,
         _relationship: response.data?.data?.pagination.items ?? [],
       }),
+      refetchOnMountOrArgChange: true,
     }
   );
 

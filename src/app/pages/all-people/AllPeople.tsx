@@ -1,6 +1,7 @@
 import { KTSVG } from '_metronic/helpers';
 import type { ColumnsType } from 'antd/es/table';
 import Table from 'antd/lib/table';
+import BadgeStatus, { IBadgeType } from 'app/components/badge';
 import Button from 'app/components/button';
 import { DIALOG_WIZARDS } from 'app/components/dialog/dialog';
 import { DATE_FORMAT } from 'app/constants/constant';
@@ -9,28 +10,9 @@ import { IPeople } from 'app/domains/relationship/relationship.i';
 import useDialog from 'app/hooks/useDialog';
 import { handleQueryError } from 'app/modules/utils/error-handler';
 import { useDeleteRelationshipMutation, useGetAllRelationshipQuery } from 'app/reducers/api';
-import clsx from 'clsx';
 import dayjs from 'dayjs';
-import { FC, ReactNode, useCallback, useMemo } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 import { toast } from 'react-hot-toast';
-
-enum IBadgeType {
-  SUCCESS = 'Success',
-  REJECT = 'Reject',
-  APPROVED = 'Approved',
-  IN_PROGRESS = 'In progress',
-}
-
-const BadgeStatus: FC<{ type: IBadgeType; children: ReactNode }> = ({ type, children }) => {
-  const cxBadge = clsx('badge', {
-    'badge-light-success': type === IBadgeType.APPROVED,
-    'badge-light-warning': type === IBadgeType.IN_PROGRESS,
-    'badge-light-danger': type === IBadgeType.SUCCESS,
-    'badge-light-info': type === IBadgeType.REJECT,
-    'badge-light-primary': type === IBadgeType.APPROVED,
-  });
-  return <span className={cxBadge}>{children}</span>;
-};
 
 const AllPeople: FC = () => {
   const [deleteRelationship] = useDeleteRelationshipMutation();

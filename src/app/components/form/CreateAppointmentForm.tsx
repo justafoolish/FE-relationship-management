@@ -39,6 +39,7 @@ const CreateAppointmentForm: FC<IDialogBody> = ({ closeModal, callback }) => {
         ...response,
         _relationship: response.data?.data?.pagination.items ?? [],
       }),
+      refetchOnMountOrArgChange: true,
     }
   );
   const [createAppointment, { isLoading }] = useCreateAppointmentMutation();

@@ -1,3 +1,4 @@
+import { IBadgeType } from 'app/components/badge';
 import { IPeople } from '../relationship/relationship.i';
 
 export interface ICreateAppointmentRequest {
@@ -10,6 +11,18 @@ export interface ICreateAppointmentRequest {
   name: string;
 }
 
+export enum EAppointmentStatus {
+  COMING = 'coming',
+  DONE = 'done',
+  CANCEL = 'cancel',
+}
+
+export const AppointmentStatusBadge = {
+  [EAppointmentStatus.CANCEL]: IBadgeType.REJECT,
+  [EAppointmentStatus.DONE]: IBadgeType.SUCCESS,
+  [EAppointmentStatus.COMING]: IBadgeType.IN_PROGRESS,
+};
+
 export interface IAppointment {
   id: string | number;
   relationship_ids: string[];
@@ -17,7 +30,7 @@ export interface IAppointment {
   address: string;
   name: string;
   notes: string;
-  status: string;
+  status: EAppointmentStatus;
   date_meeting: string;
   date: string;
   created_at?: string;

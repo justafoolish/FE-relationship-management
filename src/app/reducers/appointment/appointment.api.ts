@@ -18,9 +18,10 @@ export const appointmentAPI = createApi({
       BaseResponse<PaginationResponse<Partial<IListAppointment>>>,
       Partial<PaginationRequest>
     >({
-      query: () => ({
+      query: (params) => ({
         url: '/',
         method: 'GET',
+        params,
       }),
     }),
     createAppointment: builder.mutation<BaseResponse<IUserInfo>, Partial<ICreateAppointmentRequest>>({
