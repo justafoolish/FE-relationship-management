@@ -6,10 +6,13 @@ import { DATE_FORMAT } from 'app/constants/constant';
 import { MEETING_TYPE_LABEL } from 'app/domains/appointment/appointment.i';
 import { BUTTON_SIZES } from 'app/domains/components/button.i';
 import useDialog from 'app/hooks/useDialog';
-import { useGetListAppointmentQuery } from 'app/reducers/api';
+import { useDeleteAppointmentMutation, useGetListAppointmentQuery } from 'app/reducers/api';
 import dayjs from 'dayjs';
 import { get, keys, random } from 'lodash';
-import { FC, useMemo } from 'react';
+import { FC, useCallback, useMemo } from 'react';
+import { DeleteFilled, EditFilled, StarFilled } from '@ant-design/icons';
+import { handleQueryError } from 'app/modules/utils/error-handler';
+import { toast } from 'react-hot-toast';
 
 const Appointment: FC = () => {
   const { _appointment, refetch } = useGetListAppointmentQuery(
@@ -22,31 +25,54 @@ const Appointment: FC = () => {
     }
   );
 
+  const [deleteAppointment] = useDeleteAppointmentMutation();
+
   const { openDialog } = useDialog();
 
   const _mapAppointment = useMemo(() => new Map(Object.entries(_appointment)), [_appointment]);
 
-  const items: MenuProps['items'] = useMemo(
-    () => [
-      {
-        label: 'Edit',
-        key: '0',
-      },
-      {
-        type: 'divider',
-      },
-      {
-        label: 'Delete',
-        key: '1',
-      },
-      {
-        type: 'divider',
-      },
-      {
-        label: 'Confirm appointment',
-        key: '2',
-      },
-    ],
+  const handleDeleteAppointment = useCallback(async (id?: string | number) => {
+    try {
+      await deleteAppointment(id);
+
+      toast.success('Delete successfully');
+      refetch();
+    } catch (error) {
+      handleQueryError(error);
+    }
+  }, []);
+
+  const getItemsDropdown = useCallback(
+    (id?: string | number) =>
+      [
+        {
+          icon: <EditFilled />,
+          className: 'text-hover-info',
+          label: 'Edit',
+          key: '0',
+          onClick: () => console.log('edit', id),
+        },
+        {
+          type: 'divider',
+        },
+        {
+          icon: <DeleteFilled />,
+          className: 'text-hover-danger',
+          label: 'Delete',
+          key: '1',
+          onClick: () => handleDeleteAppointment(id),
+        },
+        {
+          type: 'divider',
+        },
+        {
+          icon: <StarFilled />,
+          className: 'text-hover-primary',
+          label: 'Confirm appointment',
+          key: '2',
+          onClick: () => console.log('confirm', id),
+        },
+      ] as MenuProps['items'],
     []
   );
 
@@ -84,7 +110,7 @@ const Appointment: FC = () => {
                     title={`${get(MEETING_TYPE_LABEL, appointment.type, 'Appointment')} Schedule`}
                     time={dayjs(appointment.date_meeting).format(DATE_FORMAT)}
                     description={appointment.notes}
-                    dropdownItems={items}
+                    dropdownItems={getItemsDropdown(appointment.id)}
                   />
                 </div>
               ))}

@@ -32,9 +32,9 @@ export const appointmentAPI = createApi({
         method: 'POST',
       }),
     }),
-    deleteAppointment: builder.mutation<BaseResponse<IUserInfo>, void>({
-      query: () => ({
-        url: '/:id',
+    deleteAppointment: builder.mutation<BaseResponse<any>, string | number | undefined>({
+      query: (id) => ({
+        url: `/${id}`,
         method: 'DELETE',
       }),
     }),

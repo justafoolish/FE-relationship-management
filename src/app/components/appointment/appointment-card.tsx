@@ -10,7 +10,7 @@ interface IAppointmentProps {
   title: string;
   time: string;
   description: string;
-  dropdownItems: MenuProps['items'];
+  dropdownItems?: MenuProps['items'];
 }
 
 const AppointmentCard: FC<Partial<IAppointmentProps>> = ({
