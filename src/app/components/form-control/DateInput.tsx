@@ -1,4 +1,5 @@
 import { DatePicker } from 'antd';
+import { DATE_FORMAT } from 'app/constants/constant';
 import { FC } from 'react';
 import { useFormContext, useController } from 'react-hook-form';
 
@@ -18,4 +19,7 @@ const DateInput: FC<DateInputProps> = ({ name = '', placeholder, className, ...r
   return <DatePicker {...field} placeholder={placeholder} className={className} {...rest} />;
 };
 
+DateInput.defaultProps = {
+  format: DATE_FORMAT,
+};
 export default DateInput;

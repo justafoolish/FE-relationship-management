@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export interface IUserInfo {
   id: number;
   internal_id: string | number;
@@ -6,7 +8,7 @@ export interface IUserInfo {
   avatar: string;
   email: string;
   gender: string;
-  birthday: string | number | Date;
+  birthday: string | number | Date | dayjs.Dayjs;
   phone: number;
   address: string;
   email_verified_at: string;
@@ -15,6 +17,7 @@ export interface IUserInfo {
   created_at: string;
   updated_at: string;
   name: string;
+  setting?: number[];
 }
 
 export interface IJWT {

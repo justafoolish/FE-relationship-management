@@ -45,6 +45,7 @@ interface FormControlProps {
   autoComplete?: 'on' | 'off';
   cxContainer?: string;
   className?: string;
+  [x: string]: any;
 }
 
 const FormControl: FC<FormControlProps> = (props) => {

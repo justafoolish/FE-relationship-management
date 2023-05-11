@@ -1,4 +1,3 @@
-import { DeactivateAccount } from './cards/DeactivateAccount';
 import { ProfileDetails } from './cards/ProfileDetails';
 import { SignInMethod } from './cards/SignInMethod';
 
@@ -10,7 +9,7 @@ export function Settings() {
       {/* <ConnectedAccounts /> */}
       {/* <EmailPreferences /> */}
       {/* <Notifications /> */}
-      <DeactivateAccount />
+      {/* <DeactivateAccount /> */}
     </>
   );
 }

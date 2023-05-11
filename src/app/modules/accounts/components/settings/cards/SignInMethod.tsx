@@ -134,7 +134,7 @@ const SignInMethod: React.FC = () => {
               onClick={() => setPasswordForm(true)}
               variant={BUTTON_VARIANTS.PRIMARY_ACTIVE_LIGHT}
               className={clsx('btn-light ms-auto', [showPasswordForm && 'd-none'])}>
-              Reset Password
+              Change Password
             </Button>
           </div>
         </div>

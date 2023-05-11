@@ -2,6 +2,7 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import message from 'antd/es/message';
 import Upload from 'antd/es/upload/Upload';
 import type { RcFile, UploadChangeParam, UploadFile, UploadProps } from 'antd/es/upload/interface';
+import clsx from 'clsx';
 import { FC, ReactNode, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
@@ -28,9 +29,10 @@ const beforeUpload = (file: RcFile) => {
 interface IAvatarButtonProps {
   name: string;
   label?: string | ReactNode;
+  algin?: 'start' | 'center';
 }
 
-const AvatarButton: FC<IAvatarButtonProps> = ({ name = '', label = '' }) => {
+const AvatarButton: FC<IAvatarButtonProps> = ({ name, label, algin }) => {
   const { setValue } = useFormContext();
   const [loading, setLoading] = useState(false);
 
@@ -51,7 +53,11 @@ const AvatarButton: FC<IAvatarButtonProps> = ({ name = '', label = '' }) => {
         name="avatar"
         maxCount={1}
         listType="picture-circle"
-        className="avatar-uploader d-flex justify-content-center align-items-center"
+        className={clsx(
+          'avatar-uploader d-flex align-items-center',
+          [algin === ('start' as const) && 'justify-content-start'],
+          [algin === ('center' as const) && 'justify-content-center']
+        )}
         showUploadList={false}
         beforeUpload={beforeUpload}
         onChange={handleChange}>
@@ -73,6 +79,12 @@ const AvatarButton: FC<IAvatarButtonProps> = ({ name = '', label = '' }) => {
       <label className="form-label fw-bolder text-dark fs-6">{label}</label>
     </>
   );
+};
+
+AvatarButton.defaultProps = {
+  name: '',
+  label: '',
+  algin: 'center',
 };
 
 export default AvatarButton;

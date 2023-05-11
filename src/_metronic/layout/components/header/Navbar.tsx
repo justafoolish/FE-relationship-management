@@ -4,6 +4,8 @@ import clsx from 'clsx';
 import { KTSVG, toAbsoluteUrl } from '../../../helpers';
 import { HeaderNotificationsMenu, HeaderUserMenu, Search, ThemeModeSwitcher } from '../../../partials';
 import { useLayout } from '../../core';
+import { useAppSelector } from 'app/reducers/store.hook';
+import { userInfoSelector } from 'app/reducers/user/auth.slice';
 
 const itemClass = 'ms-1 ms-lg-3';
 const btnClass =
@@ -13,6 +15,8 @@ const btnIconClass = 'svg-icon-1';
 
 const Navbar = () => {
   const { config } = useLayout();
+
+	const userInfo = useAppSelector(userInfoSelector)
   return (
     <div className="app-navbar flex-shrink-0">
       <div className={clsx('app-navbar-item align-items-stretch', itemClass)}>
@@ -53,7 +57,7 @@ const Navbar = () => {
           data-kt-menu-trigger="{default: 'click'}"
           data-kt-menu-attach="parent"
           data-kt-menu-placement="bottom-end">
-          <img src={toAbsoluteUrl('/media/avatars/300-1.jpg')} alt="" />
+          <img src={userInfo?.avatar ?? toAbsoluteUrl('/media/avatars/300-1.jpg')} alt="" />
         </div>
         <HeaderUserMenu />
       </div>

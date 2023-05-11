@@ -18,7 +18,7 @@ const AccountHeader: React.FC = () => {
         <div className="d-flex flex-wrap flex-sm-nowrap mb-3">
           <div className="me-7 mb-4">
             <div className="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-              <img src={toAbsoluteUrl('/media/avatars/300-1.jpg')} alt="Metronic" />
+              <img src={userInfo?.avatar ?? toAbsoluteUrl('/media/avatars/300-1.jpg')} alt="Metronic" />
               <div className="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-white h-20px w-20px"></div>
             </div>
           </div>
@@ -55,35 +55,6 @@ const AccountHeader: React.FC = () => {
                     <KTSVG path="/media/icons/duotune/communication/com011.svg" className="svg-icon-4 me-1" />
                     {userInfo?.email}
                   </a>
-                </div>
-              </div>
-
-              <div className="d-flex my-4">
-                <a href="#" className="btn btn-sm btn-light me-2" id="kt_user_follow_button">
-                  <KTSVG path="/media/icons/duotune/arrows/arr012.svg" className="svg-icon-3 d-none" />
-
-                  <span className="indicator-label">Follow</span>
-                  <span className="indicator-progress">
-                    Please wait...
-                    <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                  </span>
-                </a>
-                <a
-                  href="#"
-                  className="btn btn-sm btn-primary me-3"
-                  data-bs-toggle="modal"
-                  data-bs-target="#kt_modal_offer_a_deal">
-                  Hire Me
-                </a>
-                <div className="me-0">
-                  <button
-                    className="btn btn-sm btn-icon btn-bg-light btn-active-color-primary"
-                    data-kt-menu-trigger="click"
-                    data-kt-menu-placement="bottom-end"
-                    data-kt-menu-flip="top-end">
-                    <i className="bi bi-three-dots fs-3"></i>
-                  </button>
-                  <Dropdown1 />
                 </div>
               </div>
             </div>
