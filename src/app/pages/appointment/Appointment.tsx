@@ -1,17 +1,18 @@
+import { DeleteFilled, EditFilled, StarFilled } from '@ant-design/icons';
 import { MenuProps } from 'antd';
 import AppointmentCard from 'app/components/appointment/appointment-card';
 import Button from 'app/components/button';
 import { DIALOG_WIZARDS } from 'app/components/dialog/dialog';
-import { DATE_FORMAT } from 'app/constants/constant';
-import { MEETING_TYPE_LABEL } from 'app/domains/appointment/appointment.i';
 import { BUTTON_SIZES } from 'app/domains/components/button.i';
 import useDialog from 'app/hooks/useDialog';
-import { useDeleteAppointmentMutation, useGetListAppointmentQuery } from 'app/reducers/api';
-import dayjs from 'dayjs';
-import { get, keys, random } from 'lodash';
-import { FC, useCallback, useMemo } from 'react';
-import { DeleteFilled, EditFilled, StarFilled } from '@ant-design/icons';
 import { handleQueryError } from 'app/modules/utils/error-handler';
+import {
+  useDeleteAppointmentMutation,
+  useGetListAppointmentQuery,
+  useUpdateAppointmentStatusMutation,
+} from 'app/reducers/api';
+import { keys, random } from 'lodash';
+import { FC, useCallback, useMemo } from 'react';
 import { toast } from 'react-hot-toast';
 
 const Appointment: FC = () => {
@@ -26,6 +27,7 @@ const Appointment: FC = () => {
   );
 
   const [deleteAppointment] = useDeleteAppointmentMutation();
+  const [updateAppointmentStatus] = useUpdateAppointmentStatusMutation();
 
   const { openDialog } = useDialog();
 
@@ -34,6 +36,17 @@ const Appointment: FC = () => {
   const handleDeleteAppointment = useCallback(async (id?: string | number) => {
     try {
       await deleteAppointment(id);
+
+      toast.success('Delete successfully');
+      refetch();
+    } catch (error) {
+      handleQueryError(error);
+    }
+  }, []);
+
+  const handleDeleteAppointmentStatus = useCallback(async (id?: string | number) => {
+    try {
+      await updateAppointmentStatus(id);
 
       toast.success('Delete successfully');
       refetch();
@@ -76,7 +89,7 @@ const Appointment: FC = () => {
           className: 'text-hover-primary',
           label: 'Confirm appointment',
           key: '2',
-          onClick: () => console.log('confirm', id),
+          onClick: () => handleDeleteAppointmentStatus(id),
         },
       ] as MenuProps['items'],
     []
@@ -113,10 +126,8 @@ const Appointment: FC = () => {
                   <AppointmentCard
                     className="card-xl-stretch mb-xl-8"
                     image={`abstract-${random(1, 4)}.svg`}
-                    title={`${get(MEETING_TYPE_LABEL, appointment.type, 'Appointment')} Schedule`}
-                    time={dayjs(appointment.date_meeting).format(DATE_FORMAT)}
-                    description={appointment.notes}
                     dropdownItems={getItemsDropdown(appointment.id)}
+                    appointment={appointment}
                   />
                 </div>
               ))}

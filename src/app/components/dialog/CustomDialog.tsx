@@ -65,7 +65,7 @@ const CustomDialog: FC = () => {
       <DialogComponent.Header closeButton className="border-bottom">
         <DialogComponent.Title>{title}</DialogComponent.Title>
       </DialogComponent.Header>
-      <DialogComponent.Body>
+      <DialogComponent.Body className="pb-6">
         <DialogBodyComponent {...bodyProps} />
       </DialogComponent.Body>
     </DialogComponent>

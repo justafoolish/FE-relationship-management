@@ -43,6 +43,12 @@ export const appointmentAPI = createApi({
         method: 'DELETE',
       }),
     }),
+    updateAppointmentStatus: builder.mutation<BaseResponse<any>, string | number | undefined>({
+      query: (id) => ({
+        url: `/${id}`,
+        method: 'PATCH',
+      }),
+    }),
     getAppointmentDetail: builder.query<BaseResponse<Partial<IAppointment>>, string | number | undefined>({
       query: (id) => ({
         url: `/${id}`,
@@ -58,4 +64,5 @@ export const {
   useUpdateAppointmentMutation,
   useDeleteAppointmentMutation,
   useGetAppointmentDetailQuery,
+  useUpdateAppointmentStatusMutation,
 } = appointmentAPI;
