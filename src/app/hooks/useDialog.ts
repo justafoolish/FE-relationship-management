@@ -1,4 +1,4 @@
-import DIALOG_WIZARDS from 'app/domains/dialog/dialog.e';
+import { DIALOG_WIZARDS } from 'app/components/dialog/dialog';
 import { IDialogState, closeDialogAction, openDialogAction } from 'app/reducers/dialog/dialog.slice';
 import { useAppDispatch } from 'app/reducers/store.hook';
 

@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import DIALOG_WIZARDS from 'app/domains/dialog/dialog.e';
 import { isEmpty } from 'lodash';
 import { RootState } from '..';
+import { DIALOG_WIZARDS } from 'app/components/dialog/dialog';
 
 export type DialogType = 'modal' | 'drawer';
 

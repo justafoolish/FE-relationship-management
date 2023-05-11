@@ -1,10 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 export function Dropdown1() {
   return (
     <div className="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true">
-      <div className="px-7 py-5">
+      {/* <div className="px-7 py-5">
         <div className="fs-5 text-dark fw-bolder">Filter Options</div>
-      </div>
+      </div> */}
 
       <div className="separator border-gray-200"></div>
 
