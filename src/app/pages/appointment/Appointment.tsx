@@ -1,140 +1,98 @@
-import { KTSVG } from '_metronic/helpers';
-import type { ColumnsType } from 'antd/es/table';
-import Table from 'antd/lib/table';
+import { MenuProps } from 'antd';
+import AppointmentCard from 'app/components/appointment/appointment-card';
 import Button from 'app/components/button';
 import { DIALOG_WIZARDS } from 'app/components/dialog/dialog';
 import { DATE_FORMAT } from 'app/constants/constant';
-import { BUTTON_SIZES, BUTTON_VARIANTS } from 'app/domains/components/button.i';
-import { IPeople } from 'app/domains/relationship/relationship.i';
+import { MEETING_TYPE_LABEL } from 'app/domains/appointment/appointment.i';
+import { BUTTON_SIZES } from 'app/domains/components/button.i';
 import useDialog from 'app/hooks/useDialog';
-import { handleQueryError } from 'app/modules/utils/error-handler';
-import { useDeleteRelationshipMutation, useGetAllRelationshipQuery } from 'app/reducers/api';
-import clsx from 'clsx';
+import { useGetListAppointmentQuery } from 'app/reducers/api';
 import dayjs from 'dayjs';
-import { FC, ReactNode, useCallback, useMemo } from 'react';
-import { toast } from 'react-hot-toast';
-
-enum IBadgeType {
-  SUCCESS = 'Success',
-  REJECT = 'Reject',
-  APPROVED = 'Approved',
-  IN_PROGRESS = 'In progress',
-}
-
-const BadgeStatus: FC<{ type: IBadgeType; children: ReactNode }> = ({ type, children }) => {
-  const cxBadge = clsx('badge', {
-    'badge-light-success': type === IBadgeType.APPROVED,
-    'badge-light-warning': type === IBadgeType.IN_PROGRESS,
-    'badge-light-danger': type === IBadgeType.SUCCESS,
-    'badge-light-info': type === IBadgeType.REJECT,
-    'badge-light-primary': type === IBadgeType.APPROVED,
-  });
-  return <span className={cxBadge}>{children}</span>;
-};
+import { get, keys, random } from 'lodash';
+import { FC, useMemo } from 'react';
 
 const Appointment: FC = () => {
-  const [deleteRelationship] = useDeleteRelationshipMutation();
-
-  const { _relationships, refetch } = useGetAllRelationshipQuery(
-    { limit: 20, page: 1 },
+  const { _appointment, refetch } = useGetListAppointmentQuery(
+    {},
     {
       selectFromResult: (response) => ({
         ...response,
-        _relationships: response.data?.data?.pagination.items ?? [],
+        _appointment: response.data?.data?.pagination.items ?? [],
       }),
     }
   );
 
   const { openDialog } = useDialog();
 
-  const handleDeleteRelationship = useCallback(async (id?: string) => {
-    if (!id) return;
-    try {
-      toast.success('Deleting');
-      await deleteRelationship(id).unwrap();
-      toast.success('Delete success');
+  const _mapAppointment = useMemo(() => new Map(Object.entries(_appointment)), [_appointment]);
 
-      refetch();
-    } catch (error) {
-      handleQueryError(error);
-    }
-  }, []);
-
-  const columns: ColumnsType<IPeople> = useMemo(
+  const items: MenuProps['items'] = useMemo(
     () => [
       {
-        title: 'Full Name',
-        dataIndex: 'full_name',
-        render: (text: string) => <span className="text-dark fw-bold text-hover-primary fs-6">{text}</span>,
+        label: 'Edit',
+        key: '0',
       },
       {
-        title: 'First meet',
-        dataIndex: 'first_meeting',
-        render: (date: string) => (
-          <span className="text-dark d-block mb-1 fs-6">{dayjs(date).format(DATE_FORMAT)}</span>
-        ),
+        type: 'divider',
       },
       {
-        title: 'Note',
-        dataIndex: 'notes',
+        label: 'Delete',
+        key: '1',
       },
       {
-        title: 'Tags',
-        dataIndex: 'tag',
-        render: (text: string) => <BadgeStatus type={IBadgeType.REJECT}>{text}</BadgeStatus>,
+        type: 'divider',
       },
       {
-        title: 'Actions',
-        dataIndex: 'actions',
-        className: 'text-end',
-        render: (_, { _id = '' }) => (
-          <>
-            <Button
-              variant={BUTTON_VARIANTS.ICON}
-              size={BUTTON_SIZES.SM}
-              className="btn-bg-light btn-active-color-warning me-1"
-              onClick={() =>
-                openDialog(DIALOG_WIZARDS.UPDATE_PEOPLE_FORM, {
-                  callback: refetch,
-                  options: { formData: { _id } },
-                })
-              }>
-              <KTSVG path="/media/icons/duotune/art/art005.svg" className="svg-icon-3" />
-            </Button>
-            <Button
-              variant={BUTTON_VARIANTS.ICON}
-              size={BUTTON_SIZES.SM}
-              className="btn-bg-light btn-active-color-danger"
-              onClick={() => handleDeleteRelationship(_id)}>
-              <KTSVG path="/media/icons/duotune/general/gen027.svg" className="svg-icon-3" />
-            </Button>
-          </>
-        ),
+        label: 'Confirm appointment',
+        key: '2',
       },
     ],
-    [_relationships]
+    []
   );
 
   return (
-    <div className="card">
-      <div className="card-header border-0 pt-5">
-        <h3 className="card-title align-items-start flex-column">
-          <span className="card-label fw-bold fs-3 mb-1">Appointment</span>
-          <span className="text-muted mt-1 fw-semibold fs-7">All of your appointment</span>
-        </h3>
-        <div className="card-toolbar">
-          <Button
-            className="px-4"
-            size={BUTTON_SIZES.SM}
-            onClick={() => openDialog(DIALOG_WIZARDS.CREATE_APPOINTMENT_FORM, { callback: refetch })}>
-            Create Appointment
-          </Button>
+    <>
+      <div className="card">
+        <div className="card-header border-0 py-5">
+          <h3 className="card-title align-items-start flex-column">
+            <span className="card-label fw-bold fs-3 mb-1">Appointment</span>
+            <span className="text-muted mt-1 fw-semibold fs-7">All of your appointment</span>
+          </h3>
+          <div className="card-toolbar">
+            <Button
+              className="px-4"
+              size={BUTTON_SIZES.SM}
+              onClick={() => openDialog(DIALOG_WIZARDS.CREATE_APPOINTMENT_FORM, { callback: refetch })}>
+              Create Appointment
+            </Button>
+          </div>
         </div>
       </div>
-      <div className="card-body py-3">
-        <Table columns={columns} dataSource={_relationships as IPeople[]} size="small" />
+      <div className="">
+        {keys(_appointment).map((key) => (
+          <>
+            <div key={key} className="px-4 py-5 fw-bold fs-2">
+              {key}
+            </div>
+
+            <div className="row g-5 g-xl-8">
+              {_mapAppointment.get(key)?.map((appointment) => (
+                <div className="col-xl-4" key={appointment.id}>
+                  <AppointmentCard
+                    className="card-xl-stretch mb-xl-8"
+                    image={`abstract-${random(1, 4)}.svg`}
+                    title={`${get(MEETING_TYPE_LABEL, appointment.type, 'Appointment')} Schedule`}
+                    time={dayjs(appointment.date_meeting).format(DATE_FORMAT)}
+                    description={appointment.notes}
+                    dropdownItems={items}
+                  />
+                </div>
+              ))}
+            </div>
+          </>
+        ))}
       </div>
-    </div>
+    </>
   );
 };
 

@@ -8,7 +8,7 @@ interface IButtonProps {
   isLoading?: boolean;
   className?: string;
   children?: ReactNode;
-  onClick?: () => void;
+  onClick?: (e: any) => void;
   variant?: BUTTON_VARIANTS;
   size?: BUTTON_SIZES;
 }

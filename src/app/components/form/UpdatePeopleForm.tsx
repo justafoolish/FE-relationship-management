@@ -32,7 +32,7 @@ const addPeopleValidationSchema = Yup.object().shape({
   email: Yup.string(),
   phone: Yup.string(),
   notes: Yup.string(),
-  avatar: Yup.string(),
+  avatar: Yup.string().notRequired().default(''),
 });
 
 const UpdatePeopleForm: FC<IDialogBody> = ({ closeModal, callback, formData }) => {
@@ -58,7 +58,7 @@ const UpdatePeopleForm: FC<IDialogBody> = ({ closeModal, callback, formData }) =
   useEffect(() => {
     if (isEmpty(_relationshipDetail)) return;
 
-    methods.setValue('avatar', _relationshipDetail.avatar);
+    methods.setValue('avatar', _relationshipDetail.avatar ?? '');
     methods.setValue('name', _relationshipDetail.full_name);
     methods.setValue('notes', _relationshipDetail.notes);
     methods.setValue('phone', _relationshipDetail.phone);

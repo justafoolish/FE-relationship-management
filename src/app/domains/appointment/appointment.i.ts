@@ -7,6 +7,26 @@ export interface ICreateAppointmentRequest {
   name: string;
 }
 
+export interface IAppointment {
+  id: string | number;
+  relationship_ids: string[];
+  type: string;
+  address: string;
+  name: string;
+  notes: string;
+  status: string;
+  date_meeting: string;
+  date: string;
+}
+
+export interface IListAppointment {
+  [x: string]: IAppointment[];
+}
+
+export interface IGetAppointmentsRequest {
+  appointment: Partial<IAppointment>;
+}
+
 export enum MEETING_TYPE {
   PHONE = 'PHONE',
   EMAIL = 'EMAIL',
@@ -24,6 +44,6 @@ export const MEETING_TYPE_VALUE = [
 export const MEETING_TYPE_LABEL = {
   [MEETING_TYPE.EMAIL]: 'Email',
   [MEETING_TYPE.PHONE]: 'Phone',
-  [MEETING_TYPE.IN_PERSON]: 'In person',
-  [MEETING_TYPE.NOTE]: 'Note',
+  [MEETING_TYPE.IN_PERSON]: 'In person meeting',
+  [MEETING_TYPE.NOTE]: 'Note meeting',
 };
