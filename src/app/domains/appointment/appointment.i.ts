@@ -1,4 +1,7 @@
+import { IPeople } from '../relationship/relationship.i';
+
 export interface ICreateAppointmentRequest {
+  id?: string;
   ids_people: string[];
   date_meeting: string;
   notes: string;
@@ -17,6 +20,9 @@ export interface IAppointment {
   status: string;
   date_meeting: string;
   date: string;
+  created_at?: string;
+  updated_at?: string;
+  contribute?: IPeople[];
 }
 
 export interface IListAppointment {

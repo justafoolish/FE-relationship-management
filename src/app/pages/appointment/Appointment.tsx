@@ -50,7 +50,13 @@ const Appointment: FC = () => {
           className: 'text-hover-info',
           label: 'Edit',
           key: '0',
-          onClick: () => console.log('edit', id),
+          onClick: () =>
+            openDialog(DIALOG_WIZARDS.UPDATE_APPOINTMENT_FORM, {
+              callback: refetch,
+              options: {
+                formData: { appointmentId: id },
+              },
+            }),
         },
         {
           type: 'divider',

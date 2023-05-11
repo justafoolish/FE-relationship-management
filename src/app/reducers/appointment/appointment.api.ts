@@ -1,5 +1,9 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { ICreateAppointmentRequest, IListAppointment } from 'app/domains/appointment/appointment.i';
+import {
+  IAppointment,
+  ICreateAppointmentRequest,
+  IListAppointment,
+} from 'app/domains/appointment/appointment.i';
 import { PaginationRequest } from 'app/domains/rtk/base.request';
 import BaseResponse, { PaginationResponse } from 'app/domains/rtk/base.response';
 import { IUserInfo } from 'app/domains/user/user.i';
@@ -26,10 +30,11 @@ export const appointmentAPI = createApi({
         body,
       }),
     }),
-    updateAppointment: builder.mutation<BaseResponse<IUserInfo>, void>({
-      query: () => ({
-        url: '/:id',
+    updateAppointment: builder.mutation<BaseResponse<IUserInfo>, Partial<ICreateAppointmentRequest>>({
+      query: ({ id, ...body }) => ({
+        url: `/${id}`,
         method: 'POST',
+        body,
       }),
     }),
     deleteAppointment: builder.mutation<BaseResponse<any>, string | number | undefined>({
@@ -38,9 +43,9 @@ export const appointmentAPI = createApi({
         method: 'DELETE',
       }),
     }),
-    getAppointmentDetail: builder.query<BaseResponse<IUserInfo>, void>({
-      query: () => ({
-        url: '/:id',
+    getAppointmentDetail: builder.query<BaseResponse<Partial<IAppointment>>, string | number | undefined>({
+      query: (id) => ({
+        url: `/${id}`,
         method: 'GET',
       }),
     }),

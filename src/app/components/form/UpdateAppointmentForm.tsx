@@ -1,28 +1,30 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import FormControl from 'app/components/form-control/FormControl';
+import { DATE_FORMAT } from 'app/constants/constant';
 import { MEETING_TYPE_LABEL, MEETING_TYPE_VALUE } from 'app/domains/appointment/appointment.i';
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
 import { handleQueryError } from 'app/modules/utils/error-handler';
-import { useCreateAppointmentMutation } from 'app/reducers/api';
+import { useGetAppointmentDetailQuery, useUpdateAppointmentMutation } from 'app/reducers/api';
 import { useGetAllRelationshipQuery } from 'app/reducers/relationship/relationship.api';
 import dayjs from 'dayjs';
-import { FC, useMemo } from 'react';
+import { isEmpty } from 'lodash';
+import { FC, useEffect, useMemo } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import * as Yup from 'yup';
 import Button from '../button';
 import { IDialogBody } from '../dialog/CustomDialog';
 
-interface ICreateAppointmentFormFields {
+interface IUpdateAppointmentFormFields {
   name: string;
-  date: string | number | Date;
+  date: string | number | Date | dayjs.Dayjs;
   people: string[];
   address: string;
   notes: string;
   type: string;
 }
 
-const createAppointmentValidationSchema = Yup.object().shape({
+const updateAppointmentValidationSchema = Yup.object().shape({
   name: Yup.string(),
   date: Yup.string(),
   people: Yup.array(Yup.string()),
@@ -31,7 +33,8 @@ const createAppointmentValidationSchema = Yup.object().shape({
   type: Yup.string(),
 });
 
-const CreateAppointmentForm: FC<IDialogBody> = ({ closeModal, callback }) => {
+const UpdateAppointmentForm: FC<IDialogBody> = ({ closeModal, callback, formData }) => {
+  const { appointmentId } = formData;
   const { _relationship } = useGetAllRelationshipQuery(
     { type: 'all' },
     {
@@ -41,19 +44,28 @@ const CreateAppointmentForm: FC<IDialogBody> = ({ closeModal, callback }) => {
       }),
     }
   );
-  const [createAppointment, { isLoading }] = useCreateAppointmentMutation();
 
-  const methods = useForm<Partial<ICreateAppointmentFormFields>>({
-    mode: 'onSubmit',
-    reValidateMode: 'onSubmit',
-    resolver: yupResolver(createAppointmentValidationSchema),
+  const { _currentAppointment } = useGetAppointmentDetailQuery(appointmentId, {
+    selectFromResult: (response) => ({
+      ...response,
+      _currentAppointment: response.data?.data,
+    }),
   });
 
-  const _submitForm: SubmitHandler<Partial<ICreateAppointmentFormFields>> = async (data) => {
+  const [updateAppointment, { isLoading }] = useUpdateAppointmentMutation();
+
+  const methods = useForm<Partial<IUpdateAppointmentFormFields>>({
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit',
+    resolver: yupResolver(updateAppointmentValidationSchema),
+  });
+
+  const _submitForm: SubmitHandler<Partial<IUpdateAppointmentFormFields>> = async (data) => {
     try {
       const { people, date, ...rest } = data;
 
-      await createAppointment({
+      await updateAppointment({
+        id: appointmentId,
         ids_people: people,
         date_meeting: dayjs(date).toISOString(),
         ...rest,
@@ -75,6 +87,17 @@ const CreateAppointmentForm: FC<IDialogBody> = ({ closeModal, callback }) => {
     () => MEETING_TYPE_VALUE.map((_type) => ({ label: MEETING_TYPE_LABEL[_type], value: _type })),
     []
   );
+
+  useEffect(() => {
+    if (isEmpty(_currentAppointment)) return;
+
+    methods.setValue('name', _currentAppointment.name);
+    methods.setValue('people', _currentAppointment.relationship_ids);
+    methods.setValue('notes', _currentAppointment.notes);
+    methods.setValue('type', _currentAppointment.type);
+    methods.setValue('address', _currentAppointment.address);
+    methods.setValue('date', dayjs(_currentAppointment.date_meeting, DATE_FORMAT));
+  }, [_currentAppointment]);
 
   return (
     <FormProvider {...methods}>
@@ -123,11 +146,11 @@ const CreateAppointmentForm: FC<IDialogBody> = ({ closeModal, callback }) => {
           })}
         </div>
         <Button className="mt-auto" isLoading={isLoading}>
-          Create appointment
+          Update appointment
         </Button>
       </form>
     </FormProvider>
   );
 };
 
-export default CreateAppointmentForm;
+export default UpdateAppointmentForm;
