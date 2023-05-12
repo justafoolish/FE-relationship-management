@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import FormControl from 'app/components/form-control/FormControl';
-import { MEETING_TYPE_LABEL, MEETING_TYPE_VALUE } from 'app/domains/appointment/appointment.i';
+import { MEETING_TYPE, MEETING_TYPE_LABEL, MEETING_TYPE_VALUE } from 'app/domains/appointment/appointment.i';
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
 import { handleQueryError } from 'app/modules/utils/error-handler';
 import { useCreateAppointmentMutation } from 'app/reducers/api';
@@ -15,7 +15,7 @@ import { IDialogBody } from '../dialog/CustomDialog';
 
 interface ICreateAppointmentFormFields {
   name: string;
-  date: string | number | Date;
+  date: string | number | Date | dayjs.Dayjs;
   people: string[];
   address: string;
   notes: string;
@@ -23,12 +23,14 @@ interface ICreateAppointmentFormFields {
 }
 
 const createAppointmentValidationSchema = Yup.object().shape({
-  name: Yup.string(),
-  date: Yup.string(),
-  people: Yup.array(Yup.string()),
+  name: Yup.string().required('Name is required field'),
+  date: Yup.string()
+    .test('Invalid-date', 'Invalid date', (date) => dayjs(date).diff(dayjs(), 'day') >= 0)
+    .required(),
+  people: Yup.array(Yup.string().required()).required(),
   address: Yup.string(),
   notes: Yup.string(),
-  type: Yup.string(),
+  type: Yup.string().default(MEETING_TYPE.IN_PERSON),
 });
 
 const CreateAppointmentForm: FC<IDialogBody> = ({ closeModal, callback }) => {
@@ -48,6 +50,9 @@ const CreateAppointmentForm: FC<IDialogBody> = ({ closeModal, callback }) => {
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
     resolver: yupResolver(createAppointmentValidationSchema),
+    defaultValues: {
+      date: dayjs(),
+    },
   });
 
   const _submitForm: SubmitHandler<Partial<ICreateAppointmentFormFields>> = async (data) => {

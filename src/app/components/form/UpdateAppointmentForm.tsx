@@ -25,9 +25,11 @@ interface IUpdateAppointmentFormFields {
 }
 
 const updateAppointmentValidationSchema = Yup.object().shape({
-  name: Yup.string(),
-  date: Yup.string(),
-  people: Yup.array(Yup.string()),
+  name: Yup.string().required('Name is required field'),
+  date: Yup.string()
+    .test('Invalid-date', 'Invalid date', (date) => dayjs(date).diff(dayjs(), 'day') >= 0)
+    .required(),
+  people: Yup.array(Yup.string().required()).required(),
   address: Yup.string(),
   notes: Yup.string(),
   type: Yup.string(),
@@ -59,6 +61,9 @@ const UpdateAppointmentForm: FC<IDialogBody> = ({ closeModal, callback, formData
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
     resolver: yupResolver(updateAppointmentValidationSchema),
+    defaultValues: {
+      date: dayjs(),
+    },
   });
 
   const _submitForm: SubmitHandler<Partial<IUpdateAppointmentFormFields>> = async (data) => {
