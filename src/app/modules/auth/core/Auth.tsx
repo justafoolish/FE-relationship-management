@@ -1,6 +1,6 @@
 import useAuthGuard from 'app/hooks/useAuthGuard';
 import { handleQueryError } from 'app/modules/utils/error-handler';
-import { useGetAllNotificationQuery, useGetUserInfoMutation } from 'app/reducers/api';
+import { useGetAllNotificationQuery, useGetAllTagsMutation, useGetUserInfoMutation } from 'app/reducers/api';
 import { useAppSelector } from 'app/reducers/store.hook';
 import { accessTokenSelector } from 'app/reducers/user/auth.slice';
 import { pusherChannel } from 'app/utils/pusher';
@@ -8,8 +8,14 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { WithChildren } from '../../../../_metronic/helpers';
 import { LayoutSplashScreen } from '../../../../_metronic/layout/core';
 import notification from 'antd/lib/notification';
+import {
+  INotification,
+  NOTIFICATION_BADGE_STATUS,
+  NOTIFICATION_TYPE,
+} from 'app/domains/notification/notification.i';
 
 const AuthInit: FC<WithChildren> = ({ children }) => {
+  const [getAllTags] = useGetAllTagsMutation();
   const { handleLogout } = useAuthGuard();
   const [getUserInfo] = useGetUserInfoMutation();
   const { refetch: fetchNotification } = useGetAllNotificationQuery(undefined);
@@ -23,6 +29,7 @@ const AuthInit: FC<WithChildren> = ({ children }) => {
       try {
         if (!didRequest.current) {
           await getUserInfo().unwrap();
+          await getAllTags().unwrap();
         }
       } catch (error) {
         handleQueryError(error);
@@ -51,13 +58,23 @@ const AuthInit: FC<WithChildren> = ({ children }) => {
       return;
     }
 
-    pusherChannel.bind(`people_notification_${userId}`, (data: any) => {
+    pusherChannel.bind(`people_notification_${userId}`, (data: INotification) => {
       console.log(data);
-      // Todo: display noti realtime
-      notification.open({
-        message: 'Notification Title',
-        description:
-          'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+
+      const getDescription = (_noti: INotification) => {
+        switch (_noti.type) {
+          case NOTIFICATION_TYPE.APPOINTMENT:
+            return `Schedule at ${_noti.info?.date_meeting} `;
+          case NOTIFICATION_TYPE.RELATIONSHIP:
+            return `Contact ${_noti.info?.full_name} `;
+          default:
+            throw new Error('Invalid notification type');
+        }
+      };
+
+      notification.info({
+        message: NOTIFICATION_BADGE_STATUS[data.type].title,
+        description: getDescription(data),
       });
 
       fetchNotification();

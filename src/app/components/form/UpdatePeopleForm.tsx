@@ -8,6 +8,8 @@ import {
   useGetRelationshipDetailQuery,
   useUpdateRelationshipMutation,
 } from 'app/reducers/relationship/relationship.api';
+import { useAppSelector } from 'app/reducers/store.hook';
+import { tagsSelector } from 'app/reducers/user/auth.slice';
 import dayjs from 'dayjs';
 import { isEmpty } from 'lodash';
 import { FC, useEffect } from 'react';
@@ -24,6 +26,7 @@ interface IUpdatePeopleFormFields {
   phone: string;
   notes: string;
   avatar: string;
+  tag: string;
 }
 
 const addPeopleValidationSchema = Yup.object().shape({
@@ -33,9 +36,11 @@ const addPeopleValidationSchema = Yup.object().shape({
   phone: Yup.string(),
   notes: Yup.string(),
   avatar: Yup.string().notRequired().default(''),
+  tag: Yup.string(),
 });
 
 const UpdatePeopleForm: FC<IDialogBody> = ({ closeModal, callback, formData }) => {
+  const _tags = useAppSelector(tagsSelector);
   const { _relationshipDetail, isFetching: isGetRelationshipFetching } = useGetRelationshipDetailQuery(
     formData._id,
     {
@@ -64,6 +69,7 @@ const UpdatePeopleForm: FC<IDialogBody> = ({ closeModal, callback, formData }) =
     methods.setValue('phone', _relationshipDetail.phone);
     methods.setValue('email', _relationshipDetail.email);
     methods.setValue('date', dayjs(_relationshipDetail.first_meeting, DATE_FORMAT));
+    methods.setValue('tag', _relationshipDetail.tag);
   }, [_relationshipDetail]);
 
   const _submitForm: SubmitHandler<Partial<IUpdatePeopleFormFields>> = async (data) => {
@@ -75,7 +81,6 @@ const UpdatePeopleForm: FC<IDialogBody> = ({ closeModal, callback, formData }) =
         ...(avatar !== _relationshipDetail.avatar ? { avatar } : {}),
         date_meeting: dayjs(date).toISOString(),
         first_meeting: dayjs(date).toISOString(),
-        tag: 'friend',
         _id: formData._id,
       }).unwrap();
 
@@ -95,12 +100,13 @@ const UpdatePeopleForm: FC<IDialogBody> = ({ closeModal, callback, formData }) =
           {[
             { name: 'name', placeholder: 'Enter name', label: 'Name', type: FORM_CONTROLS.TEXT },
             {
-              name: 'date',
-              placeholder: '',
-              label: 'Date',
-              type: FORM_CONTROLS.DATE_PICKER,
-              format: DATE_FORMAT,
+              name: 'tag',
+              placeholder: 'Tag',
+              label: 'Tag',
+              type: FORM_CONTROLS.SELECT,
+              options: _tags?.map((tag) => ({ label: tag, value: tag })),
             },
+            { name: 'date', placeholder: '', label: 'First meet', type: FORM_CONTROLS.DATE_PICKER },
             { name: 'email', placeholder: 'Enter email', label: 'Email', type: FORM_CONTROLS.MAIL },
             { name: 'phone', placeholder: 'Enter phone number', label: 'Phone', type: FORM_CONTROLS.TEL },
             { name: 'notes', placeholder: 'Enter notes', label: 'Note', type: FORM_CONTROLS.TEXT },

@@ -2,14 +2,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import AvatarButton from 'app/components/button/AvatarButton';
 import FormControl from 'app/components/form-control/FormControl';
 import { FORM_CONTROLS } from 'app/domains/components/form.i';
-import { FC } from 'react';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import * as Yup from 'yup';
-import Button from '../button';
 import { handleQueryError } from 'app/modules/utils/error-handler';
 import { useCreateRelationshipMutation } from 'app/reducers/relationship/relationship.api';
+import { useAppSelector } from 'app/reducers/store.hook';
+import { tagsSelector } from 'app/reducers/user/auth.slice';
 import dayjs from 'dayjs';
+import { FC } from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import * as Yup from 'yup';
+import Button from '../button';
 import { IDialogBody } from '../dialog/CustomDialog';
 
 interface IAddPeopleFormFields {
@@ -19,6 +21,7 @@ interface IAddPeopleFormFields {
   phone: string;
   notes: string;
   avatar: string;
+  tag: string;
 }
 
 const addPeopleValidationSchema = Yup.object().shape({
@@ -28,9 +31,11 @@ const addPeopleValidationSchema = Yup.object().shape({
   phone: Yup.string(),
   notes: Yup.string(),
   avatar: Yup.string(),
+  tag: Yup.string(),
 });
 
 const AddPeopleForm: FC<IDialogBody> = ({ closeModal, callback }) => {
+  const _tags = useAppSelector(tagsSelector);
   const [createRelationship, { isLoading }] = useCreateRelationshipMutation();
   const methods = useForm<Partial<IAddPeopleFormFields>>({
     mode: 'onSubmit',
@@ -46,7 +51,6 @@ const AddPeopleForm: FC<IDialogBody> = ({ closeModal, callback }) => {
         ...rest,
         date_meeting: dayjs(date).toISOString(),
         first_meeting: dayjs(date).toISOString(),
-        tag: 'friend',
       }).unwrap();
 
       toast.success('Add People success');
@@ -64,7 +68,14 @@ const AddPeopleForm: FC<IDialogBody> = ({ closeModal, callback }) => {
           <AvatarButton name="avatar" />
           {[
             { name: 'name', placeholder: 'Enter name', label: 'Name', type: FORM_CONTROLS.TEXT },
-            { name: 'date', placeholder: '', label: 'Date', type: FORM_CONTROLS.DATE_PICKER },
+            {
+              name: 'tag',
+              placeholder: 'Tag',
+              label: 'Tag',
+              type: FORM_CONTROLS.SELECT,
+              options: _tags?.map((tag) => ({ label: tag, value: tag })),
+            },
+            { name: 'date', placeholder: '', label: 'First meet', type: FORM_CONTROLS.DATE_PICKER },
             { name: 'email', placeholder: 'Enter email', label: 'Email', type: FORM_CONTROLS.MAIL },
             { name: 'phone', placeholder: 'Enter phone number', label: 'Phone', type: FORM_CONTROLS.TEL },
             { name: 'notes', placeholder: 'Enter notes', label: 'Note', type: FORM_CONTROLS.TEXT },
@@ -72,10 +83,7 @@ const AddPeopleForm: FC<IDialogBody> = ({ closeModal, callback }) => {
             return (
               <FormControl
                 key={idx}
-                type={formItem.type}
-                name={formItem.name}
-                label={formItem.label}
-                placeholder={formItem.placeholder}
+                {...formItem}
                 cxContainer="fv-row mb-8"
                 className="form-control form-control-lg form-control-solid "
               />

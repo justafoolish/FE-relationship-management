@@ -11,7 +11,10 @@ import { IPeople } from 'app/domains/relationship/relationship.i';
 import useDialog from 'app/hooks/useDialog';
 import { handleQueryError } from 'app/modules/utils/error-handler';
 import { useDeleteRelationshipMutation, useGetAllRelationshipQuery } from 'app/reducers/api';
+import { useAppSelector } from 'app/reducers/store.hook';
+import { tagsSelector } from 'app/reducers/user/auth.slice';
 import dayjs from 'dayjs';
+import { sample } from 'lodash';
 import { FC, useCallback, useMemo } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -48,6 +51,7 @@ const DeletePeopleButton: FC<{ id?: string; callback: () => void }> = ({ callbac
 };
 
 const AllPeople: FC = () => {
+  const _tags = useAppSelector(tagsSelector);
   const { _relationships, refetch } = useGetAllRelationshipQuery(
     { limit: 20, page: 1 },
     {
@@ -59,6 +63,20 @@ const AllPeople: FC = () => {
   );
 
   const { openDialog } = useDialog();
+
+  const tagColors = useMemo(() => {
+    const badgeColor: {
+      [x: string]: IBadgeType;
+    } = {};
+
+    _tags?.forEach((_tag) => {
+      badgeColor[_tag] = sample(Object.values(IBadgeType)) ?? IBadgeType.REJECT;
+    });
+
+    console.log('render');
+
+    return badgeColor;
+  }, [_tags]);
 
   const columns: ColumnsType<IPeople> = useMemo(
     () => [
@@ -81,7 +99,9 @@ const AllPeople: FC = () => {
       {
         title: 'Tags',
         dataIndex: 'tag',
-        render: (text: string) => <BadgeStatus type={IBadgeType.REJECT}>{text}</BadgeStatus>,
+        render: (text: string) => (
+          <BadgeStatus type={tagColors[text] ?? IBadgeType.REJECT}>{text}</BadgeStatus>
+        ),
       },
       {
         title: 'Actions',
@@ -106,7 +126,7 @@ const AllPeople: FC = () => {
         ),
       },
     ],
-    [_relationships]
+    [_relationships, tagColors]
   );
 
   return (
