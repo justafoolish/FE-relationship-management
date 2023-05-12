@@ -51,22 +51,13 @@ const CustomDialog: FC = () => {
     dispatch(closeDialogAction());
   }, []);
 
-  const bodyProps = useMemo(
-    () => ({
-      closeModal,
-      callback,
-      formData,
-    }),
-    [callback, closeModal, formData]
-  );
-
   return (
     <DialogComponent {...customProps} show={visible} size={modalSize} onHide={closeModal}>
       <DialogComponent.Header closeButton className="border-bottom">
         <DialogComponent.Title>{title}</DialogComponent.Title>
       </DialogComponent.Header>
       <DialogComponent.Body className="pb-6">
-        <DialogBodyComponent {...bodyProps} />
+        <DialogBodyComponent {...{ closeModal, callback, formData }} />
       </DialogComponent.Body>
     </DialogComponent>
   );

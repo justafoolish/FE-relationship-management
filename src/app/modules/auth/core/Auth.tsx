@@ -1,6 +1,6 @@
 import useAuthGuard from 'app/hooks/useAuthGuard';
 import { handleQueryError } from 'app/modules/utils/error-handler';
-import { useGetUserInfoMutation } from 'app/reducers/api';
+import { useGetAllNotificationQuery, useGetUserInfoMutation } from 'app/reducers/api';
 import { useAppSelector } from 'app/reducers/store.hook';
 import { accessTokenSelector } from 'app/reducers/user/auth.slice';
 import { pusherChannel } from 'app/utils/pusher';
@@ -12,7 +12,7 @@ import notification from 'antd/lib/notification';
 const AuthInit: FC<WithChildren> = ({ children }) => {
   const { handleLogout } = useAuthGuard();
   const [getUserInfo] = useGetUserInfoMutation();
-
+  const { refetch: fetchNotification } = useGetAllNotificationQuery(undefined);
   const didRequest = useRef(false);
   const accessToken = useAppSelector(accessTokenSelector);
   const userId = useAppSelector((app) => app.auth.user?.id);
@@ -52,14 +52,15 @@ const AuthInit: FC<WithChildren> = ({ children }) => {
     }
 
     pusherChannel.bind(`people_notification_${userId}`, (data: any) => {
+      console.log(data);
+      // Todo: display noti realtime
       notification.open({
         message: 'Notification Title',
         description:
           'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-        onClick: () => {
-          console.log('Notification Clicked!');
-        },
       });
+
+      fetchNotification();
     });
   }, [userId]);
 
