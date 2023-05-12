@@ -1,6 +1,6 @@
 import useAuthGuard from 'app/hooks/useAuthGuard';
 import { handleQueryError } from 'app/modules/utils/error-handler';
-import { useGetAllNotificationQuery, useGetUserInfoMutation } from 'app/reducers/api';
+import { useGetAllNotificationQuery, useGetAllTagsMutation, useGetUserInfoMutation } from 'app/reducers/api';
 import { useAppSelector } from 'app/reducers/store.hook';
 import { accessTokenSelector } from 'app/reducers/user/auth.slice';
 import { pusherChannel } from 'app/utils/pusher';
@@ -15,6 +15,7 @@ import {
 } from 'app/domains/notification/notification.i';
 
 const AuthInit: FC<WithChildren> = ({ children }) => {
+  const [getAllTags] = useGetAllTagsMutation();
   const { handleLogout } = useAuthGuard();
   const [getUserInfo] = useGetUserInfoMutation();
   const { refetch: fetchNotification } = useGetAllNotificationQuery(undefined);
@@ -28,6 +29,7 @@ const AuthInit: FC<WithChildren> = ({ children }) => {
       try {
         if (!didRequest.current) {
           await getUserInfo().unwrap();
+          await getAllTags().unwrap();
         }
       } catch (error) {
         handleQueryError(error);

@@ -42,5 +42,7 @@ const appointmentURL = BASE_ENDPOINT + '/appointment';
 
 const notificationURL = BASE_ENDPOINT + '/notification';
 
-export { accountURL, relationshipURL, appointmentURL, notificationURL };
+const tagURL = BASE_ENDPOINT + '/tags';
+
+export { accountURL, relationshipURL, appointmentURL, notificationURL, tagURL };
 export { baseQuery, prepareHeaders };

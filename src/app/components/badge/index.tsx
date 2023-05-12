@@ -6,7 +6,7 @@ export enum IBadgeType {
   REJECT = 'Reject',
   APPROVED = 'Approved',
   IN_PROGRESS = 'In progress',
-  WARNING = 'warning',
+  WARNING = 'Warning',
 }
 
 const BadgeStatus: FC<{ type: IBadgeType; children?: ReactNode }> = ({ type, children }) => {

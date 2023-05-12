@@ -3,7 +3,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
 import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
 
-import { accountAPI, appointmentAPI, notificationAPI, relationshipAPI } from 'app/reducers/api';
+import { accountAPI, appointmentAPI, notificationAPI, relationshipAPI, tagAPI } from 'app/reducers/api';
 import authReducer, { IAuthState } from 'app/reducers/user/auth.slice';
 import dialogReducer from 'app/reducers/dialog/dialog.slice';
 
@@ -19,6 +19,7 @@ const authPersistConfig = {
 };
 
 const reducers = {
+  [tagAPI.reducerPath]: tagAPI.reducer,
   [accountAPI.reducerPath]: accountAPI.reducer,
   [appointmentAPI.reducerPath]: appointmentAPI.reducer,
   [relationshipAPI.reducerPath]: relationshipAPI.reducer,
@@ -39,6 +40,7 @@ const persistConfig = {
   blacklist: [
     'auth',
     'dialog',
+    tagAPI.reducerPath,
     accountAPI.reducerPath,
     appointmentAPI.reducerPath,
     relationshipAPI.reducerPath,
@@ -60,10 +62,11 @@ const store = configureStore({
       serializableCheck: false,
       immutableCheck: false,
     }).concat(
+      tagAPI.middleware,
       accountAPI.middleware,
-      relationshipAPI.middleware,
       appointmentAPI.middleware,
-      notificationAPI.middleware
+      notificationAPI.middleware,
+      relationshipAPI.middleware
     ),
 });
 
