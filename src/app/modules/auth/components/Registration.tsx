@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import Button from 'app/components/button';
@@ -58,6 +58,8 @@ const registrationSchema = Yup.object().shape({
 export default function Registration() {
   const [regis, { isLoading }] = useSubmitRegisterMutation();
 
+  const navigate = useNavigate();
+
   const methods = useForm<IRegistrationFormFields>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
@@ -77,7 +79,7 @@ export default function Registration() {
       }).unwrap();
 
       toast.success(`${message || 'Successfully register'}`);
-      // navigate('/auth/login');
+      navigate('/auth/login');
     } catch (e) {
       handleQueryError(e);
     }
@@ -166,7 +168,7 @@ export default function Registration() {
 
           {/* begin:Submit */}
           <div className="text-center">
-            <Button isLoading={isLoading} id="kt_sign_up_submit">
+            <Button isLoading={isLoading} className="w-100 mb-3" id="kt_sign_up_submit">
               Submit
             </Button>
             <Link to="/auth/login">
