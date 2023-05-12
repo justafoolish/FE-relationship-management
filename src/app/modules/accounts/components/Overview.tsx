@@ -1,5 +1,7 @@
+import { DATE_FORMAT } from 'app/constants/constant';
 import { useAppSelector } from 'app/reducers/store.hook';
 import { userInfoSelector } from 'app/reducers/user/auth.slice';
+import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 
 export function Overview() {
@@ -23,17 +25,35 @@ export function Overview() {
             <label className="col-lg-4 fw-bold text-muted">Full Name</label>
 
             <div className="col-lg-8">
-              <span className="fw-bolder fs-6 text-dark">
+              <span className="fw-bolder fs-6 text-dark text-capitalize">
                 {userInfo?.first_name} {userInfo?.last_name}
               </span>
             </div>
           </div>
 
           <div className="row mb-7">
-            <label className="col-lg-4 fw-bold text-muted">Company</label>
+            <label className="col-lg-4 fw-bold text-muted">Gender</label>
 
             <div className="col-lg-8 fv-row">
-              <span className="fw-bold fs-6">SGU</span>
+              <span className="fw-bold fs-6 text-capitalize">{userInfo?.gender}</span>
+            </div>
+          </div>
+
+          <div className="row mb-7">
+            <label className="col-lg-4 fw-bold text-muted">Birthday</label>
+
+            <div className="col-lg-8 fv-row">
+              <span className="fw-bold fs-6 text-capitalize">
+                {dayjs(userInfo?.birthday).format(DATE_FORMAT)}
+              </span>
+            </div>
+          </div>
+
+          <div className="row mb-7">
+            <label className="col-lg-4 fw-bold text-muted">Address</label>
+
+            <div className="col-lg-8 fv-row">
+              <span className="fw-bold fs-6 text-capitalize">{userInfo?.address}</span>
             </div>
           </div>
 
@@ -54,64 +74,14 @@ export function Overview() {
           </div>
 
           <div className="row mb-7">
-            <label className="col-lg-4 fw-bold text-muted">Company Site</label>
-
-            <a href="https://sgu.edu.vn/" rel="noreferrer" target="_blank" className="col-lg-8">
-              sgu.edu.com.vn
-            </a>
-          </div>
-
-          <div className="row mb-7">
-            <label className="col-lg-4 fw-bold text-muted">
-              Country
-              <i
-                className="fas fa-exclamation-circle ms-1 fs-7"
-                data-bs-toggle="tooltip"
-                title="Country of origination"></i>
-            </label>
-
-            <div className="col-lg-8">
-              <span className="fw-bolder fs-6 text-dark">Viet Nam</span>
-            </div>
-          </div>
-
-          <div className="row mb-7">
             <label className="col-lg-4 fw-bold text-muted">Communication</label>
 
             <div className="col-lg-8">
               <span className="fw-bolder fs-6 text-dark">Email, Phone</span>
             </div>
           </div>
-
-          {/* <div className="row mb-10">
-            <label className="col-lg-4 fw-bold text-muted">Allow Changes</label>
-
-            <div className="col-lg-8">
-              <span className="fw-bold fs-6">No</span>
-            </div>
-          </div> */}
         </div>
       </div>
-
-      {/* <div className="row gy-10 gx-xl-10">
-        <div className="col-xl-6">
-          <ChartsWidget1 className="card-xxl-stretch mb-5 mb-xl-10" />
-        </div>
-
-        <div className="col-xl-6">
-          <TablesWidget1 className="card-xxl-stretch mb-5 mb-xl-10" />
-        </div>
-      </div>
-
-      <div className="row gy-10 gx-xl-10">
-        <div className="col-xl-6">
-          <ListsWidget5 className="card-xxl-stretch mb-5 mb-xl-10" />
-        </div>
-
-        <div className="col-xl-6">
-          <TablesWidget5 className="card-xxl-stretch mb-5 mb-xl-10" />
-        </div>
-      </div> */}
     </>
   );
 }
