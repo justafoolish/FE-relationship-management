@@ -1,13 +1,10 @@
 import { getCSSVariableValue } from '_metronic/assets/ts/_utils';
 import { WithChildren } from '_metronic/helpers';
 import { MasterLayout } from '_metronic/layout/MasterLayout';
-import { MenuTestPage } from 'app/pages/MenuTestPage';
-import { DashboardWrapper } from 'app/pages/dashboard/DashboardWrapper';
-import BuilderPageWrapper from 'app/pages/layout-builder/BuilderPageWrapper';
+import { AccountHeader } from 'app/modules/accounts/AccountHeader';
 import { FC, Suspense, lazy } from 'react';
 import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 import TopBarProgress from 'react-topbar-progress-indicator';
-import { AccountHeader } from 'app/modules/accounts/AccountHeader';
 
 // app
 const App = lazy(() => import('app/App'));
@@ -29,12 +26,12 @@ const AppointmentPage = lazy(() => import('app/pages/appointment/Appointment'));
 const ErrorsPage = lazy(() => import('app/modules/errors/ErrorsPage'));
 
 // crafted
-const ProfilePage = lazy(() => import('app/modules/profile/ProfilePage'));
-const WizardsPage = lazy(() => import('app/modules/wizards/WizardsPage'));
-const AccountPage = lazy(() => import('app/modules/accounts/AccountPage'));
-const WidgetsPage = lazy(() => import('app/modules/widgets/WidgetsPage'));
-const ChatPage = lazy(() => import('app/modules/apps/chat/ChatPage'));
-const UsersPage = lazy(() => import('app/modules/apps/user-management/UsersPage'));
+// const ProfilePage = lazy(() => import('app/modules/profile/ProfilePage'));
+// const WizardsPage = lazy(() => import('app/modules/wizards/WizardsPage'));
+// const AccountPage = lazy(() => import('app/modules/accounts/AccountPage'));
+// const WidgetsPage = lazy(() => import('app/modules/widgets/WidgetsPage'));
+// const ChatPage = lazy(() => import('app/modules/apps/chat/ChatPage'));
+// const UsersPage = lazy(() => import('app/modules/apps/user-management/UsersPage'));
 
 // suspense view
 const SuspensedView: FC<WithChildren> = ({ children }) => {
@@ -70,11 +67,9 @@ export const rootRoutes: IGetRoute = (isAuthenticated) => ({
             children: [
               // layout
               { path: 'auth/*', element: <Navigate to="/dashboard" /> },
-              { path: 'dashboard', element: <DashboardWrapper /> },
-              { path: 'builder', element: <BuilderPageWrapper /> },
-              { path: 'menu-test', element: <MenuTestPage /> },
 
               // pages
+              { path: 'dashboard', element: <Navigate to="/c-user" /> },
               {
                 path: 'c-user',
                 element: (
@@ -92,19 +87,11 @@ export const rootRoutes: IGetRoute = (isAuthenticated) => ({
               { path: 'all-people', element: <AllPeoplePage /> },
               { path: 'appointment', element: <AppointmentPage /> },
 
-              // crafted
-              { path: 'crafted/pages/profile/*', element: <ProfilePage /> },
-              { path: 'crafted/pages/wizards/*', element: <WizardsPage /> },
-              { path: 'crafted/widgets/*', element: <WidgetsPage /> },
-              { path: 'crafted/account/*', element: <AccountPage /> },
-              { path: 'apps/chat/*', element: <ChatPage /> },
-              { path: 'apps/user-management/*', element: <UsersPage /> },
-
               // error
               { path: '*', element: <Navigate to="/error/404" /> },
             ],
           },
-          { index: true, element: <Navigate to="/dashboard" /> },
+          { index: true, element: <Navigate to="/c-user" /> },
         ] as RouteObject[])
       : ([
           {
