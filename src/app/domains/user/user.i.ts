@@ -5,6 +5,7 @@ export interface IUserInfo {
   internal_id: string | number;
   first_name: string;
   last_name: string;
+  full_name?: string;
   avatar: string;
   email: string;
   gender: string;
