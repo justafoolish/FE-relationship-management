@@ -8,6 +8,11 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { WithChildren } from '../../../../_metronic/helpers';
 import { LayoutSplashScreen } from '../../../../_metronic/layout/core';
 import notification from 'antd/lib/notification';
+import {
+  INotification,
+  NOTIFICATION_BADGE_STATUS,
+  NOTIFICATION_TYPE,
+} from 'app/domains/notification/notification.i';
 
 const AuthInit: FC<WithChildren> = ({ children }) => {
   const { handleLogout } = useAuthGuard();
@@ -51,13 +56,23 @@ const AuthInit: FC<WithChildren> = ({ children }) => {
       return;
     }
 
-    pusherChannel.bind(`people_notification_${userId}`, (data: any) => {
+    pusherChannel.bind(`people_notification_${userId}`, (data: INotification) => {
       console.log(data);
-      // Todo: display noti realtime
-      notification.open({
-        message: 'Notification Title',
-        description:
-          'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+
+      const getDescription = (_noti: INotification) => {
+        switch (_noti.type) {
+          case NOTIFICATION_TYPE.APPOINTMENT:
+            return `Schedule at ${_noti.info?.date_meeting} `;
+          case NOTIFICATION_TYPE.RELATIONSHIP:
+            return `Contact ${_noti.info?.full_name} `;
+          default:
+            throw new Error('Invalid notification type');
+        }
+      };
+
+      notification.info({
+        message: NOTIFICATION_BADGE_STATUS[data.type].title,
+        description: getDescription(data),
       });
 
       fetchNotification();
