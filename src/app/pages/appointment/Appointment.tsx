@@ -1,5 +1,5 @@
 import { DeleteFilled, EditFilled, StarFilled } from '@ant-design/icons';
-import { DatePicker, MenuProps } from 'antd';
+import { Button as AntdButton, DatePicker, MenuProps, Popconfirm } from 'antd';
 import AppointmentCard from 'app/components/appointment/appointment-card';
 import Button from 'app/components/button';
 import { DIALOG_WIZARDS } from 'app/components/dialog/dialog';
@@ -18,6 +18,33 @@ import dayjs from 'dayjs';
 import { isEmpty, keys, random } from 'lodash';
 import { FC, useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-hot-toast';
+
+const DeleteAppointmentButton: FC<{ id?: string | number; callback: () => void }> = ({ id, callback }) => {
+  const [deleteAppointment, { isLoading }] = useDeleteAppointmentMutation();
+
+  const handleDeleteAppointment = useCallback(async () => {
+    try {
+      await deleteAppointment(id);
+
+      toast.success('Delete successfully');
+      callback();
+    } catch (error) {
+      handleQueryError(error);
+    }
+  }, [id]);
+
+  return (
+    <Popconfirm
+      title="Delete Appointment"
+      description="Are you sure to delete this appointment?"
+      onConfirm={handleDeleteAppointment}
+      okButtonProps={{ loading: isLoading }}>
+      <AntdButton type="link" className="p-0 h-auto text-dark text-hover-danger">
+        Delete
+      </AntdButton>
+    </Popconfirm>
+  );
+};
 
 const Appointment: FC = () => {
   const [dateFilter, setDateFilter] = useState<PaginationRequest>({
@@ -46,23 +73,11 @@ const Appointment: FC = () => {
     }
   );
 
-  const [deleteAppointment] = useDeleteAppointmentMutation();
   const [updateAppointmentStatus] = useUpdateAppointmentStatusMutation();
 
   const { openDialog } = useDialog();
 
   const _mapAppointment = useMemo(() => new Map(Object.entries(_appointment)), [_appointment]);
-
-  const handleDeleteAppointment = useCallback(async (id?: string | number) => {
-    try {
-      await deleteAppointment(id);
-
-      toast.success('Delete successfully');
-      refetch();
-    } catch (error) {
-      handleQueryError(error);
-    }
-  }, []);
 
   const handleDeleteAppointmentStatus = useCallback(async (id?: string | number) => {
     try {
@@ -97,9 +112,8 @@ const Appointment: FC = () => {
         {
           icon: <DeleteFilled />,
           className: 'text-hover-danger',
-          label: 'Delete',
+          label: <DeleteAppointmentButton id={id} callback={refetch} />,
           key: '1',
-          onClick: () => handleDeleteAppointment(id),
         },
         ...(status === EAppointmentStatus.COMING
           ? [
