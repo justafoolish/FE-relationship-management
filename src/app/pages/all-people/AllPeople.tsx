@@ -1,4 +1,5 @@
 import { KTSVG } from '_metronic/helpers';
+import { Popconfirm } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Table from 'antd/lib/table';
 import BadgeStatus, { IBadgeType } from 'app/components/badge';
@@ -14,9 +15,39 @@ import dayjs from 'dayjs';
 import { FC, useCallback, useMemo } from 'react';
 import { toast } from 'react-hot-toast';
 
-const AllPeople: FC = () => {
-  const [deleteRelationship] = useDeleteRelationshipMutation();
+const DeletePeopleButton: FC<{ id?: string; callback: () => void }> = ({ callback, id }) => {
+  const [deleteRelationship, { isLoading }] = useDeleteRelationshipMutation();
 
+  const handleDeleteRelationship = useCallback(async () => {
+    if (!id) return;
+    try {
+      toast.success('Deleting');
+      await deleteRelationship(id).unwrap();
+      toast.success('Delete success');
+
+      callback();
+    } catch (error) {
+      handleQueryError(error);
+    }
+  }, [id]);
+
+  return (
+    <Popconfirm
+      title="Delete person"
+      description="Are you sure to delete this person?"
+      onConfirm={handleDeleteRelationship}
+      okButtonProps={{ loading: isLoading }}>
+      <Button
+        variant={BUTTON_VARIANTS.ICON}
+        size={BUTTON_SIZES.SM}
+        className="btn-bg-light btn-active-color-danger">
+        <KTSVG path="/media/icons/duotune/general/gen027.svg" className="svg-icon-3" />
+      </Button>
+    </Popconfirm>
+  );
+};
+
+const AllPeople: FC = () => {
   const { _relationships, refetch } = useGetAllRelationshipQuery(
     { limit: 20, page: 1 },
     {
@@ -28,19 +59,6 @@ const AllPeople: FC = () => {
   );
 
   const { openDialog } = useDialog();
-
-  const handleDeleteRelationship = useCallback(async (id?: string) => {
-    if (!id) return;
-    try {
-      toast.success('Deleting');
-      await deleteRelationship(id).unwrap();
-      toast.success('Delete success');
-
-      refetch();
-    } catch (error) {
-      handleQueryError(error);
-    }
-  }, []);
 
   const columns: ColumnsType<IPeople> = useMemo(
     () => [
@@ -83,13 +101,7 @@ const AllPeople: FC = () => {
               }>
               <KTSVG path="/media/icons/duotune/art/art005.svg" className="svg-icon-3" />
             </Button>
-            <Button
-              variant={BUTTON_VARIANTS.ICON}
-              size={BUTTON_SIZES.SM}
-              className="btn-bg-light btn-active-color-danger"
-              onClick={() => handleDeleteRelationship(_id)}>
-              <KTSVG path="/media/icons/duotune/general/gen027.svg" className="svg-icon-3" />
-            </Button>
+            <DeletePeopleButton id={_id} callback={refetch} />
           </>
         ),
       },
