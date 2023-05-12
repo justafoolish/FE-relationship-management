@@ -9,14 +9,15 @@ import { useGetUserInfoMutation, useUpdateUserInfoMutation } from 'app/reducers/
 import { useAppSelector } from 'app/reducers/store.hook';
 import { userInfoSelector } from 'app/reducers/user/auth.slice';
 import dayjs from 'dayjs';
-import React, { useMemo } from 'react';
+import { isEmpty } from 'lodash';
+import React, { useEffect, useMemo } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import * as Yup from 'yup';
 
 const userInfoSchema = Yup.object().shape({
   first_name: Yup.string().required('First name is required'),
-  phone: Yup.string().required('Contact phone is required'),
+  phone: Yup.number().required('Contact phone is required'),
   gender: Yup.string(),
   birthday: Yup.string(),
   address: Yup.string(),
@@ -37,25 +38,30 @@ export const ProfileDetails: React.FC = () => {
   const [getUserInfo] = useGetUserInfoMutation();
 
   const methods = useForm<Partial<IUserInfo & IUserSetting>>({
-    mode: 'onBlur',
-    reValidateMode: 'onBlur',
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     resolver: yupResolver(userInfoSchema),
     defaultValues: {
       first_name: userInfo?.first_name,
       phone: userInfo?.phone,
       avatar: userInfo?.avatar,
-      // birthday: new Date(userInfo?.birthday ?? 0).toDateString(),
       gender: userInfo?.gender,
       address: userInfo?.address,
-      appointmentNotification: 1,
-      relationNotification: 7,
+      appointmentNotification: userInfo?.settings?.ready_time_appointment ?? 1,
+      relationNotification: userInfo?.settings?.user_long_time ?? 7,
     },
   });
+
+  useEffect(() => {
+    if (isEmpty(userInfo)) return;
+    methods.setValue('birthday', dayjs(userInfo.birthday));
+  }, [userInfo]);
 
   const submitUserInfo: SubmitHandler<Partial<IUserInfo & IUserSetting>> = async (formData) => {
     try {
       const {
         first_name,
+        avatar,
         birthday,
         relationNotification = 7,
         appointmentNotification = 1,
@@ -66,6 +72,7 @@ export const ProfileDetails: React.FC = () => {
         ...data,
         first_name,
         name: first_name,
+        ...(avatar !== userInfo?.avatar ? { avatar } : {}),
         birthday: dayjs(birthday).toISOString(),
         setting: [+relationNotification, +appointmentNotification],
       }).unwrap();
@@ -167,7 +174,7 @@ export const ProfileDetails: React.FC = () => {
 
               {formFields.map(({ label, ...inputProps }) => (
                 <div className="row mb-6" key={label}>
-                  <label className="align-self-center mb-2 col-lg-4 col-form-label required fw-bold fs-6">
+                  <label className="align-self-center mb-2 col-lg-4 col-form-label fw-bold fs-6">
                     {label}
                   </label>
                   <div className="col-lg-8">

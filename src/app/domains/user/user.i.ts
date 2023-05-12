@@ -18,6 +18,7 @@ export interface IUserInfo {
   updated_at: string;
   name: string;
   setting?: number[];
+  settings?: { user_long_time?: number; ready_time_appointment?: number };
 }
 
 export interface IJWT {
