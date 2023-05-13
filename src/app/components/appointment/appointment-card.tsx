@@ -66,7 +66,7 @@ const AppointmentCard: FC<Partial<IAppointmentProps>> = ({
       </div>
       <div className="card-body pt-0">
         <div className="fs-2 fw-bold mb-3 d-flex align-items-center">
-          <h3 className="mb-0 me-4">{appointment?.name}</h3>
+          <h3 className="mb-0 me-4 text-capitalize">{appointment?.name}</h3>
           <BadgeStatus type={AppointmentStatusBadge[appointment?.status ?? EAppointmentStatus.COMING]}>
             {appointment?.status}
           </BadgeStatus>

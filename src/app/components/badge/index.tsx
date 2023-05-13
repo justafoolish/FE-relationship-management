@@ -10,7 +10,7 @@ export enum IBadgeType {
 }
 
 const BadgeStatus: FC<{ type: IBadgeType; children?: ReactNode }> = ({ type, children }) => {
-  const cxBadge = clsx('badge', {
+  const cxBadge = clsx('badge text-capitalize', {
     'badge-light-success': type === IBadgeType.SUCCESS,
     'badge-light-warning': type === IBadgeType.WARNING,
     'badge-light-danger': type === IBadgeType.REJECT,

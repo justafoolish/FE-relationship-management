@@ -62,9 +62,11 @@ const AuthInit: FC<WithChildren> = ({ children }) => {
       console.log(data);
 
       const getDescription = (_noti: INotification) => {
+        console.log(_noti);
+
         switch (_noti.type) {
           case NOTIFICATION_TYPE.APPOINTMENT:
-            return `Schedule at ${_noti.info?.date_meeting} `;
+            return `Schedule at ${_noti.info?.date_meeting}. `;
           case NOTIFICATION_TYPE.RELATIONSHIP:
             return `Contact ${_noti.info?.full_name} `;
           default:
