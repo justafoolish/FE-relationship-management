@@ -57,7 +57,8 @@ const AllPeople: FC = () => {
     {
       selectFromResult: (response) => ({
         ...response,
-        _relationships: response.data?.data?.pagination.items ?? [],
+        _relationships:
+          response.data?.data?.pagination.items.map((_rel) => ({ ..._rel, key: _rel?._id })) ?? [],
       }),
     }
   );

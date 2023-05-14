@@ -58,6 +58,15 @@ const UpdatePeopleForm: FC<IDialogBody> = ({ closeModal, callback, formData }) =
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
     resolver: yupResolver(addPeopleValidationSchema),
+    defaultValues: {
+      avatar: '',
+      name: '',
+      notes: '',
+      phone: '',
+      email: '',
+      tag: '',
+      date: '',
+    },
   });
 
   useEffect(() => {
