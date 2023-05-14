@@ -16,7 +16,7 @@ import {
 } from 'app/reducers/api';
 import dayjs from 'dayjs';
 import { isEmpty, keys, random } from 'lodash';
-import { FC, useCallback, useMemo, useState } from 'react';
+import { FC, Fragment, useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 const DeleteAppointmentButton: FC<{ id?: string | number; callback: () => void }> = ({ id, callback }) => {
@@ -166,10 +166,8 @@ const Appointment: FC = () => {
       </div>
       <div className="">
         {keys(_appointment).map((key) => (
-          <>
-            <div key={key} className="px-4 py-5 fw-bold fs-2">
-              {key}
-            </div>
+          <Fragment key={key}>
+            <div className="px-4 py-5 fw-bold fs-2">{key}</div>
 
             <div className="row g-5 g-xl-8">
               {_mapAppointment.get(key)?.map((appointment) => (
@@ -183,7 +181,7 @@ const Appointment: FC = () => {
                 </div>
               ))}
             </div>
-          </>
+          </Fragment>
         ))}
       </div>
     </>

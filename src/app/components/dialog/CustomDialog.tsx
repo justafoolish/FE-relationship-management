@@ -57,7 +57,7 @@ const CustomDialog: FC = () => {
         <DialogComponent.Title>{title}</DialogComponent.Title>
       </DialogComponent.Header>
       <DialogComponent.Body className="py-6" style={{ overflow: 'scroll !important' }}>
-        <DialogBodyComponent {...{ closeModal, callback, formData }} />
+        <DialogBodyComponent {...(dialogWizard ? { closeModal, callback, formData } : {})} />
       </DialogComponent.Body>
     </DialogComponent>
   );
